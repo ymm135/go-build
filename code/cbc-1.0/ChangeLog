@@ -1,0 +1,5857 @@
+Sun Jul 19 14:21:42 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* test/test_cbc.sh: do not override CBC environment.
+
+Mon Jul  6 05:21:24 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* install.sh: tested.
+
+Mon Jul  6 05:20:56 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java: --version did not
+	  print "\n".
+
+Sun Jun 21 19:15:19 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: refactoring:
+	  rename method: doesIndirectAccess -> shouldUsePLT.
+
+Sun Jun 21 17:14:56 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: assign address
+	  for gvar.
+
+	* net/loveruby/cflat/entity/Entity.java: accept imm address.
+
+Sun Jun 21 17:14:19 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java: rename option:
+	  --readonly-plt -> --readonly-got.
+
+Sun Jun 21 03:48:12 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/GNULinker.java: parameterize linker
+	  path.
+
+Sun Jun 21 03:47:05 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* import/stdlib.hb: add system() prototype.
+
+Thu Jun 18 00:45:50 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/Makefile: use 's' option to create index.
+
+Sun Jun 14 23:44:47 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java
+	  (parseCommaSeparatedOptions): AbstractList does not support
+	  #remove.
+
+Sat Jun 13 22:42:24 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* rename class: AssemblyFile -> AssemblyCode.
+
+Sat Jun 13 22:37:02 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/entity/ToplevelScope.java: move
+	  #definedGlobalVariables and #definedCommonSymbols to IR.
+
+	* net/loveruby/cflat/ir/IR.java: ditto.
+
+	* net/loveruby/cflat/ir/IR.java: new method
+	  #isGlobalVariableDefined.
+
+	* net/loveruby/cflat/ir/IR.java: new method
+	  #isCommonSymbolDefined.
+
+	* net/loveruby/cflat/ir/IR.java: new method
+	  #isStringLiteralDefined.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: use these
+	  methods.
+
+Sat Jun 13 17:41:13 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/utils/CommandUtils.java: better error
+	  message.
+
+Sun Jun  7 13:42:15 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java
+	  (StackFrameInfo): shorten code using CodeGenerator constant
+	  directly.
+
+Sun Jun  7 04:16:39 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: refactoring:
+	  extract class: StackFrameInfo.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: refactoring:
+	  extract method: generateFunctionBody.
+
+	net/loveruby/cflat/entity/DefinedFunction.java: new method
+	  #lvarScope.
+
+Sun Jun  7 03:17:06 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* sysdep/x86/CodeGenerator.java (compileFunctionBody): fix offset
+	  bug.
+
+Sun Jun  7 03:02:35 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: refactoring
+	  compileFunctionBody.
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: objectify
+	  VirtualStack.
+
+	* net/loveruby/cflat/asm/IndirectMemoryReference.java: new method
+	  .relocatable to generate relocatable IndirectMemoryReference.
+
+	* net/loveruby/cflat/asm/MemoryReference.java: new method
+	  #fixOffset.
+
+	* net/loveruby/cflat/asm/DirectMemoryReference.java: new method
+	  #fixOffset.
+
+	* net/loveruby/cflat/asm/Assembly.java: remove fixStackOffset.
+
+	* net/loveruby/cflat/asm/Operand.java: ditto.
+
+Sat Jun  6 21:36:09 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/alloca.s: shorten assembly.
+
+Sat Jun  6 21:28:20 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* sysdep/x86/CodeGenerator.java: refactoring: rename method:
+	  allocateParameters -> locateParameters.
+
+	* sysdep/x86/CodeGenerator.java: refactoring: rename method:
+	  allocateLocalVariablesTemp -> locateLocalVariables.
+
+	* sysdep/x86/CodeGenerator.java: refactoring: rename method:
+	  allocateLocalVariables -> fixLocalVariableOffsets.
+
+Mon Jun  1 06:39:57 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: refactoring:
+	  rename method: save -> store.
+
+Mon Jun  1 05:43:13 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java (load, save):
+	  reduce # of arguments.
+
+Mon Jun  1 03:55:41 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java (Bin): optimize
+	  more patterns.
+
+Sun May 31 22:32:29 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: refactoring:
+	  rename method.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java (Int): simplify
+	  code.
+
+Wed May 27 01:59:03 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: remove unused
+	  methods.
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: reduce Type
+	  argument.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: follow
+	  changes.
+
+Tue May 26 16:52:18 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/NamedSymbol.java (dump): dump name as
+	  string.
+
+Tue May 26 16:07:33 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: --dump-asm now dumps
+	  AssemblyFile.
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option
+	  --print-asm, prints assembly source text.
+
+	* net/loveruby/cflat/compiler/CompilerMode.java: new enum
+	  PrintAsm.
+
+	* net/loveruby/cflat/compiler/Options.java: new option
+	  --print-asm.
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: new method
+	  #dump.
+
+	* net/loveruby/cflat/sysdep/x86/Register.java: new method #dump.
+
+	* net/loveruby/cflat/asm: new method #dump.
+
+Tue May 26 15:16:04 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: refactoring:
+	  apply strict visibility.
+
+Tue May 26 15:11:19 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: change CodeGenerator
+	  output: String -> AssemblyFile.
+
+	* net/loveruby/cflat/sysdep/AssemblyFile.java: new interface.
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: implement it.
+
+	* net/loveruby/cflat/sysdep/CodeGenerator.java: #generate returns
+	  AssemblyFile.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: ditto.
+
+Tue May 26 13:40:13 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86: rename class: RegKind ->
+	  RegisterClass.
+
+	* net/loveruby/cflat/sysdep/x86: follow it.
+
+Tue May 26 13:23:56 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm: refactoring: rename class: AsmStatistics
+	  -> Statistics.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: follow it.
+
+Tue May 26 13:18:52 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm: refactoring: rename class: AsmOperand ->
+	  Operand.
+
+	* net/loveruby/cflat/asm: follow it.
+
+	* net/loveruby/cflat/sysdep/x86: follow it.
+
+	* net/loveruby/cflat/ir: follow it.
+
+	* net/loveruby/cflat/entity: follow it.
+
+Tue May 26 13:11:08 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/AsmComment.java -> Comment.java
+
+Tue May 26 12:57:48 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java (writeFile): treat "-"
+	  as stdout.
+
+Tue May 26 12:48:40 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java (dumpAsm): do not
+	  print extra '\n'.
+
+Tue May 26 12:21:18 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java: check unknown file
+	  types.
+
+	* net/loveruby/cflat/compiler/SourceFile.java: new method
+	  #isKnownFileType.
+
+Tue May 26 11:59:08 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java: allow --verbose-asm
+	  too.
+
+Tue May 26 11:50:11 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java: --verbose-asm ->
+	  -fverbose-asm
+
+Sun May 24 22:44:07 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: refactoring:
+	  reorder methods.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: refactoring:
+	  inlining #testCond.
+
+Sun May 24 21:57:04 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: do not use
+	  Expr#isConstantAddress, it confuses semantics.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/ir/Expr.java: introduce new methods #isVar
+	  and #isAddr, instead of #isConstantAddress.
+
+	* net/loveruby/cflat/ir/Addr.java: override #isAddr.
+
+	* net/loveruby/cflat/ir/Var.java: override #isVar.
+
+Sun May 24 21:54:57 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast: remove useless methods:
+	  ExprNode#isConstantAddress.
+
+Sun May 24 20:24:01 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java (Dereference): do
+	  not generate Mem for unloadable object (implicit address
+	  generation handling).
+
+	* net/loveruby/cflat/ast: dump #type for LHS nodes.
+
+	* net/loveruby/cflat/ast/AddressNode.java: do not inherit
+	  UnaryOpNode.
+
+Sun May 24 19:23:28 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: now 3 pathes
+	  (define, resolve entities, resolve expr) are not required; just
+	  use old 2 pathes (define, resolve).  Old TypeResolver fixed a type
+	  of AddressNode, it requires 3 path.  But current implementation
+	  fixes a type of AddressNode in DereferenceChecker, we do not need
+	  3 path.
+
+	* net/loveruby/cflat/ast/AST.java: #entities -> #definitions.
+
+	* net/loveruby/cflat/ast/AST.java: new method #entities, it
+	  returns #definitions + #declarations.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: follow it.
+
+	* net/loveruby/cflat/compiler/LocalResolver.java: follow it.
+
+Sun May 24 11:58:15 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java (If): refactoring:
+	  increase readability.
+
+Sun May 24 02:08:47 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* utilize final field.
+
+Sun May 24 01:18:36 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: reorder methods.
+
+Sun May 24 00:42:28 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ir: rename class: BranchIf -> CJump.
+
+	* net/loveruby/cflat/ir/IRVisitor.java: follow it.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: ditto.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: ditto.
+
+Sun May 24 00:01:07 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: refactoring:
+	  reorder stmts.
+
+Sat May 23 23:31:17 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: refactoring: use
+	  reverse(node.args) instead of ListIterator.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/utils/ListUtils.java: new utility class.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: remove #finalArgs.
+
+	* net/loveruby/cflat/ir/Call.java: ditto.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: refactoring: rename
+	  method: arguments -> args.
+
+	* net/loveruby/cflat/compiler/Visitor.java: follow it.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+Sat May 23 22:31:06 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: now NULL is not a reserved
+	  word.
+
+	* import/stddef.hb: define const NULL.
+
+Sat May 23 22:22:11 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: refactoring:
+	  rename method: deref -> mem
+
+	* net/loveruby/cflat/type/ArrayType.java: remove useless
+	  definition of #isScalar.
+
+Sat May 23 21:33:55 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: refactoring:
+	  extract method: #bin.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: refactoring:
+	  extract method: #isPointerDiff.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: refactoring:
+	  extract method: #isPointerArithmetic.
+
+	* net/loveruby/cflat/type/TypeTable.java: new method #longSize.
+
+	* net/loveruby/cflat/ast/ExprNode.java: remove unused method
+	  #baseSize.
+
+Mon May 18 04:52:25 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: allow ptr-ptr.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: implement ptr-ptr.
+
+	* net/loveruby/cflat/type/VoidType.java: VoidType#size is 1.
+
+	* net/loveruby/cflat/ast/ExprNode.java: new helper method
+	  #baseType.
+
+Mon May 18 03:50:55 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java (optimize):
+	  wrongly did not optimize asm code.
+
+Mon May 18 03:29:59 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: move x[] -> x*
+	  code to DereferenceChecker.
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/Compiler.java: pass TypeTable to
+	  DereferenceChecker.
+
+Mon May 18 03:01:22 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: change function pointer
+	  syntax: int(*)(int,int) -> int(int,int)*.  Function type is
+	  int(int,int).
+
+	* net/loveruby/cflat/parser/Parser.jj: function returns function
+	  type, not pointer to function.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: resolve all
+	  function headers first, then resolve bodies.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: generate a
+	  pointer for array-type expression.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: isDereferable ->
+	  isPointer.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java:
+	  shouldEvaluatedToAddress -> isLoadable (check arrays and
+	  functions, not only arrays).
+
+	* net/loveruby/cflat/type/Type.java: remove #isDereferable.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/type/ArrayType.java: is not a scalar.
+
+	* net/loveruby/cflat/type/ArrayType.java: is not dereferable
+	  itself.
+
+	* net/loveruby/cflat/type/PointerType.java: is incompatible with
+	  arrays.
+
+	* net/loveruby/cflat/type/IntegerType.java: ditto.
+
+	* net/loveruby/cflat/type/FunctionType.java: is callable.
+
+	* net/loveruby/cflat/type/ParamTypeRefs.java: x[] -> x* for param
+	  types.
+
+	* net/loveruby/cflat/type/TypeTable.java: new method
+	  #getParamType.
+
+	* net/loveruby/cflat/ast/ExprNode.java: new method #isLvalue.
+
+	* net/loveruby/cflat/ast/ExprNode.java: new method #isAssignable.
+
+	* net/loveruby/cflat/ast/ExprNode.java: new method #isLoadable.
+
+	* net/loveruby/cflat/ast/CastNode.java: delegate them.
+
+	* net/loveruby/cflat/ast/LHSNode.java: new super class of LHS
+	  nodes.
+
+	* net/loveruby/cflat/ast/VariableNode.java: ditto.
+
+	* net/loveruby/cflat/ast/DereferenceNode.java: ditto.
+
+	* net/loveruby/cflat/ast/ArefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/MemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: ditto.
+
+	* net/loveruby/cflat/entity/Entity.java: remove #cannotLoad.
+
+	* net/loveruby/cflat/entity/Function.java: ditto.
+
+	* net/loveruby/cflat/entity/Variable.java: ditto.
+
+	* net/loveruby/cflat/entity/Constant.java: ditto.
+
+	* net/loveruby/cflat/ir/Addr.java: is not LHS node now.
+
+Sun May 17 16:37:26 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* import/dlfcn.hb: new declaration file dlfcn.hb.
+
+Sun May 17 16:36:49 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/entity/ToplevelScope.java: do not warn unused
+	  constant.
+
+Sun May 17 16:33:24 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: support constant
+	  definition.
+
+	* net/loveruby/cflat/ast/Declarations.java: hold constants.
+
+	* net/loveruby/cflat/ast/AST.java: ditto.
+
+	* net/loveruby/cflat/compiler/LocalResolver.java: resolve
+	  constants.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: resolve
+	  constants.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: transform
+	  constants reference into literal value.
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: check if
+	  toplevel variable initializer consists of a literal.
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: check if
+	  constant value consists of a literal.
+
+	* net/loveruby/cflat/ast/ExprNode.java: new method #isConstant.
+
+	* net/loveruby/cflat/ast/LiteralNode.java: override.
+
+	* net/loveruby/cflat/entity/Entity.java: support Constant.
+
+	* net/loveruby/cflat/entity/Constant.java: new entity.
+
+	* net/loveruby/cflat/entity/EntityVisitor.java: add Constant.
+
+Sun May 17 16:18:08 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java: cbc --dump-* did not
+	  work.
+
+Sat May 16 18:10:31 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: fix typo.
+
+Sat May 16 18:03:22 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: parameterize
+	  naturalType.
+
+	* net/loveruby/cflat/sysdep/X86Linux.java: provide parameter.
+
+Sat May 16 17:48:49 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: use Type
+	  instead of size.
+
+Sat May 16 17:20:36 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Register.java: use enum for register
+	  name.
+
+	* net/loveruby/cflat/sysdep/x86/RegKind.java: new enum.
+
+	* net/loveruby/cflat/sysdep/x86/Register.java: move system
+	  dependent code to sysdep/x86/Register.
+
+	* net/loveruby/cflat/asm/IndirectMemoryReference.java: reduce
+	  dependency to Register method.
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: use RegKind.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: reg(*) ->
+	  ax(), bx(), cx(), ...
+
+Wed May 13 03:22:46 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* compiler/Compiler.java: grand refactoring.
+
+	* compiler/Options.java: refactoring: avoid ping-pong call with
+	  SourceFile.
+
+	* compiler/SourceFile.java: ditto.
+
+	* ast/AST.java: does not contain a TypeTable.
+
+	* compiler/IRGenerator.java
+
+	* compiler/TypeResolver.java
+
+	* compiler/TypeChecker.java
+
+	* sysdep/Linker.java: change arg order.
+
+	* sysdep/GNULinker.java: ditto.
+
+Wed May 13 01:22:12 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/utils/CommandUtils.java: accept a list of
+	  string instead of CommandArg.
+
+	* net/loveruby/cflat/sysdep/Linker.java: ditto.
+
+	* net/loveruby/cflat/sysdep/LinkerOptions.java: ditto.
+
+	* net/loveruby/cflat/sysdep/GNULinker.java: ditto.
+
+	* net/loveruby/cflat/sysdep/AssemblerOptions.java: ditto.
+
+	* net/loveruby/cflat/sysdep/GNUAssembler.java: ditto.
+
+	* net/loveruby/cflat/utils/CommandArgStr.java ->
+	  compiler/LdOption.java
+
+	* net/loveruby/cflat/utils/CommandArg.java -> compiler/LdArg.java
+
+	* net/loveruby/cflat/compiler/SourceFile.java: CommandArg ->
+	  LdArg.
+
+	* net/loveruby/cflat/compiler/Compiler.java: ditto.
+
+	* net/loveruby/cflat/compiler/Options.java: ditto.
+
+Mon May 11 03:17:32 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: objectify assembler.
+
+	* net/loveruby/cflat/compiler/Compiler.java: objectify linker.
+
+	* net/loveruby/cflat/compiler/Options.java: provide #assembler,
+	  #asOptions, #linker, #ldOptions.
+
+	* net/loveruby/cflat/sysdep/x86/X86Linux.java ->
+	  sysdep/X86Linux.java
+
+	* net/loveruby/cflat/sysdep/Platform.java: provide #assembler,
+	  #linker.
+
+	* net/loveruby/cflat/sysdep/X86Linux.java: ditto.
+
+	* net/loveruby/cflat/sysdep/Assembler.java: new interface.
+
+	* net/loveruby/cflat/sysdep/AssemblerOptions.java: new class.
+
+	* net/loveruby/cflat/sysdep/GNUAssembler.java: new Assembler
+	  implementation.
+
+	* net/loveruby/cflat/sysdep/Linker.java: new interface.
+
+	* net/loveruby/cflat/sysdep/LinkerOptions.java: new clas.
+
+	* net/loveruby/cflat/sysdep/GNULinker.java: new Linker
+	  implementation.
+
+	* net/loveruby/cflat/utils/CommandUtils.java: new class.
+
+	* net/loveruby/cflat/compiler/LdArg.java -> utils/CommandArg.java
+
+	* net/loveruby/cflat/compiler/LdOption.java ->
+	  utils/CommandArgStr.java
+
+	* net/loveruby/cflat/compiler/SourceFile.java: implements
+	  CommandArg.
+
+Mon May 11 01:49:29 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: use JDK_VERSION="1.5" to
+	  suppress warnings.
+
+Mon May 11 01:47:51 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/codegenerator/CodeGenerator.java ->
+	  net/loveruby/cflat/sysdep
+
+	* net/loveruby/cflat/codegenerator/CodeGeneratorOptions.java ->
+	  net/loveruby/cflat/sysdep
+
+	* net/loveruby/cflat/sysdep/Platform.java: ditto.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/sysdep/x86/X86Linux.java: ditto.
+
+	* net/loveruby/cflat/compiler/Compiler.java: ditto.
+
+	* net/loveruby/cflat/compiler/Options.java: ditto.
+
+Mon May 11 01:40:28 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: use
+	  PeepholeOptimizer directly.
+
+	* net/loveruby/cflat/asm/PeepholeOptimizer.java ->
+	  net/loveruby/cflat/sysdep/x86
+
+	* net/loveruby/cflat/asm/AsmOptimizer.java: removed.
+
+	* net/loveruby/cflat/codegenerator/CodeGeneratorOptions.java:
+	  should not provide PeepholeOptimizer, just provide
+	  optimizationLevel.
+
+Mon May 11 01:31:29 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: move dumper code to
+	  AST to minimize Compiler code.
+
+	* net/loveruby/cflat/ast/AST.java: add dumper code.
+
+Mon May 11 01:05:58 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: generate address
+	  expression for LHS expr.
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: remove
+	  #compileLHS.  Just compile LHS expr.
+
+	* net/loveruby/cflat/ir/Addr.java: is a constant address now.
+
+	* net/loveruby/cflat/ir/Var.java: is not a constant address now.
+
+	* net/loveruby/cflat/ir/Expr.java: new base method #addressNode.
+
+	* net/loveruby/cflat/ir/Mem.java: override #addressNode.
+
+	* net/loveruby/cflat/ir/Var.java: ditto.
+
+	* net/loveruby/cflat/ir/Addr.java: ditto.
+
+	* net/loveruby/cflat/ir/Expr.java: new base method
+	  #getEntityForce.
+
+	* net/loveruby/cflat/ir/Var.java: override #getEntityForce.
+
+	* net/loveruby/cflat/ir/Addr.java: ditto.
+
+	* net/loveruby/cflat/ir/Call.java: get function entity by
+	  Expr#getEntityForce.
+
+Sun May 10 23:49:24 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: define SOURCE_ENCODING here
+	  (again).
+
+	* net/loveruby/cflat/compiler/Constants.java: removed.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java ->
+	  net/loveruby/cflat/codegenerator
+
+	* net/loveruby/cflat/compiler/CodeGeneratorOptions.java ->
+	  net/loveruby/cflat/codegenerator
+
+	* net/loveruby/cflat/compiler/Platform.java ->
+	  net/loveruby/cflat/sysdep
+
+	* net/loveruby/cflat/compiler/ErrorHandler.java ->
+	  net/loveruby/cflat/utils
+
+	* net/loveruby/cflat/compiler/LibraryLoader.java ->
+	  net/loveruby/cflat/parser
+
+Sun May 10 23:04:44 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: move virtual
+	  stack to AssemblyFile.
+
+	* net/loveruby/cflat/sysdep/x86/AssemblyFile.java: ditto.
+
+Sun May 10 22:46:47 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86/CodeGenerator.java: protected ->
+	  private.
+
+Sun May 10 22:42:07 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/sysdep/x86: new package.
+
+	* net/loveruby/cflat/asm/ELFConstants.java ->
+	  net/loveruby/cflat/sysdep/x86
+
+	* net/loveruby/cflat/asm/AssemblyFile.java ->
+	  net/loveruby/cflat/sysdep/x86
+
+	net/loveruby/cflat/asm/Register.java
+
+	* net/loveruby/cflat/platform/X86Linux.java ->
+	  net/loveruby/cflat/sysdep/x86
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java ->
+	  net/loveruby/cflat/sysdep/x86
+
+	* net/loveruby/cflat/platform/Platform.java ->
+	  net/loveruby/cflat/compiler
+
+	* net/loveruby/cflat/sysdep/x86/Register.java: new file.
+
+	* net/loveruby/cflat/compiler/Options.java: new method
+	  #codeGenerator.
+
+	* net/loveruby/cflat/compiler/Compiler.java: get CodeGenerator
+	  from Options.
+
+	* net/loveruby/cflat/compiler/CodeGeneratorOptions.java: make
+	  public.
+
+	* net/loveruby/cflat/ir/IR.java: now naturalType is useless
+	  (provided by CodeGenerator).
+
+Sun May 10 20:24:13 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Assembler.java -> AssemblyFile.java
+
+	* net/loveruby/cflat/utils/AsmUtils.java: split #align from
+	  AssemblyFile.
+
+	* net/loveruby/cflat/type/StructType.java: use it.
+
+	* net/loveruby/cflat/type/UnionType.java: use it.
+
+	* net/loveruby/cflat/platform: new package to extract platform
+	  dependent operations.
+
+	* net/loveruby/cflat/compiler/Compiler.java: use it.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: use it.
+
+	* net/loveruby/cflat/compiler/Options.java: provide Platform
+	  object.
+
+Thu May  7 13:00:09 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: should not return
+	  Expr for stmt, to suppress wrong warning.
+
+Thu May  7 12:55:41 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java (AddressNode):
+	  always omit Addr for #shouldEvaluatedToAddress node.
+
+Thu May  7 11:06:48 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java (BinaryOpNode):
+	  evaluate RIGHT before LEFT.
+
+Thu May  7 10:31:12 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: fix compile error.
+
+Thu May  7 10:01:41 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: emit statement
+	  info for casted stmt.
+
+Thu May  7 10:00:38 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ir/Dumper.java (printMember): simplify Label
+	  dump.
+
+Wed May  6 18:41:06 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: assignBeforeStmt
+	  is useless.  Use assign instead.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: should be able to
+	  create tmp in variable initializers for also function toplevel
+	  block.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: move funcall
+	  before stmt.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: do not display
+	  "(null)" location.
+
+Wed May  6 17:08:40 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: refactoring:
+	  rename variables.
+
+Wed May  6 15:50:22 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Type.java: types should not know signed
+	  or not.
+
+	* net/loveruby/cflat/ir/Op.java: have signed/unsigned information.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: use new op and
+	  type.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (FuncallNode):
+	  should check optional argument types.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: now use simple
+	  mov to load values from memory (and cast it later).
+
+	* net/loveruby/cflat/type/TypeTable.java: provide stack value
+	  type.
+
+Wed May  6 14:54:27 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: isStatement() did
+	  not work correctly; e.g. return ++argc failed to return value,
+	  because ++argc was wrongly judged as statemen (is really expr).
+
+Wed May  6 14:19:12 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ir/StringValue.java -> Str.java
+
+	* net/loveruby/cflat/ir/IntValue.java -> Int.java
+
+	* net/loveruby/cflat/ir/IRVisitor.java: ditto.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+Mon May  4 19:00:33 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/LocalResolver.java: create
+	  ToplevelScope, ConstantTable here (instead of creating them in
+	  AST).
+
+	* net/loveruby/cflat/ast/AST.java: do not create ToplevelScope,
+	  ConstantTable by myself.
+
+Sun May  3 22:17:57 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: new method dumpExpr
+	  to dump single expression.
+
+	* net/loveruby/cflat/compiler/CompilerMode.java: add enum value
+	  DumpExpr: define new option --dump-expr.
+
+Sun May  3 19:08:07 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: sizeof TYPE requires one
+	  more lookahead because EXPR of "sizeof EXPR" may have parentheses,
+	  too.  We can distinguish type and expr by 1 look ahead, because
+	  Head of type() == head of typeref() == head of typeref_base().
+	  typeref_base has unique terminal on head.
+
+Sat May  2 09:49:23 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: refactoring: rename
+	  constant: programId -> ProgramName.
+
+	* net/loveruby/cflat/compiler/Options.java: ditto.
+
+Sat May  2 09:30:51 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java (commandMain):
+	  refactoring: extract method: #buildTarget.
+
+Thu Apr 30 22:53:10 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: remove unused
+	  method #doesSpillDX.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: add "left"
+	  argument to #compileBinaryOp.
+
+Thu Apr 30 22:19:12 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/ConstantTable.java: move under entity/.
+
+	* net/loveruby/cflat/ast/ConstantEntry.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: follow it.
+
+	* net/loveruby/cflat/ast/StringLiteralNode.java: follow it.
+
+	* net/loveruby/cflat/ir/StringValue.java: follow it.
+
+	* net/loveruby/cflat/ir/IR.java: follow it.
+
+Thu Apr 30 22:04:07 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/AbstractAssignNode.java: remove unused
+	  setter setLHS.
+
+Thu Apr 30 21:49:07 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/*.java: remove unused reference to
+	  asm.Label.
+
+Mon Apr 27 02:55:41 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/entity: new package.
+
+	* net/loveruby/cflat/ast: move Entity and its subclasses under
+	  entity/.
+
+	* net/loveruby/cflat/ast: move Scope and its subclasses under
+	  entity/.
+
+Mon Apr 27 02:09:09 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: remove unused
+	  method #epilogueLabel.
+
+Mon Apr 27 02:04:26 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Type.java: new class representing
+	  assembly integer types.
+
+	* net/loveruby/cflat/asm/*.java: support it.
+
+	* net/loveruby/cflat/ir/*.java: support it.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: convert ast Type
+	  -> asm Type.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: use asm Type.
+
+Mon Apr 27 00:24:24 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: remove simple
+	  delegators (to Assembler).
+
+	* net/loveruby/cflat/asm/Assembler.java: add _byte(long), etc.
+
+	* net/loveruby/cflat/ir/IR.java: do not export typeTable, provide
+	  natural type instead.
+
+Sun Apr 26 23:54:47 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: use
+	  ExprNode#shouldEvalutedToAddress again, it contains complex
+	  condition.
+
+Sun Apr 26 23:39:56 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ir/Expr.java: show Expr type on dump.
+
+	* net/loveruby/cflat/type/FunctionType.java: FunctionType#toString
+	  should separate each argument types by ",".
+
+Sun Apr 26 23:35:07 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ir: implement IR#dump.
+
+Sun Apr 26 22:41:08 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java (BlockNode): static
+	  variables are special case.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java (SwitchNode):
+	  Switch must precedes Case bodies to prevent programs from infinite
+	  loop.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (Bin): fix MOD
+	  problem.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (Bin): fix LSHIFT
+	  problem.
+
+Sun Apr 26 22:08:35 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* now IR nodes are separated from AST.  Sources are compilable but
+	  not tested yet.
+
+	* ir/*: new classes.
+
+Sun Apr 26 18:06:52 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* ast/ASTVisitor.java: fork DeclarationVisitor.
+
+	* ast/DeclarationVisitor.java: new class.
+
+	* compiler/Visitor.java: do not visit declarations.
+
+	* compiler/TypeResolver.java: visit declarations explicitly.
+
+	* compiler/IRGenerator.java: remove useless declarations acceptor.
+
+	* compiler/CodeGenerator.java: ditto.
+
+	* ast/Entity.java: accept DeclarationVisitor.
+
+	* ast/DefinedFunction.java: ditto.
+
+	* ast/UndefinedFunction.java: ditto.
+
+	* ast/DefinedVariable.java: ditto.
+
+	* ast/UndefinedVariable.java: ditto.
+
+	* ast/TypeDefinition.java: ditto.
+
+	* ast/StructNode.java: ditto.
+
+	* ast/UnionNode.java: ditto.
+
+	* ast/TypedefNode.java: ditto.
+
+Sun Apr 26 17:44:14 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java (SuffixOp): do not
+	  calculate twice.  Save expr value and reuse it.
+
+Sun Apr 26 17:24:42 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: must compile
+	  initializer.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: f = &puts
+	  generated addr(addr(puts)), so remove redundant AddressNode.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: now
+	  --verbose-asm works.
+
+Sun Apr 26 16:51:02 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: treat LHS
+	  specially and remove AddressNode at the top of the LHS tree (e.g.
+	  printf = 0 generates &printf = 0).
+
+Sun Apr 26 16:19:31 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Simplifier.java -> IRGenerator.java
+
+	* net/loveruby/cflat/compiler/Compiler.java: rename class.
+
+Sun Apr 26 16:10:27 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Simplifier.java (SwitchNode):
+	  missing end label.
+
+Sun Apr 26 15:48:10 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/FuncallNode.java: make a static funcall
+	  really static funcall (not use pointer).
+
+	net/loveruby/cflat/compiler/Simplifier.java: set aref result type.
+
+Sun Apr 26 13:50:54 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/FuncallNode.java: detect static call.
+
+Sun Apr 26 13:30:10 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Simplifier.java (While): must loop.
+
+Sun Apr 26 13:22:39 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Simplifier.java (SuffixOp): too few
+	  deref.
+
+	* net/loveruby/cflat/compiler/Simplifier.java (MemberNode): should
+	  set type.
+
+	* net/loveruby/cflat/compiler/Simplifier.java (PtrMemberNode):
+	  should set type.
+
+	* net/loveruby/cflat/compiler/Simplifier.java (Deref, Addr):
+	  should compile child expr.
+
+	* net/loveruby/cflat/ast/BinaryOpNode.java (ctor): accept type.
+
+	* net/loveruby/cflat/ast/TypeNode.java (location): do not raise
+	  exception when no typeRef exist.
+
+Sun Apr 26 12:17:51 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/PeepholeOptimizer.java: fix bad operator
+	  mnemonic. (fixes 4E)
+
+Mon Apr 20 03:52:10 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* now many tests work (30/1709 failed).
+
+	* net/loveruby/cflat/compiler/Simplifier.java: set location of
+	  AssignStmtNode.
+
+	* net/loveruby/cflat/compiler/Simplifier.java: allocate tmp
+	  variable in scope.
+
+	* net/loveruby/cflat/compiler/Simplifier.java: opAssign/inc/dec
+	  handling was completely wrong (there still be some problems yet).
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (compileLHS):
+	  implemented for IR.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (loadVarible):
+	  implemented for IR.
+
+Mon Apr 20 00:39:13 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/IR.java: new class to represents IR.
+
+Sun Apr 19 23:52:37 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* new class Simplifier (it is really a IR generator).  Passes
+	  compilation, but not tested.
+
+Sun Apr 19 14:57:22 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* refactoring: rename class: compiler/Simplifier.java ->
+	  IRGenerator.java.
+
+	* compiler/Compiler.java: ditto.
+
+Sun Apr 12 17:49:19 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: split IRGenerator.
+
+	* net/loveruby/cflat/compiler/IRGenerator.java: new class.
+
+	* net/loveruby/cflat/compiler/Compiler.java: call IRGenerator.
+
+Sun Apr 12 16:48:14 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: simplify BinaryOp
+	  checking, utilizing destructive methods.
+
+Sun Apr 12 16:37:16 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Visitor.java: make destructive
+	  again.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/LocalResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: ditto.
+
+	* net/loveruby/cflat/ast/AbstractAssignNode.java: ditto.
+
+	* net/loveruby/cflat/ast/CondExprNode.java: ditto.
+
+Sun Apr 12 15:31:07 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Visitor.java: make all return types
+	  generic.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+	* net/loveruby/cflat/ast/*.java: ditto.
+
+Mon Apr  6 07:04:30 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: call JumpResolver at
+	  last.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: TypeChecker has
+	  required ReturnNode.function, provide "current function" by
+	  myself.
+
+Sat Apr  4 23:47:02 2009  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: #visit returns a node
+	  which has same type with the argument, to allow non-destructive
+	  AST rewriting.
+
+	* net/loveruby/cflat/ast/*Node.java (#accept): ditto.
+
+	* net/loveruby/cflat/compiler/Visitor.java: ditto.
+
+	* net/loveruby/cflat/compiler/*.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: make
+	  non-destructive.
+
+	* net/loveruby/cflat/parser/Parser.jj: use StmtNode/ExprNode
+	  instead of Node.
+
+Wed Dec 24 03:43:14 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/sizeof_jmpbuf.c: new analysis program.
+
+	* lib/Makefile: add a rule to build sizeof_jmpbuf.
+
+Wed Dec 24 02:54:06 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* import/setjmp.hb: new file to support setjmp.
+
+	* test: test setjmp.
+
+Mon Dec 15 00:05:16 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* introduce virtual stack again, for only local variables and tmp
+	  variables.  Function arguments use true push & pop.
+
+	* --verbose-asm prints stack frame layout in detail.
+
+Sun Dec 14 21:04:56 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test: test alloca more.
+
+Sun Dec 14 20:43:47 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileFunctionBody): remove bp from saveRegs first.
+
+Mon Dec  8 00:55:33 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/alloca.s: alloca() implemeted.
+
+	* lib/Makefile: build it.
+
+	* import/alloca.hb: declare alloca.
+
+Sun Dec  7 23:26:50 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net: revert r4100; implementing alloca() is too difficult for
+	  current architecture.
+
+Sun Dec  7 23:25:25 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/libcbc.cb -> lib/stdarg.cb
+
+	* lib/Makefile: ditto.
+
+Sun Dec  7 22:27:51 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: manage stack
+	  offset by generator, instead of using machine push/pop.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method
+	  relocatableMov.
+
+	* net/loveruby/cflat/asm/Assembly.java: allow fixing indirect
+	  memory access offset.
+
+	* net/loveruby/cflat/asm/Instruction.java: ditto.
+
+	* net/loveruby/cflat/asm/AsmOperand.java: ditto.
+
+	* net/loveruby/cflat/asm/IndirectMemoryReference.java: ditto.
+
+	* net/loveruby/cflat/asm/IntegerLiteral.java: ditto.
+
+	* net/loveruby/cflat/asm/Literal.java: ditto.
+
+	* net/loveruby/cflat/asm/BaseSymbol.java: ditto.
+
+	* net/loveruby/cflat/asm/SuffixedSymbol.java: ditto.
+
+Sun Dec  7 17:13:45 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java ->
+	  LocalResolver.java
+
+Sun Dec  7 17:09:17 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: use SemanticException
+	  instead of SemanticError for duplicated declarations/definitions.
+
+Sun Dec  7 17:08:26 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test: test declaration override (error path).
+
+Sun Dec  7 16:55:56 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test: test declaration override.
+
+	* test/run.sh: new option --help.
+
+Mon Nov 24 18:49:27 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: refactoring:
+	  reduce lvar.
+
+Sun Nov 16 23:57:08 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: an array on the
+	  parameter list is a pointer really.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: an array for stmt
+	  value *is* valid because it is a pointer really.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: st.x while st.x
+	  is an array should make a pointer.
+
+	* net/loveruby/cflat/type/Type.java: remove #isPointerAlike, there
+	  is only a Pointer and an Array already.
+
+	* net/loveruby/cflat/type/ArrayType.java: ditto.
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/ast/ArefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/Variable.java: ditto.
+
+	* net/loveruby/cflat/ast/ExprNode.java: ditto.
+
+	* test: check st.x[1] access.
+
+	* test: check pst->x[1] access.
+
+Sun Nov 16 22:29:33 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: "f = puts"
+	  implies "f = &puts", adjust type for such expressions.
+
+Sun Nov 16 21:28:00 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: make compiler mode
+	  enum.
+
+	* net/loveruby/cflat/compiler/Options.java: ditto.
+
+	* net/loveruby/cflat/compiler/SourceFile.java: ditto.
+
+	* net/loveruby/cflat/compiler/CompilerMode.java: new enum.
+
+Sun Nov 16 20:20:08 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: We do not
+	  need to check an OpAssignNode as operator, because this class only
+	  check references.
+
+Sun Nov 16 20:10:59 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (compileAST):
+	  should not generate .data section when no global variable is
+	  defined.
+
+Sun Nov 16 20:01:06 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: should access
+	  file-local gvar directly (with @GOTOFF) in PIE.
+
+	* net/loveruby/cflat/ast/Entity.java: all entities should have
+	  memref or address.
+
+	* net/loveruby/cflat/ast/Variable.java: ditto.
+
+	* net/loveruby/cflat/ast/DefinedVariable.java: ditto.
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: ditto.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: ditto.
+
+	* import/stdlib.hb: add new declarations.
+
+	* import/unistd.hb: add new declarations.
+
+Sun Nov  2 18:27:01 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java: new option
+	  --readonly-plt.
+
+Sun Oct 26 07:04:53 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* bin/cbc: resolve symbolic link to command file.
+
+Sat Oct 25 03:40:16 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* name code symbols lazily.
+
+	* separate Label and Symbol.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: use Symbol
+	  instead of Label for entity symbol.
+
+	* net/loveruby/cflat/asm/Symbol.java: new interface.
+
+	* net/loveruby/cflat/asm/BaseSymbol.java: new class.
+
+	* net/loveruby/cflat/asm/NamedSymbol.java: new class.
+
+	* net/loveruby/cflat/asm/SuffixedSymbol.java: new class.
+
+	* net/loveruby/cflat/asm/UnnamedSymbol.java: new class.
+
+	* net/loveruby/cflat/asm/SymbolTable.java: new class.
+
+	* net/loveruby/cflat/asm/*.java: Label -> Symbol.
+
+	* net/loveruby/cflat/asm/LabelRef.java: removed.
+
+	* net/loveruby/cflat/ast/*.java: Label -> Symbol.
+
+	* net/loveruby/cflat/parser/Parser.jj: does not pass a LabelPool
+	  anymore.
+
+Fri Oct 24 23:03:26 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/*.java: minimize references to asm/*.
+
+Mon Sep 29 03:46:51 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* convert all source codes to Java 5 using generics and foreach
+	  stmt.
+
+Sun Sep 28 07:19:43 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java (getOutputFileName):
+	  should use outputFileName always when linking, output file of
+	  linking is always 1 file.
+
+	* net/loveruby/cflat/compiler/Options.java: fixes compile error:
+	  new method #isGeneratingPIE.
+
+Sun Sep 28 07:06:37 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: implement -shared.
+
+	* net/loveruby/cflat/compiler/Options.java: new option -shared.
+
+	* net/loveruby/cflat/compiler/CodeGeneratorOptions.java: ditto.
+
+	* net/loveruby/cflat/compiler/SourceFile.java: new method
+	  #linkedFileName.
+
+Sun Sep 28 05:07:30 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* implement PIC generation.
+
+	* lib/Makefile: should generate PIC for libcbc.o.
+
+	* net/loveruby/cflat/compiler/Compiler.java: pass
+	  CodeGeneratorOptions to CodeGenerator.
+
+	* net/loveruby/cflat/compiler/Options.java: new options -fpic,
+	  -fPIC.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: use position
+	  independent address for global variables, common symbols,
+	  defined/undefined functions and string constants.
+
+	* net/loveruby/cflat/compiler/CodeGeneratorOptions.java: new
+	  class.
+
+	* net/loveruby/cflat/asm/ELFConstants.java: new interface to
+	  define ELF-related constants.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #hidden.
+
+	* net/loveruby/cflat/asm/Assembler.java: new overload
+	  #section(s,s,s,s,s).
+
+	* net/loveruby/cflat/asm/IndirectMemoryReference.java: offset may
+	  not long, but Literal.
+
+	* net/loveruby/cflat/asm/Literal.java: new method #isZero.
+
+	* net/loveruby/cflat/asm/IntegerLiteral.java: ditto.
+
+	* net/loveruby/cflat/asm/LabelRef.java: ditto.
+
+	* net/loveruby/cflat/ast/ExprNode.java: new method
+	  #shouldEvaluatedToAddres.
+
+	* net/loveruby/cflat/ast/VariableNode.java: override it.
+
+	* net/loveruby/cflat/ast/CastNode.java: override it.
+
+	* net/loveruby/cflat/ast/Entity.java: new method #cannotLoad, to
+	  implement #shouldEvaluatedToAddress.
+
+	* net/loveruby/cflat/ast/Variable.java: override it.
+
+	* net/loveruby/cflat/ast/Function.java: override it.
+
+	* net/loveruby/cflat/ast/ExprNode.java: rename method: #AsmLiteral
+	  -> #AsmValue because it now returns ImmediateValue instead of
+	  Literal.
+
+	* net/loveruby/cflat/ast/CastNode.java: override it.
+
+	* net/loveruby/cflat/ast/LiteralNode.java: rename method also.
+
+	* net/loveruby/cflat/ast/IntegerLiteralNode.java: ditto.
+
+	* net/loveruby/cflat/ast/StringLiteralNode.java: ditto.
+
+	* net/loveruby/cflat/ast/Variable.java: holds memref and address
+	  here, not in subclasses.
+
+	* net/loveruby/cflat/ast/DefinedVariable.java: ditto.
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: ditto.
+
+	* net/loveruby/cflat/ast/LiteralNode.java: new method #memref.
+
+	* net/loveruby/cflat/ast/IntegerLiteralNode.java: implement it.
+
+	* net/loveruby/cflat/ast/StringLiteralNode.java: implement it.
+
+	* net/loveruby/cflat/ast/ConstantEntry.java: holds memref and
+	  address.
+
+	* net/loveruby/cflat/ast/AST.java: new method #allFunctions, to
+	  access undefined functions from code generator.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: ditto.
+
+Wed Sep 24 01:10:36 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: remove unused
+	  labels.
+
+	* net/loveruby/cflat/asm/AsmStatistics.java: collect label usage.
+
+	* net/loveruby/cflat/asm/DirectMemoryReference.java: support
+	  collectStatistics.
+
+	* net/loveruby/cflat/asm/Literal.java: ditto.
+
+	* net/loveruby/cflat/asm/LabelRef.java: ditto.
+
+	* net/loveruby/cflat/asm/IntegerLiteral.java: ditto.
+
+Wed Sep 24 00:48:37 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/PeepholeOptimizer.java: unify insn
+	  optimization and jump elimination.
+
+	* net/loveruby/cflat/utils/ClonableIterator.java -> Cursor.java
+
+	* net/loveruby/cflat/compiler/Options.java: use default
+	  optimization rule set for -O.
+
+Tue Sep 23 22:50:52 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: apply jump
+	  elimination.
+
+	* net/loveruby/cflat/asm/PeepholeOptimizer.java: new optimization
+	  method: jump elimination.
+
+	* net/loveruby/cflat/asm/Assembler.java: refactoring: #string ->
+	  #toSource.
+
+	* net/loveruby/cflat/asm/Assembler.java: refactoring: list ->
+	  assemblies.
+
+	* net/loveruby/cflat/asm/Assembly.java: new method #isDirective
+	  and #isComment.
+
+	* net/loveruby/cflat/asm/Directive.java: implement it.
+
+	* net/loveruby/cflat/asm/AsmComment.java: implement it.
+
+	* net/loveruby/cflat/asm/Label.java: implement it.
+
+	* net/loveruby/cflat/asm/Label.java: new method #equals,
+	  #hashCode.
+
+	* net/loveruby/cflat/asm/Instruction.java: add jump related
+	  methods to analyze jump instruction.
+
+	* net/loveruby/cflat/asm/LabelRef.java: new method #label to allow
+	  extracting a Label.
+
+	* net/loveruby/cflat/asm/Register.java: new method #equals,
+	  #hashCode.
+
+	* net/loveruby/cflat/asm/AsmStatistics.java: use Object for map
+	  keys.
+
+	* net/loveruby/cflat/asm/AsmStatistics.java: new method
+	  #doesRegisterUsed.
+
+	* net/loveruby/cflat/utils/ClonableIterator.java: new utility.
+
+Tue Sep 23 22:45:00 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* lib/Makefile: parameterize.
+
+Tue Sep 23 20:42:38 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* unit: new unit test suite.
+
+Mon Sep 22 01:45:49 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/div.cb: test %esi usage.
+
+Sun Sep 21 18:14:31 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Function.java: refactoring: new method
+	  #label.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (prologue): omit
+	  loop when no-verboseAsm.
+
+	* test: check "puts = NULL" and "stdin = NULL" are compilable (of
+	  course "puts = NULL" causes segv).
+
+Sun Sep 21 17:22:45 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: lhs.memref may
+	  be null when lhs is extern variable.
+
+Sun Sep 21 05:43:28 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: optimize
+	  constant load.
+
+	* net/loveruby/cflat/asm/ImmediateValue.java: accept any Literal.
+
+	* net/loveruby/cflat/ast/LiteralNode.java: new method #asmLiteral.
+
+	* net/loveruby/cflat/ast/CastNode.java: is not constant when cast
+	  is effective.
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option
+	  --verbose-asm.
+
+	* net/loveruby/cflat/compiler/Options.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method
+	  #indentComment, #unindentComment.
+
+	* net/loveruby/cflat/asm/AsmComment.java: indent comments.
+
+Sun Sep 21 03:04:16 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: fix local
+	  variables offset after compiling function body, to allow saving
+	  really-used callee-saved registers only.
+
+	* net/loveruby/cflat/asm/IndirectMemoryReference.java: allow
+	  fixing offset out of consructor.
+
+	* net/loveruby/cflat/asm/AsmStatistics.java: new class.
+
+	* net/loveruby/cflat/asm/Assembly.java: support
+	  #collectStatistics.
+
+	* net/loveruby/cflat/asm/Instruction.java: ditto.
+
+	* net/loveruby/cflat/asm/AsmOperand.java: ditto.
+
+	* net/loveruby/cflat/asm/Register.java: ditto.
+
+	* net/loveruby/cflat/asm/AbsoluteAddress.java: ditto.
+
+	* net/loveruby/cflat/asm/DirectMemoryReference.java: ditto.
+
+	* net/loveruby/cflat/asm/ImmediateValue.java: ditto.
+
+	* net/loveruby/cflat/ast/Scope.java: refactoring: rename method:
+	  #allChildren -> #allScopes.
+
+	* net/loveruby/cflat/ast/Scope.java (allScopes): should include
+	  receiver scope itself.
+
+	* net/loveruby/cflat/ast/LocalScope.java (allVariables): did not
+	  wrongly included current scope's variables.
+
+	* net/loveruby/cflat/ast/LocalScope.java: refactoring: rename
+	  method: allVariables -> allLocalVariables.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: ditto.
+
+Sat Sep 20 23:48:31 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Options.java: new option -O0, -O,
+	  -O1, -O2, -Os.
+
+	* net/loveruby/cflat/asm/AsmOptimizer.java: new interface to
+	  switch optimizer dynamicly.
+
+	* net/loveruby/cflat/compiler/PeepholeOptimizer.java ->
+	  asm/PeepholeOptimizer.java
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: parameterize
+	  AsmOptimizer.
+
+	* net/loveruby/cflat/ast/AST.java: holds a typeTable.
+
+	* net/loveruby/cflat/compiler/Compiler.java: follow AST change.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: ditto.
+
+Sat Sep 20 22:53:31 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: apply peep-hole
+	  optimization.
+
+	* net/loveruby/cflat/compiler/PeepholeOptimizer.java: new class.
+
+	* net/loveruby/cflat/asm/Assembler.java: export list
+	  (List<Assembly>).
+
+	* net/loveruby/cflat/asm/Instruction.java: new method #build to
+	  build an Instruction from the instruction object.
+
+	* net/loveruby/cflat/asm/OperandPattern.java: new interface.
+
+	* net/loveruby/cflat/asm/AsmOperand.java: impelements
+	  OperandPattern.
+
+	* net/loveruby/cflat/asm/Register.java: implements #isRegister.
+
+	* net/loveruby/cflat/asm/ImmediateValue.java: implement #equals to
+	  allow matching immediate integer value.
+
+	* net/loveruby/cflat/asm/IntegerLiteral.java: implement #equals.
+
+Sat Sep 20 19:30:48 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/ComplexType.java -> CompositeType.java
+
+	* net/loveruby/cflat/ast/ComplexTypeDefinition.java ->
+	  CompositeTypeDefinition.java
+
+Tue Sep 16 03:53:07 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* install.sh: check if jar and libcbc are built.
+
+	* install.sh: fix syntax error.
+
+Tue Sep 16 03:42:43 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: reject statements
+	  whose type is struct/union/allocated array.
+
+	* test: test invalid statement expression.
+
+Tue Sep 16 03:23:49 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm: toString -> toSource.
+
+Tue Sep 16 03:12:41 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Literal.java: does not inherit
+	  AsmOperand.
+
+	* net/loveruby/cflat/asm/Assembler.java: do not use Literals in
+	  instruction operand.
+
+	* net/loveruby/cflat/asm/ImmediateValue.java: accept only
+	  Literals.
+
+Tue Sep 16 02:53:07 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Symbol.java -> LabelRef.java
+
+	* net/loveruby/cflat/asm/*.java: Symbol -> LabelRef.
+
+Tue Sep 16 02:49:21 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/AsmEntity.java -> AsmOperand.java
+
+	* net/loveruby/cflat/*/*.java: AsmEntity -> AsmOperand.
+
+Tue Sep 16 02:37:46 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Address.java -> MemoryReference.java
+
+	* net/loveruby/cflat/asm/DirectAddress.java ->
+	  DirectMemoryReference.java
+
+	* net/loveruby/cflat/asm/IndirectAddress.java ->
+	  IndirectMemoryReference.java
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: Address ->
+	  MemoryReference.
+
+	* net/loveruby/cflat/asm/AsmEntity.java: ditto.
+
+	* net/loveruby/cflat/asm/AbsoluteAddress.java: ditto.
+
+	* net/loveruby/cflat/ast/Entity.java: ditto.
+
+	* net/loveruby/cflat/ast/Variable.java: ditto.
+
+	* net/loveruby/cflat/ast/DefinedVariable.java: ditto.
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: ditto.
+
+	* net/loveruby/cflat/ast/ExprNode.java: ditto.
+
+	* net/loveruby/cflat/ast/VariableNode.java: ditto.
+
+	* net/loveruby/cflat/ast/CastNode.java: ditto.
+
+Tue Sep 16 02:18:06 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: both of "puts"
+	  and "&puts" should be evaluated to its address.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: address ->
+	  memref.
+
+	* net/loveruby/cflat/ast/Entity.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: ditto.
+
+	* net/loveruby/cflat/ast/Variable.java: ditto.
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: ditto.
+
+	* net/loveruby/cflat/ast/DefinedVariable.java: ditto.
+
+	* net/loveruby/cflat/ast/ExprNode.java: ditto.: ditto.
+
+	* net/loveruby/cflat/ast/ArefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/MemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/VariableNode.java: ditto.
+
+	* net/loveruby/cflat/ast/CastNode.java: ditto.
+
+	* test: test "puts", "&puts", "myputs", "&myputs".
+
+Tue Sep 16 00:59:55 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Function.java (address): should return
+	  $sym.
+
+	* net/loveruby/cflat/asm/Instruction.java: fix indent.
+
+Tue Sep 16 00:21:10 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Assembler.java: objectify instructions,
+	  directives, comments and labels.
+
+	* net/loveruby/cflat/asm/Label.java: inherits Assembly instead of
+	  AsmEntity.
+
+	* net/loveruby/cflat/asm/Address.java: new method #isAddress.
+
+	* net/loveruby/cflat/asm/ImmediateValue.java: accept Literals.
+
+	* net/loveruby/cflat/asm/AbsoluteAddress.java: new file.
+
+	* net/loveruby/cflat/asm/AsmComment.java: new file.
+
+	* net/loveruby/cflat/asm/Assembly.java: new file.
+
+	* net/loveruby/cflat/asm/Directive.java: new file.
+
+	* net/loveruby/cflat/asm/Reference.java -> DirectAddress.java: new
+	  file.
+
+	* net/loveruby/cflat/asm/SimpleAddress.java, CompositeAddress.java
+	  -> IndirectAddress.java
+
+	* net/loveruby/cflat/asm/Instruction.java: new file.
+
+	* net/loveruby/cflat/asm/IntegerLiteral.java: new file.
+
+	* net/loveruby/cflat/asm/Literal.java: new file.
+
+	* net/loveruby/cflat/asm/Symbol.java: new file.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: follow asm
+	  changes.
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java:
+
+	* net/loveruby/cflat/ast/Function.java
+
+Mon Sep 15 21:19:05 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: link libcbc on making
+	  executables.
+
+	* Makefile: new file.
+
+	* lib/Makefile: new file to build libcbc.a.
+
+	* test: test varargs.
+
+	* install.sh: new file.
+
+	* README: change install.sh usage.
+
+Mon Sep 15 01:31:28 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* bin/cbc: allow overriding java runtime by setting JAVA
+	  environment variable.
+
+Mon Sep 15 01:24:57 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* bin/cbc: follow last directory tree change.
+
+	* test/test_cbc.sh: ditto.
+
+Mon Sep 15 01:19:36 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* cbc -> bin/cbc
+
+	* cbci -> bin/cbci.rb
+
+	* bin/cbci.sh: new file.
+
+	* lib/libcbc.cb: new file.
+
+	* build.properties: create jar file in lib/.
+
+	* install.sh: new file.
+
+Mon Sep 15 00:43:29 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: handle multiple
+	  source files.
+
+	* net/loveruby/cflat/compiler/Options.java: new class forked from
+	  Compiler.java.  Command option parser.
+
+	* net/loveruby/cflat/compiler/SourceFile.java: new class.
+
+	* net/loveruby/cflat/compiler/LdOption.java: new class.
+
+	* net/loveruby/cflat/compiler/LdArg.java: new interface.
+
+	* net/loveruby/cflat/exception/OptionParseError.java: new error
+	  class.
+
+	* test: test multiple input.
+
+Sun Sep 14 20:08:19 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: use CflatToken to
+	  dump token list.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: show stmt line
+	  in assembly.
+
+	* net/loveruby/cflat/parser/Parser.jj: pass a Token to the
+	  Location.
+
+	* net/loveruby/cflat/ast/AST.java: use CflatToken.
+
+	* net/loveruby/cflat/ast/Location.java: use CflatToken.
+
+	* net/loveruby/cflat/ast/CflatToken.java: new file.
+
+Sun Sep 14 05:36:30 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: should not append
+	  '$' for extern symbol address.
+
+	* import/stdio.hb: add va_list functions.
+
+	* import/stdarg.hb: new file.
+
+Sun Sep 14 02:27:56 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: reject incomplete
+	  multi-dimension array for function parameters.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: reject array
+	  variable definition without length.
+
+	* net/loveruby/cflat/type/Type.java: remove #isAllocated.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/type/ArrayType.java: change #isAllocatedArray
+	  semantics.  isAllocatedArray requires the all consecutive array
+	  types have its length, recursively.
+
+	* net/loveruby/cflat/type/ArrayType.java: new method
+	  #isIncompleteArray.
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option
+	  --dump-asm.
+
+	* net/loveruby/cflat/compiler/Compiler.java: handle "--" on
+	  command line.
+
+	* test/run.sh: use bash.
+
+	* test/shunit.sh: show program name on core dump.
+
+	* test/syntax1.cb: int[][] is now invalid.
+
+	* cbci: print coredump and signal.
+
+Sun Sep 14 00:13:37 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* cbci: new command.  Simple Cflat interpriter.
+
+Sat Sep 13 22:15:34 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (arefNode):
+	  calculate element address of multi-dimension array correctly.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (compileStmt):
+	  output statement number and line number as comment.
+
+	* net/loveruby/cflat/ast/ArefNode.java: new method
+	  #isMultiDimension.
+
+	* net/loveruby/cflat/ast/ArefNode.java: new method #baseExpr.
+
+	* net/loveruby/cflat/ast/ArefNode.java: new method #elementSize.
+
+	* net/loveruby/cflat/ast/ArefNode.java: new method #length.
+
+	* net/loveruby/cflat/type/ArrayType.java: add comment.
+
+	* test: test multi-dimension array access.
+
+Sat Sep 13 21:34:45 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test: test void function without return.
+
+Sun Sep  7 08:36:28 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: implement -o option.
+
+Sun Sep  7 08:06:38 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: split compileLHS
+	  by using visitor pattern.
+
+	* net/loveruby/cflat/ast/ASTLHSVisitor.java: new interface.
+
+	* net/loveruby/cflat/ast/DereferenceNode.java: implement
+	  #acceptLHS.
+
+	* net/loveruby/cflat/ast/ArefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/MemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/Node.java: ditto.
+
+	* net/loveruby/cflat/ast/VariableNode.java: ditto.
+
+Sun Sep  7 07:37:34 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: opassign should
+	  not spill DX because division uses DX.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: #dereferedType should
+	  return Type instead of ComplexType because DereferenceChecker
+	  checks derefered type by this method.
+
+	* test: test ptr->memb with complex pointer expression.
+
+Sun Sep  7 06:50:56 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: calculate LHS
+	  value on AX, not BX.
+
+Sun Sep  7 05:10:46 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: parse sizeof expr.
+
+	* net/loveruby/cflat/compiler/Visitor.java: support
+	  SizeofTypeNode, SizeofExprNode.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: ditto.
+
+	* net/loveruby/cflat/ast/SizeofTypeNode.java: new file.
+
+	* net/loveruby/cflat/ast/SizeofExprNode.java: new file.
+
+	* net/loveruby/cflat/type/Type.java: default alignment equals to
+	  size, not allocSize (e.g. int[4] should be aligned on 4, not 16).
+
+	* net/loveruby/cflat/type/StructType.java: element offset
+	  calculation was wrong. Elements should be aligned on its own
+	  alignment.
+
+	* net/loveruby/cflat/type/StructType.java: size calculation was
+	  wrong.  Struct size is align(last-offset, max-element-alignment).
+
+	* net/loveruby/cflat/type/UnionType.java: union's alignment equals
+	  to element's max alignment.
+
+	* net/loveruby/cflat/type/ComplexType.java: cache computed
+	  alignment.
+
+	* net/loveruby/cflat/type/ArrayType.java: array's alignment equals
+	  to elements' alignment.
+
+	* net/loveruby/cflat/ast/Slot.java: new method #allocSize,
+	  #alignment.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #align (moved
+	  from CodeGenerator).
+
+	* test: test sizeof.
+
+Sun Sep  7 02:57:24 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/utils/TextUtils.java (toUnsigned): simplify.
+
+Sun Sep  7 02:46:14 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: use #dumpString.
+
+	* net/loveruby/cflat/compiler/Constants.java: new class.
+
+	* net/loveruby/cflat/compiler/Constants.java: define constant
+	  sourceEncoding.
+
+	* net/loveruby/cflat/parser/Parser.jj: get source encoding from
+	  Constant class.
+
+	* net/loveruby/cflat/ast/Dumper.java: use #dumpString.
+
+	* net/loveruby/cflat/asm/Assembler.java: use #dumpString.
+
+	* net/loveruby/cflat/utils/TextUtils.java: new method #dumpString,
+	  which dumps UTF-8 string correctly.
+
+	* test: test UTF-8 string literal.
+
+Sun Sep  7 01:21:38 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Register.java (lowerByteRegister): check
+	  wheather the register has lower-byte register or not.
+
+Sun Sep  7 00:58:49 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: implement cast.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #movsx,
+	  #movzx.
+
+	* net/loveruby/cflat/type/PointerType.java: provide #isSigned for
+	  cast.
+
+	* net/loveruby/cflat/type/ArrayType.java: ditto.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* test: test cast operation.
+
+Sat Sep  6 23:19:48 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Entity.java (alignment): fetch value from
+	  its type.
+
+	* net/loveruby/cflat/type/ArrayType.java: should compute allocated
+	  size from member's #allocSize, not #size.
+
+	* net/loveruby/cflat/type/StructType.java (alignment): do not
+	  depend on Entity#size.
+
+Mon Sep  1 01:53:52 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/test_cbc.sh: run tests for switch stmt.
+
+Mon Sep  1 01:49:23 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: pass location node to the
+	  CaseNode explicitly.
+
+	* net/loveruby/cflat/ast/CaseNode.java: default clause does not
+	  have value, we cannot extract location node from values.  Receive
+	  a location node as a first argument explicitly.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: must define end
+	  label.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: implement
+	  default clause.
+
+	* test: test switch stmt.
+
+Mon Sep  1 01:26:20 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: static function
+	  should be local in the file.
+
+	* test: test it.
+
+Sun Aug 31 20:09:14 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/CastNode.java: remove unused method
+	  #resolve.
+
+Sun Aug 31 20:02:56 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: better help message.
+
+Sun Aug 31 19:59:35 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/MemberNode.java: has always non-constant
+	  address.
+
+	* net/loveruby/cflat/asm/AsmEntity.java: remove method #add.
+
+	* net/loveruby/cflat/asm/Label.java: ditto.
+
+	* net/loveruby/cflat/asm/Reference.java: ditto.
+
+	* net/loveruby/cflat/asm/ImmediateValue.java: ditto.
+
+	* net/loveruby/cflat/asm/Register.java: ditto.
+
+	* net/loveruby/cflat/asm/SimpleAddress.java: ditto.
+
+	* net/loveruby/cflat/asm/CompositeAddress.java: ditto.
+
+	* test: test nested struct member access.
+
+Sun Aug 31 19:40:27 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Function.java: reduce a warning using
+	  Reference.
+
+Sun Aug 31 19:24:30 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: transform pointer
+	  arithmetic to normal arithmetic (e.g. ptr+7 =>
+	  ptr+(7*sizeof(*ptr))).
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: int-ptr is
+	  invalid.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: implement
+	  pointer arithmetic correctly (e.g. *(ptr+1) for various types work
+	  now).
+
+	* net/loveruby/cflat/ast/PrefixOpNode.java: inherit
+	  UnaryArithmeticOpNode.
+
+	* net/loveruby/cflat/ast/SuffixOpNode.java: ditto.
+
+	* net/loveruby/cflat/ast/UnaryArithmeticOpNode.java: new file.
+
+	* net/loveruby/cflat/ast/CastNode.java: is not assignable.
+
+	* net/loveruby/cflat/type/TypeTable.java: new method #pointerSize,
+	  #ptrDiffTypeRef.
+
+	* net/loveruby/cflat/type/ArrayType.java: fetch pointer size from
+	  a TypeTable.
+
+	* net/loveruby/cflat/type/ArrayType.java: we can cast any pointers
+	  to void*.
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+	* net/loveruby/cflat/type/IntegerTypeRef.java (equals): check name
+	  equality by #equals, not ==.
+
+	* test: test pointer arithmetic.
+
+	* test: CastNode does not becomes LHS, do not check it.
+
+	* import/string.hb: add mem* functions.
+
+Sun Aug 31 15:17:05 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Declarations.java: reject duplicated
+	  symbols to support duplicated import.
+
+	* net/loveruby/cflat/compiler/LibraryLoader.java: should return
+	  previous loaded symbols for the same import file.
+
+	* test: test duplicated import.
+
+Sat Aug 30 20:03:36 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: implement NULL.
+
+	* test: use it.
+
+Sat Aug 30 20:07:18 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ptr==ptr should
+	  work.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ptr&&ptr should
+	  work.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: any==any should
+	  always returns int.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* test: test it.
+
+Sat Aug 30 18:00:17 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/test_cbc.sh: test overrapped lvar.
+
+Sat Aug 30 17:38:15 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/assign.cb: test case was wrong (caused SEGV).  I don't know
+	  why this test case did not crash.
+
+	* test/test_cbc.sh: follow it.
+
+Sat Aug 30 17:35:00 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: lvar overrapped
+	  allocation.
+
+	* net/loveruby/cflat/ast/LocalScope.java: export children.
+
+Fri Aug 29 18:24:43 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* cbc: surround path variables by double quotes.
+
+Fri Aug 29 17:18:03 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (allocateLocalVariables): refactoring:
+          stackWordSize -> stackAlignment.
+
+Fri Aug 29 17:11:50 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml: test entry point is now run.sh.
+
+Fri Aug 29 17:04:39 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/Makefile: testing entry point is run.sh.
+
+	* test/shunit.sh: add "shunit_" prefix for all internal functions.
+
+	* test/run.sh: load test_*.sh to support multiple test case files.
+
+	* test/run.sh: accept command line arguments as test case files.
+
+	* test/test.sh -> test/test_cbc.sh
+
+	* test/test2.cb -> test/syntax1.cb
+
+	* test/test3.cb -> test/syntax2.cb
+
+	* test/test4.cb -> test/syntax3.cb
+
+Fri Aug 29 16:35:39 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: should handle
+	  global string literal.
+
+	* net/loveruby/cflat/asm/Assembler.java (_long, _quad): should
+	  handle label.
+
+	* test/run.sh: new test runner.
+
+	* test/shunit.sh: library function name must not start with
+	  "test_" because they are treated as test case definition.
+
+	* test/test.sh: split tests in to multiple functions.
+
+	* test/initializer.cb: test string initializer.
+
+	* test/comm.cb: ditto.
+
+	* test/scomm.cb: ditto.
+
+	* test/slvar.cb: ditto.
+
+	* test/gvar.cb: ditto.
+
+	* test/sgvar.cb: ditto.
+
+	* test/slcomm.cb: : ditto.
+
+Tue Aug 19 19:18:00 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (generateAssembly): did not set typeTable field.
+
+Tue Aug 19 18:57:52 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: refactoring: all
+	  DSL methods should take a Register argument, not a String.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: refactoring:
+	  PTRREG -> baseptr().
+
+	* net/loveruby/cflat/asm/Register.java: refactoring: a Register
+	  object does not represents size-specified register, it represents
+	  generic register.  So we can get a size-specified register object
+	  by #forType.
+
+	* net/loveruby/cflat/asm/Register.java: new method #forType.
+
+	* net/loveruby/cflat/asm/Assembler.java: refactoring: ptrcall ->
+	  callAbsolute.
+
+Thu Aug 19 17:00:04 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: allow safe
+	  implicit integer cast like "char c = 0" adhocly.
+
+Thu Aug 19 16:39:49 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/IntegerType.java: new method
+	  #isInDomain, #minValue, #maxValue.
+
+Tue May  6 20:42:04 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileBinaryOp): We must use shr for right-shift of unsigned
+	  value.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileBinaryOp): We must use seta/ae/b/be for comparison of
+	  unsigned value.
+
+Tue Apr  8 07:05:48 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: We must use div
+	  instruction for unsigned division.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: We must call
+	  cltd before idiv.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: define facade
+	  methods for Assembler class.
+
+	* net/loveruby/cflat/asm/Assembler.java: remove *q methods such as
+	  movq, addq, etc. by utilizing method overloading.
+
+Mon Mar 24 02:47:41 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: defvar -> defvars (again).
+
+Mon Mar 24 02:39:14 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: top_decls -> top_defs
+
+Sat Mar  1 20:06:33 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: use (new) CastNode
+	  constructor directly.
+
+	* net/loveruby/cflat/ast/CastNode.java: new constructor.
+
+Sun Feb 24 23:40:15 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: implement usual
+	  arithmetic conversion for BinaryOpNode.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: implement usual
+	  arithmetic conversion for OpAssignNode.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: implement usual
+	  arithmetic conversion for ++, --.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: new entry point
+	  TypeTable#check(AST).
+
+Sun Feb 24 19:58:45 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj (SPACES): "\v" is invalid
+	  escape sequence in JavaCC.
+
+Sun Feb 24 15:31:24 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj (INTEGER): 0xUL is invalid.
+
+	* net/loveruby/cflat/parser/Parser.jj (CHARACTER): 'aa' is
+	  invalid.
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: insert spaces
+	  after comma of character class.
+
+Mon Feb 18 06:12:14 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: TypeTable is
+	  useless.
+
+	* net/loveruby/cflat/compiler/Compiler.java: ditto.
+
+Mon Feb 18 06:07:13 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (mustBeScalar):
+	  checks if type is an integer, a pointer, or an array (previous
+	  #mustBeScalarAlike definition).
+
+	* net/loveruby/cflat/compiler/TypeChecker.java
+	  (expectsSameInteger, expectsComparableScalars): return immediately
+	  after first error.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (PrefixOpNode,
+	  SuffixOpNode): allow array parameter.
+
+	* net/loveruby/cflat/type/Type.java: new method #isScalar.
+
+	* net/loveruby/cflat/type/IntegerType.java: is a scalar.
+
+	* net/loveruby/cflat/type/ArrayType.java: is a scalar.
+
+	* net/loveruby/cflat/type/PointerType.java: is a scalar.
+
+Mon Feb 18 05:35:14 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (checkCond): cond
+	  expr might be an array.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (SwitchNode): cond
+	  expr should not be pointer.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: <</>> expects same
+	  integer.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: comparison
+	  operators accept arrays.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: "!" accepts a
+	  pointer and an array.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: new method
+	  #mustBeScalarAlike.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (mustBeInteger,
+	  mustBeScalar, mustBeScalarAlike): takes operator name.
+
+Mon Feb 18 04:10:40 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (mustBeScalar):
+	  array is a scalar.
+
+Mon Feb 18 04:08:46 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check returning
+	  void value.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: allow array LHS,
+	  only when LHS is a parameter.
+
+	* net/loveruby/cflat/ast/Entity.java: define #isParameter here.
+
+	* net/loveruby/cflat/ast/Variable.java: remove #isVariable,
+	  #isParameter.
+
+	* net/loveruby/cflat/ast/ExprNode.java: new method #isParameter.
+
+	* net/loveruby/cflat/ast/VariableNode.java: override it.
+
+Mon Feb 18 03:33:12 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (checkCond): cond
+	  expr might be an array, which is a parameter.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java
+	  (isInvalidReturnType): array is returnable.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (isInvalidLHSType):
+	  "unallocated array" means an array which is parameter.  Length
+	  does not matter.
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: should
+	  check an operand of ++/-- is assignable.
+
+Mon Feb 18 02:33:16 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: should always be
+	  NOT private.
+
+Mon Feb 18 02:30:44 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: add blanks.
+
+Tue Feb 12 06:49:39 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: should check
+	  duplicated type definition.
+
+	* net/loveruby/cflat/type/TypeTable.java: new method #isDefined.
+
+	* net/loveruby/cflat/type/TypeTable.java (put): reject duplicated
+	  type definition.
+
+	* test/recursivetypedef.cb: test duplicated typedef.
+
+	* test/test.sh: run it.
+
+Tue Feb 12 06:23:21 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/TypeTable.java (semanticCheck): check
+	  all types by checkRecursiveDefinition.  It is not efficient
+	  because checking char, short, int, long, ... is not needed, but is
+	  more reliable.
+
+	* net/loveruby/cflat/type/TypeTable.java
+	  (checkRecursiveDefinition): should traverse ArrayType.
+
+	* net/loveruby/cflat/type/TypeTable.java
+	  (checkRecursiveDefinition): should traverse ComplexType and
+	  ArrayType (and UserType which points these types) *at the same
+	  time*.
+
+Tue Feb 12 00:45:47 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: extract method
+	  #defineTypes again.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: define types by
+	  TypeTable#put here.  Get typeref and type from TypeDefinition
+	  nodes.
+
+	* net/loveruby/cflat/type/TypeTable.java: remove #define.  Use
+	  #put instead.
+
+	* net/loveruby/cflat/ast/TypeDefinition.java: remove #defineIn.
+	  Use #definingType instead.
+
+	* net/loveruby/cflat/ast/StructNode.java: ditto.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/TypedefNode.java: ditto.
+
+Tue Feb 12 00:35:37 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/TypeTable.java: remove deftype methods,
+	  use #put instead.
+
+	* net/loveruby/cflat/ast/StructNode.java: define type by myself,
+	  calling TypeTable#put directly.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/TypedefNode.java: ditto.
+
+Tue Feb 12 00:26:23 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: resolving
+	  VariableNode is useless, because it is equal to resolving
+	  DefinedVariable.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: define
+	  resolveNodeList, which is an alias of visitNodeList.
+
+Mon Feb 11 06:54:20 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option
+	  --dump-stmt, to dump only first statement of main.
+
+Mon Feb 11 06:33:10 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: unify newFileParser and
+	  newReader.
+
+Mon Feb 11 04:28:52 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java
+	  (pushScope): forgot to remove useless line.
+
+Mon Feb 11 04:26:04 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/LocalScope.java: new subclass of Scope.
+
+	* net/loveruby/cflat/ast/Scope.java: move local scope only methods
+	  to LocalScope class.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: local scope only
+	  methods are moved to LocalScope, do not need to disable
+	  #variables, #allVariables, ...
+
+	* net/loveruby/cflat/ast/Frame.java: is useless, removed.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: Frame ->
+	  LocalScope.
+
+	* net/loveruby/cflat/ast/BlockNode.java: Scope -> LocalScope.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: Frame
+	  removed.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: Scope
+	  -> LocalScope.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java
+	  (pushScope): check duplicated local variables.
+
+Mon Feb 11 03:59:19 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Scope.java: use LinkedHashMap to unify
+	  entities and entitiesMap (entities should be ordered).
+
+	* net/loveruby/cflat/ast/Frame.java: ditto.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: ditto.
+
+	* net/loveruby/cflat/ast/Scope.java: remove unused method
+	  #entities.  Use #variables instead.
+
+	* net/loveruby/cflat/ast/Frame.java: ditto.
+
+	* net/loveruby/cflat/ast/ConstantTable.java: use
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: remove useless
+	  code.
+
+Mon Feb 11 03:08:16 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Scope.java: ban all allocate* methods,
+	  privateEntitiesMap.  Use #declareEntity instead.
+
+	* net/loveruby/cflat/ast/Frame.java: ditto.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: ditto.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java (commonSymbols,
+	  globalVariables): static local variables are now in each Scopes,
+	  collect static local variables from them by myself.
+
+	* net/loveruby/cflat/ast/Entity.java: #defineIn removed.
+
+	* net/loveruby/cflat/ast/Variable.java: #defineIn removed.
+
+	* net/loveruby/cflat/ast/DefinedVariable.java: #defineIn removed.
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: #defineIn
+	  removed.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: #defineIn removed.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java: #defineIn
+	  removed.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: follow
+	  these changes.
+
+Mon Feb 11 00:17:28 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: add
+	  preproc tag.
+
+	* net/loveruby/cflat/ast/Scope.java: ditto.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: ditto.
+
+Sun Feb 10 22:33:15 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/asm/Reference.java: new constructor
+	  Reference(String) for instance.
+
+	* net/loveruby/cflat/ast/AST.java: #declarations should include
+	  vardecls.
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: #address should
+	  return variable symbol.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java:
+	  declarations may include variable declaration.
+
+	* test/vardecl.cb: test reference of declared external variable.
+
+Fri Feb  8 04:59:38 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: remove
+	  currentBreakTarget and currentContinueTarget to simplify.
+
+Fri Feb  8 04:46:14 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/JumpResolver.java
+	  (currentBreakTarget, currentContinueTarget): does not throw
+	  exception.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: add preproc tags.
+
+Sun Feb  3 18:37:21 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml: unify task: jar and compile.
+
+Sun Feb  3 18:36:52 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: extract
+	  method: new method addKnownTypedefs.
+
+Sun Feb  3 18:30:18 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java (dumpTokenList):
+	  specialToken handling was wrong.  We should trace t.specialToken
+	  while it becomes null, then follow t.next.
+
+	* net/loveruby/cflat/parser/Parser.jj: write token name for
+	  special tokens.
+
+Mon Jan 21 05:37:28 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: new command line
+	  option -v (show arguments of external command invocation).
+
+Mon Jan 21 05:28:46 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: new command line
+	  option -S (generate assembly source and quit).
+
+	* net/loveruby/cflat/compiler/Compiler.java: new command line
+	  option -c (assemble and quit).
+
+	* net/loveruby/cflat/compiler/Compiler.java: call GNU as and GNU
+	  ld directly, instead of gcc.
+
+	* net/loveruby/cflat/compiler/Compiler.java (commandMain):
+	  refactoring: extract method: parseOptions.
+
+	* net/loveruby/cflat/compiler/Compiler.java: refactoring:
+	  introduce new class Options and hold all command options in it.
+
+	* net/loveruby/cflat/compiler/Compiler.java: refactoring:
+	  #compileFile do all tasks by referencing an Options.
+
+Mon Jan 21 05:24:49 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/LibraryLoader.java: should reject
+	  recursive import.
+
+Mon Jan 21 02:51:02 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: produce Error for
+	  UnknownEncodingError.  Current Java runtime must know UTF-8
+	  encoding.
+
+Mon Jan 21 01:58:57 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: reorder member
+	  decl.
+
+Mon Jan 21 01:39:22 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: modify preproc tag.
+
+Mon Jan 21 01:24:22 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: change symbol name to fix
+	  compile error.
+
+Mon Jan 21 01:22:05 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: rename rule:
+	  defvars -> defvar.
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: extract new
+	  symbol defvar_list from block.
+
+Mon Jan 21 01:19:10 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Declarations.java: refactoring: new
+	  method #addDefvars.
+
+	* net/loveruby/cflat/parser/Parser.jj: use it.
+
+Mon Jan 21 00:42:50 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Parameter.java: simplify dump output.
+
+Sat Jan 19 07:22:29 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: rename lvar.
+
+Tue Jan 15 02:34:00 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: should generate special
+	  token for block comment, instead of just skipping.
+
+Tue Jan 15 02:31:14 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: LOOKAHEAD is useless here.
+
+Tue Jan 15 01:04:55 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml: read user defined property file from $HOME.
+
+Tue Jan 15 00:51:41 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml: now default task is "jar" instead of "compile".
+
+Tue Jan 15 00:48:47 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml (recompile): build jar file.
+
+Tue Jan 15 00:30:43 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml: new task test.
+
+	* build.xml: new task comptest.
+
+	* test/Makefile: new task compile.
+
+Tue Jan 15 00:21:38 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/test.sh: should be executable from any directory.
+
+Tue Jan 15 00:16:18 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* cbc: $basedir should be relative to cbc command.
+
+Tue Jan 15 00:11:08 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/cbc -> ./cbc
+
+Tue Jan 15 00:09:47 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml: new task recompile.
+
+	* build.xml: new task jar.
+
+	* build.xml: new task clean-build.
+
+	* build.xml: new task dist.
+
+	* build.properties: remove unused JJT properties.
+
+	* test/cbc: use jar file.
+
+	* test/Makefile
+
+Mon Jan 14 21:48:59 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/cbc: provide -I option to add load path.
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option -I.
+
+	* net/loveruby/cflat/parser/Parser.jj: allow nested library ID
+	  "a.b.c".
+
+	* net/loveruby/cflat/compiler/LibraryLoader.java: ditto.
+
+	* import/unistd.hb: declare fork, getpid, getppid.
+
+	* import/sys/types.hb: new file.
+
+	* test/fork.cb: test nested library ID "sys.types".
+
+Mon Jan 14 21:23:33 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* move *.hb files from test/ to import/.
+
+Mon Jan 14 21:22:26 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/string.hb: new file.
+
+	* test/strings.hb: new file.
+
+	* test/stddef.hb: new file.
+
+	* test/errno.hb: new file.
+
+	* test/stdio.hb: add more decls.
+
+Mon Jan 14 02:40:32 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: remove unused
+	  method #isFunction.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java: ditto.
+
+Mon Jan 14 02:21:22 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: unify IntegerLiteralNode
+	  and CharacterLiteralNode.
+
+	* net/loveruby/cflat/compiler/Visitor.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: ditto.
+
+	* net/loveruby/cflat/ast/CharacterLiteralNode.java: removed.
+
+	* net/loveruby/cflat/ast/IntegerLiteralNode.java: show typeNode
+	  member.
+
+Sun Jan 13 08:13:44 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java (parseFile): report
+	  errors if it is not a syntax error.
+
+	* net/loveruby/cflat/parser/Parser.jj: declare SyntaxException and
+	  FileException separately.
+
+Sun Jan 13 07:54:02 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option
+	  --debug-parser.
+
+	* net/loveruby/cflat/parser/Parser.jj: dump parsing process using
+	  JavaCC's tracing function.
+
+Sun Jan 13 06:52:52 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: throw
+	  SemanticError on invalid expr and catch it on each statement.
+
+	* test/test3.cb: make compilable.
+
+	* test/aref-semcheck2.cb: test nested invalid expr.
+
+	* test/test.sh: run aref-semcheck2.cb.
+
+Sun Jan 13 05:20:59 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/ArrayType.java (size): returns pointer
+	  size if the type is not allocated.
+
+	* test/test.sh: test integer.cb.
+
+	* test/test.sh: test initializer.cb.
+
+	* test/test.sh: test test2.cb.
+
+	* test/test.sh: test test3.cb.
+
+	* test/test.sh: test test4.cb.
+
+	* test/test2.cb: long long is not supported now.
+
+	* test/test4.cb: f -> main to make compilable.
+
+	* test/list-untested.rb: new tool.
+
+Sun Jan 13 04:48:28 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: fork
+	  DereferenceChecker, to reduce catch(SemanticError).
+
+	* net/loveruby/cflat/compiler/DereferenceChecker.java: new class.
+
+	* net/loveruby/cflat/ast/ExprNode.java (isAssignable,
+	  isDereferable): catch SemanticError which may occuer on
+	  type.isXXXX.
+
+	* net/loveruby/cflat/compiler/Visitor.java: refactoring: rename
+	  method: #resolve -> #visitNode.
+
+	* net/loveruby/cflat/compiler/Visitor.java: refactoring: rename
+	  method: #resolveNodeList -> #visitNodeList.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/Compiler.java: parse command line
+	  options more precisely.
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option --compile.
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option
+	  --dump-reference.
+
+	* net/loveruby/cflat/compiler/Compiler.java: new option
+	  --dump-semantic.
+
+	* net/loveruby/cflat/ast/VariableNode.java (dump): show resolved
+	  or not.
+
+	* net/loveruby/cflat/ast/TypeNode.java (dump): ditto.
+
+	* net/loveruby/cflat/ast/Dumper.java (printMember): ditto.
+
+Sun Jan 13 04:47:12 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/Type.java: make #isCompatible and
+	  #isCastable abstract.
+
+	* net/loveruby/cflat/type/VoidType.java: define #equals,
+	  #isSameType, #isCompatible, #isCastableTo.
+
+	* net/loveruby/cflat/type/ComplexType.java: define #isSameType,
+	  #isCompatible, #isCastableTo, #memberTypes.
+
+	* net/loveruby/cflat/type/ArrayType.java: define #isCompatible,
+	  #isCastableTo.
+
+	* net/loveruby/cflat/type/PointerType.java (isCompatible): void
+	  pointer is compatible with any pointer.
+
+	* net/loveruby/cflat/type/FunctionType.java: check parameter
+	  types.
+
+	* net/loveruby/cflat/ast/Params.java: define #types and
+	  #isSameType to be used from FunctionType.
+
+	* net/loveruby/cflat/ast/FixedParams.java: ditto.
+
+	* net/loveruby/cflat/ast/VarParams.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: new method #voidType.
+
+Sun Jan 13 04:34:30 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/unistd.hb: define _exit.
+
+Mon Jan  7 07:08:44 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: rename method:
+	  #loc -> #location.
+
+Mon Jan  7 02:22:34 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java (invoke): pass through
+	  stdout/stderr of child process.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: #register
+	  removed.  Use DSL method al(), cl(), eax() instead.
+
+	* net/loveruby/cflat/asm/Register.java: return "%al" for size 1 ax
+	  register.
+
+	* test/shunit.sh: allow to get stderr of testing command by
+	  setting environment variable SHUNIT_VERBOSE.
+
+Sun Jan  6 02:27:29 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/UnaryOpNode.java (_dump): show operator.
+
+	* net/loveruby/cflat/ast/BinaryOpNode.java (_dump): show operator.
+
+Sun Jan  6 00:33:34 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* Type class hierarchy grand restruct: retire Signed*Type,
+	  Unsigned*Type, Signed*Ref, Unsigned*Ref.
+
+	* net/loveruby/cflat/type/IntegerTypeRef.java: new class.  unify
+	  Signed*Ref, Unsigned*Ref.
+
+	* net/loveruby/cflat/type/IntegerType.java: unify Signed*Type,
+	  Unsigned*Type.
+
+	* net/loveruby/cflat/type/Unsigned*.java: removed.
+
+	* net/loveruby/cflat/type/Signed*.java: removed.
+
+	* net/loveruby/cflat/type/TypeRef.java (hashCode): calculate
+	  hashCode based on typeref name.
+
+	* net/loveruby/cflat/type/*TypeRef.java: follow it.
+
+	* net/loveruby/cflat/type/TypeTable.java: follow these changes.
+
+	* net/loveruby/cflat/parser/Parser.jj: ditto.
+
+Sat Jan  5 23:48:10 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* AST class hierarchy grand restruct: remove and unify many
+	  operator nodes.
+
+	* net/loveruby/cflat/ast/UnaryOpNode.java: unify arithmetic unary
+	  op nodes (+, -, !, ~).
+
+	* net/loveruby/cflat/ast/BinaryOpNode.java: unify almost all
+	  binary op nodes (+, -, *, /, %, &, |, ^, <<, >>) and comparison
+	  operators (==, !=, >, >=, <, <=).
+
+	* net/loveruby/cflat/ast/PrefixOpNode.java: new class.  unify
+	  prefix inc/dec.
+
+	* net/loveruby/cflat/ast/SuffixOpNode.java: new class.  unify
+	  suffix inc/dec.
+
+	* net/loveruby/cflat/ast/OpAssignNode.java: new class.  unify all
+	  *AssignNode.
+
+	* net/loveruby/cflat/parser/Parser.jj: follow these grand changes.
+
+	* net/loveruby/cflat/compiler/Visitor.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+	* net/loveruby/cflat/ast/DereferenceNode.java: ditto.
+
+	* net/loveruby/cflat/ast/LogicalAndNode.java: ditto.
+
+	* net/loveruby/cflat/ast/LogicalOrNode.java: ditto.
+
+	* net/loveruby/cflat/ast/AddressNode.java: ditto.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: ditto.
+
+Sat Jan  5 13:57:33 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: report error.
+
+	* net/loveruby/cflat/parser/Parser.jj: simplify error message.
+
+Sat Jan  5 13:23:57 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/MemberNode.java: #name -> #member.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: #name -> #member.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: follow changes.
+
+Sat Jan  5 13:20:32 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Declaration.java: removed.
+
+	* net/loveruby/cflat/ast/Definition.java: removed.
+
+	* net/loveruby/cflat/ast/Entity.java: inherits Node now.
+
+	* net/loveruby/cflat/ast/TypeDefinition.java: inherits Node now.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: do not depend on
+	  Declaration.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/ast/CaseNode.java: inherits StmtNode.
+
+Sat Jan  5 12:52:38 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/ExprNode.java: has all LHSNode methods.
+
+	* net/loveruby/cflat/ast/LHSNode.java: removed (methods merged
+	  into ExprNode).
+
+	* net/loveruby/cflat/ast/CastNode.java: should implement
+	  #isConstantAddress.
+
+	* net/loveruby/cflat/ast/DereferenceNode.java: does not implement
+	  LHSNode.
+
+	* net/loveruby/cflat/ast/ArefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/MemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/VariableNode.java: ditto.
+
+	* net/loveruby/cflat/ast/LiteralNode.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: cast not needed.
+
+	* test/cast3.cb: test cast on LHS.
+
+	* test/test.sh: run it.
+
+Sat Jan  5 12:23:25 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: show error location.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/ErrorHandler.java: ditto.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: ditto.
+
+	* net/loveruby/cflat/ast/Scope.java: ditto.
+
+	* net/loveruby/cflat/type/NamedType.java: introduce new common
+	  superclass of ComplexType and UserType.
+
+	* net/loveruby/cflat/type/ComplexType.java: inherit NamedType.
+
+	* net/loveruby/cflat/type/UserType.java: inherit NamedType.
+
+	* net/loveruby/cflat/type/StructType.java: memoise defined
+	  location.
+
+	* net/loveruby/cflat/type/UnionType.java: ditto.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: change define* methods
+	  interface to pass all definition informations.
+
+	* net/loveruby/cflat/ast/StructNode.java: follow it.
+
+	* net/loveruby/cflat/ast/UnionNode.java: follow it.
+
+	* net/loveruby/cflat/ast/TypedefNode.java: follow it.
+
+Sat Jan  5 10:34:24 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Node.java: all nodes must contain
+	  Location.
+
+	* net/loveruby/cflat/ast/*Node.java: ditto.
+
+	* net/loveruby/cflat/ast/Location.java: new class.
+
+	* net/loveruby/cflat/ast/Dumper.java (printClass): show location.
+
+	* net/loveruby/cflat/type/*Ref.java: support Location.
+
+	* net/loveruby/cflat/parser/Parser.jj: pass location to nodes.
+
+	* net/loveruby/cflat/parser/Parser.jj: long long removed.
+
+	* net/loveruby/cflat/type/SignedLongLongRef.java: ditto.
+
+	* net/loveruby/cflat/type/UnsignedLongLongRef.java: ditto.
+
+	* net/loveruby/cflat/type/SignedLongLongType.java: ditto.
+
+	* net/loveruby/cflat/type/UnsignedLongLongType.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: ditto.
+
+	* net/loveruby/cflat/ast/LiteralNode.java: introduce new
+	  superclass of all literal nodes.
+
+	* net/loveruby/cflat/ast/StmtNode.java: introduce new superclass
+	  of all statement nodes.
+
+	* net/loveruby/cflat/ast/Declaration.java: is subclass of Node.
+
+	* net/loveruby/cflat/ast/Dumpable.java: removed: Now declarations
+	  are subclass of Node.
+
+	* net/loveruby/cflat/ast/Dumper.java: follow new class hierarchy.
+
+	* net/loveruby/cflat/ast/DefinitionVisitor.java: removed: merge
+	  into ASTVisitor again.
+
+	* net/loveruby/cflat/compiler/Visitor.java: follow new class
+	  hierarchy.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+Sat Jan  5 08:00:26 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/test.sh: compile command by myself before run it.
+
+	* test/shunit.sh (assert_status, assert_error, assert_stdout):
+	  allow any number of arguments for command.
+
+	* test/Makefile: remove task "cbprograms".
+
+	* test/Makefile (clean): clean programs depending on svn:ignore
+	  list.
+
+Sat Jan  5 07:36:43 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/cast2.cb: test cast from long* to int*.
+
+	* test/test.sh: change result.
+
+Sat Jan  5 07:33:06 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (DereferenceNode): reduce compileLHS call.
+
+	* test/pointer4.cb: test derefering AddressNode.
+
+	* test/test.sh: run it.
+
+Sat Jan  5 07:21:18 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (compileLHS):
+	  support CastNode.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: do not warn
+	  incompatible cast, if it is castable.
+
+	* net/loveruby/cflat/type/IntegerType.java (isCastable): allow
+	  array.
+
+	* net/loveruby/cflat/type/Type.java (isCastable): use isCompatible
+	  for default implementation.
+
+	* net/loveruby/cflat/type/PointerType.java: forgot to add
+	  #isCompatible.
+
+	* net/loveruby/cflat/type/PointerType.java: forgot to add
+	  #isCastable.
+
+	* net/loveruby/cflat/type/PointerType.java (equals): reject type
+	  alias by using instanceof.
+
+	* net/loveruby/cflat/ast/CastNode.java: forward #isAssignable to
+	  base expr.
+
+	* test/cast2.cb: test cast of pointer.
+
+	* test/Makefile: build it.
+
+	* test/test.sh: test it.
+
+Sat Jan  5 06:51:34 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/pointer2.cb: test multiple level of pointer.
+
+	* test/array-semcheck2.cb -> array2.cb.
+
+	* test/pointer-semcheck1.cb -> pointer3.cb.
+
+	* test/Makefile: follow them.
+
+	* test/test.sh: ditto.
+
+Sat Jan  5 06:36:44 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: reject invalid RHS
+	  type explicitly.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: reject void
+	  paramters.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: allow all type of
+	  arrays for RHS.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (variableNode):
+	  generate address for allocated array on RHS.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (ArefNode):
+	  expects expr generates pointer by compile().
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileLHS/ArefNode): unallocated array is a pointer.
+
+	* net/loveruby/cflat/type/Type.java: new method #isPointerAlike.
+
+	* net/loveruby/cflat/type/ArrayType.java: implement it.
+
+	* net/loveruby/cflat/type/PointerType.java: implement it.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #comment, to
+	  add comment.
+
+	* test/array-semcheck2.cb: check assignment to unallocated array.
+
+	* test/array-semcheck2.cb: check dereference of unallocated array.
+
+	* test/Makefile: build it.
+
+	* test/test.sh: run it.
+
+Sat Jan  5 04:27:29 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/test.sh: new function assert_compile_error to check if
+	  compile error occured really (rejects runtime error).
+
+	* test/Makefile: remove task "errors".
+
+Sat Jan  5 04:05:19 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check if variable
+	  type is not void (gvar, lvar).
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check if parameter
+	  type is not void.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: allow unallocated
+	  array for parameter.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: refactoring:
+	  rename method: #resolve -> #check.
+
+Sat Jan  5 03:43:42 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/Type.java: #textize -> #toString.
+
+	* net/loveruby/cflat/type/IntegerType.java: ditto.
+
+	* net/loveruby/cflat/type/ComplexType.java: ditto.
+
+	* net/loveruby/cflat/type/StructType.java: ditto.
+
+	* net/loveruby/cflat/type/FunctionType.java: ditto.
+
+	* net/loveruby/cflat/type/VoidType.java: ditto.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/type/ArrayType.java: ditto.
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: ditto.
+
+	* net/loveruby/cflat/type/UnionType.java: ditto.
+
+	* net/loveruby/cflat/ast/Dumper.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+Fri Jan  4 08:30:55 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Dumper.java: specialize TypeNode
+	  printing.
+
+	* net/loveruby/cflat/ast/Params.java: show parameter list.
+
+	* net/loveruby/cflat/type/*TypeRef.java: define #toString.
+
+Fri Jan  4 08:01:31 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: implement command
+	  line option --dump-ast.
+
+	* net/loveruby/cflat/compiler/Compiler.java: implement command
+	  line option --dump-tokens.
+
+	* net/loveruby/cflat/ast/Dumper.java: new class; AST dumper.
+
+	* net/loveruby/cflat/ast/Dumpable.java: new interface; AST dumper
+	  interface.
+
+	* net/loveruby/cflat/ast/*.java: define #dump, #_dump.
+
+	* net/loveruby/cflat/asm/Assembler.java: fork
+	  utils/TextUtils.java.
+
+	* net/loveruby/cflat/utils/TextUtils.java: new file.
+
+	* test/stdlib.hb: new header file.
+
+	* test/unistd.hb: new header file.
+
+Fri Jan  4 03:23:34 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/struct-semcheck10.cb: test struct which contains void.
+
+	* test/union-semcheck10.cb: test union which contains void.
+
+	* test/array-semcheck1.cb: test array which contains void.
+
+	* test/test.sh: run them.
+
+Fri Jan  4 03:15:28 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: refactoring:
+	  unify gvar/lvar initializer resolver.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check gvar
+	  initializer.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: resolve
+	  gvar initializer.
+
+	* net/loveruby/cflat/ast/AST.java: new method #variables.
+
+	* test/initializer.cb: test variable initializer.
+
+	* test/stdio.hb: return type of printf/puts/putc is int.
+
+	* test/usertype.cb: ditto.
+
+	* test/funcptr.cb: ditto.
+
+Fri Jan  4 02:47:18 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Visitor.java: did not visit lvar
+	  initializer.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check lvar
+	  initializer.
+
+	* net/loveruby/cflat/ast/DefinedVariable.java: new method
+	  #setInitializer.
+
+	* net/loveruby/cflat/type/PointerType.java (isSameType): all array
+	  is same type (allocated arrays are rejected by LHS check).
+
+	* test/block.cb: was wrong test.
+
+	* test/assign.cb: add tests.
+
+	* test/test.sh: adjust output for assign.cb.
+
+Fri Jan  4 01:45:30 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java (PtrMemberNode):
+	  allow array for base expr.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (AssignNode):
+	  should not leave RHS value on stack (because of feature change).
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (VariableNode):
+	  load address for array, to support ptr = ary.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (ArefNode):
+	  dereference pointer, to support ptr[0].
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileLHS/ArefNode): ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileLHS/ArefNode): support non-LHS expr.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileLHS/ArefNode): support non-constant index.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileLHS/DereferenceNode): support non-LHS expr.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java
+	  (compileLHS/PtrMemberNode): support non-LHS expr.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (PrefixIncNode,
+	  PrefixDecNode, SuffixIncNode, SuffixDecNode): support pointer
+	  inc/dec.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: #size ->
+	  #allocSize.
+
+	* net/loveruby/cflat/type/Type.java: new method #allocSize, to
+	  support ptr = ary.
+
+	* net/loveruby/cflat/type/ArrayType.java: override #size and
+	  #allocSize.
+
+	* net/loveruby/cflat/ast/Entity.java: should define #allocSize,
+	  not #size.
+
+	* net/loveruby/cflat/asm/Register.java: should not handle AMD64
+	  registers.
+
+	* net/loveruby/cflat/asm/Assembler.java: should not handle >4 size
+	  operators.
+
+	* test/pointer-semcheck1.cb: test ptr = ary; ptr[0].
+
+	* test/deref-semcheck4.cb: test 1->memb.
+
+	* test/deref-semcheck5.cb: test ptr->y where y is not a member.
+
+	* test/Makefile: build pointer-semcheck1.
+
+	* test/test.sh: run them.
+
+Thu Jan  3 23:37:39 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/TypeTable.java: should use
+	  #getComplexType to dereference UserType into real ComplexType.
+
+	* test/union-semcheck9.cb: test recursive struct whose member is
+	  user type.
+
+	* test/struct-semcheck9.cb: test recursive union whose member is
+	  user type.
+
+	* test/test.sh: run them.
+
+Thu Jan  3 23:31:24 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: try semantic check
+	  and catch semantic errors (mainly thrown from *Node#type).
+
+	* net/loveruby/cflat/exception/SemanticError.java: new class.
+
+	* net/loveruby/cflat/type/ComplexType.java: throw SemanticError
+	  when no member found.
+
+	* net/loveruby/cflat/type/Type.java: #baseType throw SemanticError
+	  instead of Error.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: convert
+	  ClassCastException to SemanticError.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/MemberNode.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: check recursive typedef.
+
+	* net/loveruby/cflat/type/TypeTable.java: validate
+	  array/struct/union does not contain void.
+
+	* net/loveruby/cflat/type/UserType.java: #real -> #realType.
+
+	* test/struct-semcheck8.cb: test 1.memb.
+
+	* test/union-semcheck8.cb: test (1+"str").memb.
+
+	* test/Makefile: build them.
+
+	* test/test.sh: run them.
+
+Thu Jan  3 21:36:23 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check type by
+	  #isSameType, do not use #equals.  List uses #equals for identity
+	  check, PointerType.equals(UserType) should be false.  But type
+	  check expects PointerType.isSameType(UserType) should be true if
+	  the UserType is really a pointer.
+
+	* net/loveruby/cflat/type/Type.java: new method #isSameType.
+
+	* net/loveruby/cflat/type/IntegerType.java: ditto.
+
+	* net/loveruby/cflat/type/StructType.java: ditto.
+
+	* net/loveruby/cflat/type/FunctionType.java: ditto.
+
+	* net/loveruby/cflat/type/VoidType.java: ditto.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/type/ArrayType.java: ditto.
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+	* net/loveruby/cflat/type/UnionType.java: ditto.
+
+Thu Jan  3 20:51:47 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: reject LHS which
+	  has invalid type (struct, union, allocated array).
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: reject arguments
+	  which has invalid type (struct, union, allocated array).
+
+	* net/loveruby/cflat/type/Type.java: new method #isAllocatedArray.
+
+	* net/loveruby/cflat/type/ArrayType.java: override it.
+
+	* net/loveruby/cflat/type/ArrayType.java: new method #isAllocated.
+
+Thu Jan  3 20:37:53 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/ptrmemb.cb: test ptr->x where ptr is a pointer to union.
+
+	* test/ptrmemb.cb: test (*ptr).x where ptr is a pointer to struct.
+
+	* test/ptrmemb.cb: test (*ptr).x where ptr is a pointer to union.
+
+	* test/ptrtostruct.cb: merged to ptrmemb.cb.
+
+	* test/test.sh: remove ptrtostruct.
+
+Thu Jan  3 20:31:54 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* test/ptrtostruct.cb: test (*ptr).memb access.
+
+Thu Jan  3 20:26:01 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: <<, >> does not
+	  require same type of integers.  2 types of integers are OK.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: arrays and
+	  pointers are both dereferable (== indexable).  We can dereference
+	  both.
+
+	* net/loveruby/cflat/type/Type.java: #isIndexable ->
+	  #isDereferable.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/type/ArrayType.java: ditto.
+
+	* net/loveruby/cflat/ast/ExprNode.java: ditto.
+
+	* net/loveruby/cflat/type/Type.java: #isReferable ->
+	  #isDereferable.
+
+	* net/loveruby/cflat/type/ArrayType.java: ditto.
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/ast/ArefNode.java: ptr[0] should be allowed.
+	  Use #isDereferable instead of explict pointer check.
+
+	* net/loveruby/cflat/ast/DereferenceNode.java: override #type.
+
+	* net/loveruby/cflat/ast/ArefNode.java: remove cast for Type.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: #functionType should be
+	  called after checking isCallable, type check is not needed in
+	  #functionType.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: #baseType ->
+	  #dereferedType.
+
+	* net/loveruby/cflat/ast/MemberNode.java: reduce cast for Type.
+
+	* net/loveruby/cflat/type/Type.java: define #baseType here.
+
+	* net/loveruby/cflat/type/ArrayType.java: override #baseType
+	  (#base -> #baseType).
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: ditto.
+
+	* net/loveruby/cflat/type/PointerType.java: is not an integer.
+	  #isInteger removed.
+
+	* net/loveruby/cflat/type/ArrayTypeRef.java: #base -> #baseType.
+
+	* net/loveruby/cflat/type/PointerTypeRef.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: do not use cast methods,
+	  use true cast, since the real type is required here.
+
+	* test/usertype.cb: test user type.
+
+	* test/Makefile: build it.
+
+	* test/test.sh: run it.
+
+Thu Jan  3 18:00:10 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check if parameter
+	  type is valid.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check if argument
+	  type is valid.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check if lhs is
+	  assignable.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: reduce cast.
+
+	* net/loveruby/cflat/ast/Function.java: define #address here.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: ditto.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java: ditto.
+
+	* net/loveruby/cflat/ast/BlockNode.java: fix type error by cast.
+
+	* test/test.sh: test funcptr2.
+
+	* test/funcptr2.cb: test a function pointer to local (defined)
+	  function.
+
+Wed Jan  2 21:46:44 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: pass BlockNode to
+	  DefinedFunction.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: #body is a
+	  BlockNode, not Node.
+
+	* net/loveruby/cflat/ast/BlockNode.java: new method #tailStmt.
+
+Wed Jan  2 20:53:36 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* introduce ExprNode class for all expression nodes.
+
+Wed Jan  2 19:45:01 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check &expr is
+	  assignable.
+
+	* net/loveruby/cflat/ast/Node.java: new generic method
+	  #isAssignable.
+
+	* net/loveruby/cflat/ast/VariableNode.java: is assignable.
+
+	* net/loveruby/cflat/ast/DereferenceNode.java: is assignable.
+
+	* net/loveruby/cflat/ast/ArefNode.java: is assignable.
+
+	* net/loveruby/cflat/ast/MemberNode.java: is assignable.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: is assignable.
+
+Wed Jan  2 19:18:29 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check return type.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: set exiting
+	  function to ReturnNode.
+
+	* net/loveruby/cflat/ast/ReturnNode.java: new method #setExpr.
+
+	* net/loveruby/cflat/ast/ReturnNode.java: new method #function.
+
+	* net/loveruby/cflat/ast/ReturnNode.java: new method #setFunction.
+
+	* net/loveruby/cflat/ast/Function.java: new method #isVoid.
+
+	* net/loveruby/cflat/ast/Function.java: new method #returnType.
+
+	* net/loveruby/cflat/ast/Function.java: new method #functionType.
+
+	* net/loveruby/cflat/type/TypeRef.java: new method
+	  #getPointerTypeRef.
+
+	* net/loveruby/cflat/type/TypeRef.java: new method
+	  #getArrayTypeRef.
+
+	* net/loveruby/cflat/type/TypeRef.java: new method
+	  #getStructTypeRef.
+
+	* net/loveruby/cflat/type/TypeRef.java: new method
+	  #getUnionTypeRef.
+
+	* net/loveruby/cflat/type/TypeRef.java: new method
+	  #getFunctionTypeRef.
+
+	* net/loveruby/cflat/type/TypeRef.java: #isFunctionType ->
+	  #isFunction.
+
+	* net/loveruby/cflat/type/FunctionTypeRef.java: ditto.
+
+	* net/loveruby/cflat/type/TypeRef.java: #isVoidTypeRef -> #isVoid.
+
+	* net/loveruby/cflat/type/VoidTypeRef.java: ditto.
+
+	* net/loveruby/cflat/type/TypeRef.java: #isArrayTypeRef ->
+	  #isArray.
+
+	* net/loveruby/cflat/type/ArrayTypeRef.java: ditto.
+
+	* net/loveruby/cflat/type/Type.java: #isNumeric removed.
+
+	* net/loveruby/cflat/type/IntegerType.java: ditto.
+
+	* net/loveruby/cflat/type/Type.java: new method #getComplexType.
+
+	* net/loveruby/cflat/type/Type.java: new method #getStructType.
+
+	* net/loveruby/cflat/type/Type.java: new method #getUnionType.
+
+	* net/loveruby/cflat/type/Type.java: new method #getArrayType.
+
+	* net/loveruby/cflat/type/Type.java: new method #getPointerType.
+
+	* net/loveruby/cflat/type/Type.java: new method #getFunctionType.
+
+	* net/loveruby/cflat/type/UserType.java: override them.
+
+	* net/loveruby/cflat/type/PointerType.java (equals): reduce
+	  instanceof.
+
+	* net/loveruby/cflat/type/TypeTable.java: reduce instanceof/cast.
+
+	* test/test.sh: invoke following tests.
+
+	* test/defun-semcheck2.cb: test returning value from void
+	  function.
+
+	* test/defun-semcheck3.cb: test returning nothing from non-void
+	  function.
+
+	* test/defun-semcheck4.cb: test returning struct.
+
+	* test/defun-semcheck5.cb: test returning union.
+
+	* test/defun-semcheck6.cb: test returning user type, which is
+	  union.
+
+	* test/defun-semcheck7.cb: test returning user type, which is
+	  struct.
+
+	* test/defun-semcheck8.cb: test returning array.
+
+Wed Jan  2 04:03:10 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: allow ptr + int,
+	  ptr - int.
+
+	* net/loveruby/cflat/ast/BinaryOpNode.java: new method #setType.
+
+Wed Jan  2 03:17:46 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: pass ErrorHandler
+	  to TypeType#semanticCheck.
+
+	* net/loveruby/cflat/type/TypeTable.java (semanticCheck): check
+	  duplicated member.
+
+	* test/test.sh: invoke following test cases.
+
+	* test/struct-semcheck7.cb: test duplicated member on struct.
+
+	* test/union-semcheck7.cb: test duplicated member on union.
+
+Wed Jan  2 03:00:22 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: composite literal removed.
+
+	* net/loveruby/cflat/ast/CompositeLiteralNode.java: removed.
+
+Wed Jan  2 01:32:12 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: better error
+	  message.
+
+	* test/test.sh: run following tests.
+
+	* test/deref-semcheck1.cb: check if dereferencing int causes
+	  compile error.
+
+	* test/deref-semcheck2.cb: check if dereferencing char causes
+	  compile error.
+
+	* test/deref-semcheck3.cb: check if dereferencing struct causes
+	  compile error.
+
+Wed Jan  2 01:24:05 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check member
+	  validity for s.memb, s->memb, u.memb, u->memb.
+
+	* net/loveruby/cflat/type/Type.java: new method #isComplexType.
+
+	* net/loveruby/cflat/type/ComplexType.java: override it.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: should
+	  resolve variable initializer.
+
+	* net/loveruby/cflat/ast/DefinedVariable.java: new method
+	  #hasInitializer.
+
+	* test/test.sh: run tests.
+
+	* test/struct-semcheck5.cb: check if member is valid on s.memb.
+
+	* test/struct-semcheck6.cb: check if member is valid on
+	  sptr->memb.
+
+	* test/union-semcheck5.cb: check if member is valid on u.memb.
+
+	* test/union-semcheck6.cb: check if member is valid on uptr->memb.
+
+Wed Jan  2 00:38:48 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check aref base
+	  expr and index expr.
+
+	* net/loveruby/cflat/ast/Node.java: new method #isIndexable.
+
+	* net/loveruby/cflat/type/Type.java: new method #isIndexable.
+
+	* net/loveruby/cflat/type/ArrayType.java: override it.
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+	* test/test.sh: test aref and funcall semantic check.
+
+	* test/aref-semcheck.cb: check if 1[0] causes error.
+
+	* test/funcall-semcheck2.cb: check if 1() causes error.
+
+Wed Jan  2 00:22:51 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check function
+	  arguments.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: rename method: #args ->
+	  #argument.
+
+	* net/loveruby/cflat/compiler/Visitor.java: ditto.
+
+	* net/loveruby/cflat/ast/Params.java: new method #argc, #minArgc.
+
+	* net/loveruby/cflat/ast/FixedParams.java: ditto.
+
+	* net/loveruby/cflat/ast/VarParams.java: ditto.
+
+	* net/loveruby/cflat/ast/Node.java: new method #isCallable.
+
+	* net/loveruby/cflat/type/FunctionType.java: new method
+	  #acceptsArgc.
+
+	* net/loveruby/cflat/type/FunctionType.java: new method
+	  #paramTypes.
+
+	* net/loveruby/cflat/type/Type.java: new method #isCallable.
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+Tue Jan  1 23:21:22 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: create TypeTable
+	  here.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: accepts
+	  TypeTable and ErrorHandler.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: set type of
+	  AddressNode.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: warn incompatible
+	  cast.
+
+	* net/loveruby/cflat/compiler/ErrorHandler.java: modify message
+	  (error -> warning).
+
+	* net/loveruby/cflat/parser/Parser.jj: rename variable: handler ->
+	  errorHandler.
+
+	* net/loveruby/cflat/ast/AST.java: do not contain TypeTable.
+
+	* net/loveruby/cflat/ast/ComplexTypeDefinition.java: new method
+	  #type.
+
+	* net/loveruby/cflat/ast/StructNode.java: ditto.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/AddressNode.java: receive Type from
+	  TypeChcker.
+
+	* net/loveruby/cflat/type/TypeTable.java: new method #pointerTo.
+
+	* net/loveruby/cflat/type/IntegerType.java (isCompatible): check
+	  if self is compatible with other side (be able to cast to other
+	  implicitly).
+
+	* net/loveruby/cflat/type/IntegerType.java (isCastableTo): allow
+	  explicit cast if type of type is same (integer/pointer).
+
+	* net/loveruby/cflat/type/PointerType.java: implement #equals.
+
+Tue Jan  1 21:56:19 2008  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: invoke TypeChecker.
+
+	* net/loveruby/cflat/compiler/TypeChecker.java: check type
+	  (incomplete).
+
+	* net/loveruby/cflat/type/Type.java: new method #isCompatible,
+	  #isCastableTo.
+
+	* net/loveruby/cflat/type/IntegerType.java: override them.
+
+	* net/loveruby/cflat/type/UnsignedCharType.java: change textize
+	  result.
+
+	* net/loveruby/cflat/type/UnsignedLongType.java: ditto.
+
+	* net/loveruby/cflat/type/UnsignedIntType.java: ditto.
+
+	* net/loveruby/cflat/type/UnsignedShortType.java: ditto.
+
+	* net/loveruby/cflat/ast/AbstractAssignNode.java: new method
+	  #setRHS.
+
+	* net/loveruby/cflat/ast/AssignNode.java: is now an
+	  AbstractAssignNode.
+
+	* net/loveruby/cflat/ast/BinaryOpNode.java: new methods #setLeft,
+	  #setRight.
+
+	* net/loveruby/cflat/ast/FuncallNode.java (type): does not rely on
+	  #function (can get type of non-static function).
+
+	* net/loveruby/cflat/ast/CondExprNode.java: new methods
+	  #setThenBody, #setElseBody.
+
+	* net/loveruby/cflat/ast/TypeNode.java: new constructor by Type.
+
+Wed Dec 26 06:12:26 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj (expr10): then expr is
+	  expr().
+
+Wed Dec 26 02:46:32 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: 5-1-1 should be 3, not 5.
+
+	* test/test.sh: test op association.
+
+	* test/assoc.cb: new test case.
+
+	* test/Makefile: build it.
+
+Tue Dec 25 05:53:19 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj (fixedparams,
+	  fixedparam_typerefs, args): simplify lookahead.
+
+Tue Dec 25 02:09:35 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: expr0 -> expr1, expr1 ->
+	  expr2, ...
+
+Mon Dec 24 18:04:08 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: use better identifier.
+
+Mon Dec 10 06:51:39 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: rename rule:
+	  memberlist -> member_list.
+
+Mon Dec 10 06:45:13 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: rename rule:
+	  ifstmt -> if_stmt, etc.
+
+Mon Dec 10 06:36:33 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: fix&test term/primary
+	  change.
+
+	* net/loveruby/cflat/parser/Parser.jj: remove useles LOOKAHEADs.
+
+Mon Dec 10 04:57:38 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: add <EOF> explicitly.
+
+Mon Dec 10 03:09:53 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test/test.sh: test function pointer.
+
+Mon Dec 10 03:07:34 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: too few
+	  dereference to call function from pointer.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java: needs "$"
+	  (immediate value) prefix to get undefined function address.
+
+Mon Dec 10 02:35:23 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: support function pointer.
+
+	* net/loveruby/cflat/parser/Parser.jj: parse function type.
+
+	* net/loveruby/cflat/parser/Parser.jj: Function's type is a
+	  pointer to a function.
+
+	* net/loveruby/cflat/type/TypeRef.java: new method
+	  #isFunctionType.
+
+	* net/loveruby/cflat/type/FunctionType.java (textize): show
+	  parameter types.
+
+	* net/loveruby/cflat/type/FunctionTypeRef.java: new file.
+
+	* net/loveruby/cflat/type/TypeTable.java (get): resolve
+	  FunctionTypeRef.
+
+	* net/loveruby/cflat/ast/Params.java: refactoring: rename method:
+	  variables -> parameters.
+
+	* net/loveruby/cflat/ast/FixedParams.java: ditto.
+
+	* net/loveruby/cflat/ast/VarParams.java: ditto.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: ditto.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java: ditto.
+
+	* net/loveruby/cflat/ast/Params.java: new method #equals.
+
+	* net/loveruby/cflat/ast/FixedParams.java: ditto.
+
+	* net/loveruby/cflat/ast/VarParams.java: ditto.
+
+	* net/loveruby/cflat/ast/Params.java: new method #internTypes.
+
+	* net/loveruby/cflat/ast/FixedParams.java: ditto.
+
+	* net/loveruby/cflat/ast/VarParams.java: ditto.
+
+	* net/loveruby/cflat/ast/Params.java: new method #typeRefs.
+
+	* net/loveruby/cflat/ast/FixedParams.java: ditto.
+
+	* net/loveruby/cflat/ast/VarParams.java: ditto.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java (address): does
+	  not need symbol prefix "_".
+
+	* net/loveruby/cflat/asm/Assembler.java: do not escape printable
+	  chars.
+
+	* test/funcptr.cb: test function pointer (not passed yet).
+
+	* test/Makefile: build it.
+
+Sun Dec  9 23:47:32 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: accept arbitrary expression
+	  for base pointer.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: ditto.
+
+	* net/loveruby/cflat/compiler/Visitor.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support function
+	  pointer (not tested yet).
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support prefix
+	  increment (not tested yet).
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support prefix
+	  decrement (not tested yet).
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #ptrcall to
+	  support function pointer.
+
+Sun Dec  9 23:04:04 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: parse composite literal
+	  ({1,2,3,...}) as variable initializer or RHS.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: compile
+	  ptr->memb as LHS.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: compile
+	  ptr->memb as RHS.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: optimize *ptr
+	  (reduce 1 mov).
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: refactoring:
+	  rename method: visitComplexType -> resolveComplexType.
+
+	* net/loveruby/cflat/ast/DereferenceNode.java: remove FIXME tag.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: implements LHSNode.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: new method
+	  #isConstantAddress, #address, #offset.
+
+	* net/loveruby/cflat/ast/MemberNode.java: refactoring: new method
+	  #baseType.
+
+	* net/loveruby/cflat/ast/CompositeLiteralNode.java: new class.
+
+	* test/ptrmemb.cb: test ptr->memb (as LHS, RHS).
+
+	* test/Makefile: build it.
+
+	* test/test.sh: run it.
+
+Sun Dec  9 20:49:08 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: support UTF-8 input.
+
+	* build.properties.mbp: new file.
+
+	* test/mbc.cb: test multibyte input.
+
+	* test/Makefile: build it.
+
+Tue Dec  4 11:45:59 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: change rule order.
+
+Tue Dec  4 10:44:42 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: refactoring: clean
+	  assign().
+
+Mon Dec  3 01:39:45 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: allow multiple defvar in
+	  one statement.
+
+	* test/defvar.cb: test it.
+
+	* test/assign.cb: test cascaded assignment: x=y=1.
+
+Sun Dec  2 19:31:33 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test/funcall-semcheck.cb: test calling function existence check.
+
+Sat Dec  1 23:32:04 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: output error message.
+
+	* test/cast.cb: test cast expr.
+
+	* test/block.cb: test immediate block.
+
+Sat Dec  1 23:07:13 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Variable.java: is now superclass of
+	  Defined/Undefined variable.
+
+	* net/loveruby/cflat/ast/DefinedVariable.java: new file.
+
+	* net/loveruby/cflat/ast/UndefinedVariable.java: new file.
+
+	* net/loveruby/cflat/ast/DefinitionVisitor.java: support them.
+
+	* net/loveruby/cflat/ast/Declarations.java: holds vardecls.
+
+	* net/loveruby/cflat/parser/Parser.jj: generate Defined/Undefined
+	  Variable.
+
+	* net/loveruby/cflat/ast/Parameter.java: inherits DefinedVariable.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: follow changes.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: is now superclass of
+	  Defined/Undefined functio.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: new file.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java: new file.
+
+	* net/loveruby/cflat/ast/Scope.java: warn unused variable.
+
+	* net/loveruby/cflat/ast/Entity.java: add reference counter.
+
+Sat Dec  1 21:06:25 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: check
+	  duplicated parameter.
+
+	* net/loveruby/cflat/compiler/Compiler.java: pass ErrorHandler to
+	  resolver.
+
+	* net/loveruby/cflat/ast/Scope.java: ditto.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: ditto.
+
+	* test/test.sh: check break out of loop.
+
+	* test/test.sh: check continue out of loop.
+
+	* test/test.sh: check duplicated parameter.
+
+Sat Dec  1 20:20:34 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: implement switch stmt.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: resolve break
+	  from switch.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: compile switch
+	  stmt.
+
+	* net/loveruby/cflat/compiler/Visitor.java: visit SwitchNode,
+	  CaseNode.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java; dito.
+
+	* net/loveruby/cflat/ast/SwitchNode.java: new file.
+
+	* net/loveruby/cflat/ast/CaseNode.java: new file.
+
+	* net/loveruby/cflat/ast/BreakableStmt.java: new file.
+
+	* net/loveruby/cflat/ast/ContinueableStmt.java: new file.
+
+	* net/loveruby/cflat/ast/LoopNode.java: is breakable and
+	  continueable.
+
+	* net/loveruby/cflat/parser/Parser.jj: implement goto stmt.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: resolve goto
+	  jump.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: compile
+	  GotoNode.
+
+	* net/loveruby/cflat/compiler/Visitor.java: visit GotoNode.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java; ditto.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: manage goto labels.
+
+	* net/loveruby/cflat/ast/GotoNode.java: new file.
+
+	* net/loveruby/cflat/ast/LabelNode.java: new file.
+
+	* net/loveruby/cflat/parser/Parser.jj: support recursive import.
+
+	* net/loveruby/cflat/compiler/LibraryLoader.java: new file.
+
+	* net/loveruby/cflat/ast/AST.java: ditto.
+
+	* net/loveruby/cflat/ast/Declarations.java: new method #add.
+
+	* net/loveruby/cflat/compiler/Compiler.java: support error
+	  handling.
+
+	* net/loveruby/cflat/compiler/ErrorHandler.java: new file.
+
+	* net/loveruby/cflat/exception/SemanticException.java: new file.
+
+	* net/loveruby/cflat/exception/SyntaxException.java: new file.
+
+	* net/loveruby/cflat/exception/CompileException.java: new file.
+
+	* net/loveruby/cflat/exception/IPCException.java: new file.
+
+	* net/loveruby/cflat/exception/FileException.java: new file.
+
+Sun Nov 25 16:20:41 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test: test semantic checking on union.
+
+Sun Nov 25 14:17:21 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test/struct-semcheck.cb: recursive struct definition with
+	  pointer is harmless.
+
+Sun Nov 25 14:13:32 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: check recursive
+	  definition of struct/union.
+
+	* net/loveruby/cflat/type/TypeTable.java: ditto.
+
+	* net/loveruby/cflat/type/ComplexType.java: ditto.
+
+	* test: test it.
+
+Sun Nov 25 12:39:42 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: support a?b:c.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/Visitor.java: ditto.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: ditto.
+
+	* net/loveruby/cflat/ast/CondExprNode.java: new file.
+
+	* test: test it.
+
+	* test: test &&, ||.
+
+Sun Nov 25 11:55:56 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: support "\000" style octal
+	  escape sequence in string/character literas.
+
+	* net/loveruby/cflat/asm/Assembler.java: GNU as cannot parse \a.
+
+	* test: test it.
+
+Sun Nov 25 09:36:17 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: support octal integer
+	  literal.
+
+	* net/loveruby/cflat/parser/Parser.jj: support heximal integer
+	  literal.
+
+	* net/loveruby/cflat/parser/Parser.jj: support U/UL/L integer
+	  literal suffix.
+
+	* net/loveruby/cflat/type/ArrayTypeRef.java: reject negative
+	  length of array.
+
+	* test: test octal/heximal integer literals.
+
+Sun Nov 25 07:40:49 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/DoWhileNode.java: new node.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: support do...while.
+
+	* net/loveruby/cflat/compiler/Visitor.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: ditto.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: ditto.
+
+	* net/loveruby/cflat/parser/Parser.jj: ditto.
+
+	* test: test it.
+
+Sun Oct 14 20:27:39 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test/charops.cb: new file.
+
+	* test/ucharops.cb: new file.
+
+	* test/shortops.cb: new file.
+
+	* test/ushortops.cb: new file.
+
+	* test/intops.cb: new file.
+
+	* test/uintops.cb: new file.
+
+	* test/longops.cb: new file.
+
+	* test/ulongops.cb: new file.
+
+Sun Oct 14 18:06:15 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support struct.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support union.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support array.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support pointer.
+
+	* net/loveruby/cflat/ast/ArefNode.java: implement LHSNode.
+
+	* net/loveruby/cflat/ast/DereferenceNode.java: ditto.
+
+	* net/loveruby/cflat/ast/LHSNode.java: ditto.
+
+	* net/loveruby/cflat/ast/MemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/VariableNode.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: create array type on
+	  demand.
+
+	* net/loveruby/cflat/type/ComplexType.java: set member offset on
+	  demand.
+
+	* net/loveruby/cflat/type/StructType.java: ditto.
+
+	* net/loveruby/cflat/type/UnionType.java: ditto.
+
+	* net/loveruby/cflat/ast/Slot.java: ditto.
+
+	* net/loveruby/cflat/type/Type.java: #size returns long.
+
+	* net/loveruby/cflat/type/ArrayTypeRef.java: ditto.
+
+	* net/loveruby/cflat/type/ArrayType.java: ditto.
+
+	* net/loveruby/cflat/type/IntegerType.java: ditto.
+
+	* net/loveruby/cflat/type/FunctionType.java: ditto.
+
+	* net/loveruby/cflat/type/PointerType.java: ditto.
+
+	* net/loveruby/cflat/type/UserType.java: ditto.
+
+	* net/loveruby/cflat/type/VoidType.java: ditto.
+
+	* net/loveruby/cflat/asm/Assembler.java: ditto.
+
+	* net/loveruby/cflat/asm/Label.java: new method #add.
+
+	* net/loveruby/cflat/asm/SimpleAddress.java: ditto.
+
+	* net/loveruby/cflat/asm/Register.java: ditto.
+
+	* net/loveruby/cflat/asm/CompositeAddress.java: ditto.
+
+	* net/loveruby/cflat/asm/ImmediateValue.java: dito.
+
+	* net/loveruby/cflat/asm/AsmEntity.java: ditto.
+
+	* net/loveruby/cflat/asm/Reference.java: ditto.
+
+	* test/struct.cb: test struct.
+
+	* test/union.cb: test union.
+
+	* test/array.cb: test array.
+
+	* test/pointer.cb: test pointer.
+
+Sun Oct  7 20:29:54 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (visit(IfNode)):
+	  label was wrong.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (visit(ForNode)):
+	  forgot continue label.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: did not start
+	  code.
+
+	* net/loveruby/cflat/ast/ContinueNode.java (targetLabel): null
+	  check.
+
+	* net/loveruby/cflat/ast/BreakNode.java: ditto.
+
+	* test/if1.cb: test if...else.
+
+	* test/if2.cb: test if.
+
+	* test/while1.cb: test while(0).
+
+	* test/while2.cb: test while(1).
+
+	* test/while3.cb: test while(i).
+
+	* test/while-break.cb: test while + break.
+
+	* test/while-continue.cb: test while + continue.
+
+	* test/for1.cb: test for.
+
+	* test/for-break.cb: test for + break.
+
+	* test/for-continue.cb: test for + continue.
+
+Sun Oct  7 18:49:49 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/LogicalNotNode.java: define #type.
+
+	* net/loveruby/cflat/ast/ArefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/CastNode.java: ditto.
+
+	* net/loveruby/cflat/ast/MemberNode.java: ditto.
+
+	* net/loveruby/cflat/ast/PtrMemberNode.java: ditto.
+
+	* net/loveruby/cflat/type/ComplexType.java: new method
+	  #memberType.
+
+Sun Oct  7 18:33:58 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/AbstractAssignNode.java: define #type.
+
+	* test/opassign.cb: test +=, -=, *=, /=, %=, &=, |=, ^=, >>=, <<=.
+
+	* test/inc.cb: test ++.
+
+	* test/dec.cb: test --.
+
+Sun Oct  7 18:18:34 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test/eq.cb: test ==.
+
+	* test/neq.cb: test !=.
+
+	* test/lt.cb: test <.
+
+	* test/lteq.cb: test <=.
+
+	* test/gt.cb: test >.
+
+	* test/gteq.cb: test >=.
+
+Sun Oct  7 18:03:25 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: <</>> requires
+	  exactly cx (not ecx).
+
+	* test/lshift.cb: test <<.
+
+	* test/rshift.cb: test >>.
+
+Sun Oct  7 17:52:03 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test/logicalnot.cb: test !.
+
+	* test/unaryplus.cb: test +@.
+
+	* test/unaryminus.cb: test -@.
+
+Sun Oct  7 17:44:51 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test/bitand.cb: test &.
+
+	* test/bitor.cb: test |.
+
+	* test/bitxor.cb: test ^.
+
+	* test/bitnot.cb: test ~.
+
+Sun Oct  7 17:28:51 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test/funcall5.cb: test more arguments.
+
+	* test/mul.cb: test *.
+
+	* test/div.cb: test /.
+
+	* test/mod.cb: test %.
+
+Sun Oct  7 16:22:29 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: output error message
+	  when as failed.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java
+	  (pushScope): handle private variables.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support static
+	  local variable (use Variable#symbol instead of #name).
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: definedVariable
+	  -> globalVariable.
+
+	* net/loveruby/cflat/ast/Variable.java: new method #symbol.
+
+	* net/loveruby/cflat/ast/Variable.java: #isDefined ->
+	  #isInitialized.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/ast/Variable.java: new method #setSequence.
+
+	* net/loveruby/cflat/ast/AST.java (definedVariables,
+	  commonSymbols): should get list from ToplevelScope, not
+	  Declarations.
+
+	* net/loveruby/cflat/ast/Scope.java: holds private variables in
+	  privateEntities/privateEntitiesMap separately.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: ditto.
+
+	* test/slvar.cb: test static local variable.
+
+	* test/slcomm.cb: test static local variable without initializer.
+
+Sun Oct  7 14:26:36 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: shrink stack
+	  after return (cdecl).
+
+	* net/loveruby/cflat/ast/FuncallNode.java: new method #type.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: new method #numArgs.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #subq.
+
+	* test/funcall4.cb: test stack rollback on cdecl.
+
+	* test/add.cb: test +.
+
+	* test/sub.cb: test -.
+
+Sun Oct  7 12:52:17 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support lvar
+	  initializer.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support common
+	  symbols.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: support global
+	  variables.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: should resolve
+	  lvar initializer.
+
+	* net/loveruby/cflat/ast/Entity.java: new method #size.
+
+	* net/loveruby/cflat/ast/Entity.java: new method #alignment.
+
+	* net/loveruby/cflat/ast/Variable.java: new method #isDefined.
+
+	* net/loveruby/cflat/ast/Variable.java: #address holds AsmEntity,
+	  instead of true Address (to hold Label).
+
+	* net/loveruby/cflat/ast/AST.java: new method #definedVariables.
+
+	* net/loveruby/cflat/ast/AST.java: new method #commonSymbols.
+
+	* net/loveruby/cflat/ast/Frame.java: number of local variables are
+	  long, not int.
+
+	* net/loveruby/cflat/asm/Assembler.java: define more pseudo
+	  operators.
+
+	* test: test lvar initializer.
+
+	* test: test (public/private) common symbols.
+
+	* test: test (public/private) global variables.
+
+Sun Oct  7 10:27:12 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: more efficient lwsp scan.
+
+	* net/loveruby/cflat/compiler/Compiler.java: resolve reference
+	  before type.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: remove
+	  useless import.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: resolve local
+	  variables first.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: allocate local
+	  variables.
+
+	* net/loveruby/cflat/ast/DefinedFunction.java: new method
+	  #localVariables.
+
+	* net/loveruby/cflat/ast/Scope.java: new method #variables.
+
+	* net/loveruby/cflat/ast/Scope.java: new method #allVariables.
+
+	* net/loveruby/cflat/ast/Scope.java: #allChildren does not include
+	  self.
+
+	* net/loveruby/cflat/ast/AssignNode.java: new method #type.
+
+	* net/loveruby/cflat/ast/Node.java: #type throws error always.
+
+	* net/loveruby/cflat/ast/VariableNode.java (entity, type,
+	  typeNode): check if entity is null.
+
+	* net/loveruby/cflat/ast/TypeNode.java: new method #isResolved.
+
+	* test: test paramters and local variables.
+
+Sun Oct  7 04:36:56 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: fix coding style.
+
+Sat Sep 15 16:09:22 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: split resword/ident/number
+	  rules.
+
+Fri Sep 14 13:18:03 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: refactoring:
+	  r(Type,String) -> reg(String,Type).
+
+Fri Sep 14 09:30:25 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: refactoring: change
+	  function order.
+
+Fri Sep 14 18:23:30 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: use JumpResolver.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: fork
+	  JumpResolver.java.
+
+	* net/loveruby/cflat/compiler/JumpResolver.java: new file.
+
+Fri Sep 14 09:20:02 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/StructType.java: remove useless import.
+
+Sun Jul 29 20:51:26 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java (prologue):
+	  allocate parameters.
+
+	* test/test.sh: test it.
+
+Sun Jul 29 20:07:55 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test: add funcall tests.
+
+Sun Jul 29 20:05:46 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test: add basic tests.
+
+Sun Jul 29 19:36:47 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: convert static
+	  methods into instance methods.
+
+Sun Jul 29 19:31:32 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: generate BASENAME.s
+	  and BASENAME for source file BASENAME.cb.
+
+Tue Jul 17 06:52:16 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: assemble.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: generate
+	  constants.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: generate valid
+	  assembly.
+
+	* net/loveruby/cflat/parser/Parser.jj: string literal wrongly
+	  contained '"' at top.
+
+	* net/loveruby/cflat/parser/Parser.jj: AST should hold source file
+	  name.
+
+	* net/loveruby/cflat/ast/AST.java: ditto.
+
+	* net/loveruby/cflat/ast/ConstantTable.java: #strings -> #entries.
+
+	* net/loveruby/cflat/ast/ConstantEntry.java: holds a Label.
+
+	* net/loveruby/cflat/ast/StringLiteralNode.java (#label): returns
+	  valid label.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #_section.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #_type.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #_size.
+
+	* net/loveruby/cflat/asm/Assembler.java: new method #_string.
+
+	* net/loveruby/cflat/asm/Assembler.java: better output.
+
+Mon Jul 16 20:27:53 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* test: new directory.
+
+	* test{1,2,3,4}.cb, stdio.hb, stdlib.hb: moved under test/.
+
+Mon Jul 16 20:23:15 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml: add source="1.4" option.
+
+	* net/loveruby/cflat/**/*.java: change to support Java2 SE 1.4.
+
+Mon Jul  2 05:29:54 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/AST.java: remove debug print.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/Compiler.java: ditto.
+
+Mon Jul  2 05:27:42 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: import libraries.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java
+
+	* net/loveruby/cflat/ast/AST.java: ditto.
+
+	* net/loveruby/cflat/parser/Parser.jj: add declfile parser.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java: is an Entity,
+	  instead of Declaration.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: ditto.
+
+	* net/loveruby/cflat/ast/DefinitionVisitor.java: ditto.
+
+	* net/loveruby/cflat/ast/Definition.java: ditto.
+
+	* net/loveruby/cflat/ast/Declaration.java: ditto.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: use AsmEntity
+	  instead of Address.
+
+	* net/loveruby/cflat/ast/VariableNode.java: ditto.
+
+	* net/loveruby/cflat/ast/Entity.java: ditto.
+
+	* net/loveruby/cflat/ast/LHSNode.java: ditto.
+
+	* net/loveruby/cflat/ast/Node.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: put VoidType by default.
+
+	* net/loveruby/cflat/asm/Assembler.java: add \n for each lines.
+
+	* test1.cb: import stdio.
+
+	* stdlib.hb: new file.
+
+	* stdio.hb: new file.
+
+Mon Jul  2 04:04:57 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Function.java -> DefinedFunction.java.
+
+	* net/loveruby/cflat/ast/UndefinedFunction.java: new file.
+
+	* net/loveruby/cflat/ast/Function.java: new file (is now
+	  interface).
+
+	* net/loveruby/cflat/ast/*.java: ditto.
+
+	* net/loveruby/cflat/compiler/*.java: ditto.
+
+	* net/loveruby/cflat/parser/Parser.jj: ditto.
+
+Mon Jul  2 00:37:51 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: dispatch
+	  TypeResolver.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: compile
+	  condition was inversed.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: resolve literals.
+
+	* net/loveruby/cflat/ast/IntegerLiteralNode.java: wrong infinite
+	  recursion.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: raise error when
+	  symbol cannot be resolved.
+
+	* net/loveruby/cflat/type/PointerTypeRef.java: new method #base.
+
+	* net/loveruby/cflat/type/TypeTable.java: resolve pointer type
+	  ref.
+
+Mon Jul  2 00:09:20 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* fix all compile errors.
+
+Sun Jul  1 22:58:00 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* move net/loveruby/cflat/compiler/SimpleAddress.java, Label.java,
+	  Register.java, Address.java, CompositeAddress.java,
+	  LabelPool.java, ImmediateValue.java, Assembler.java,
+	  AsmEntity.java in to net/loveruby/cflat/asm/.
+
+Sun Jul  1 22:52:25 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/**/*.java: fix many compile errors.
+
+Sun Jul  1 21:14:24 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Visitor.java: new common superclass
+	  of LocalReferenceResolver, TypeResolver.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: ditto.
+
+	* net/loveruby/cflat/compiler/TypeResolver.java: new file.
+
+	* net/loveruby/cflat/compiler/Compiler.java: generate assembly
+	  code.
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: fix some compile
+	  errors.
+
+	* net/loveruby/cflat/compiler/Assembler.java: fix some compile
+	  errors.
+
+	* net/loveruby/cflat/compiler/Register.java: is not abstract
+	  class.
+
+	* net/loveruby/cflat/compiler/ImmediateAddress.java ->
+	  ImmediateValue.java.
+
+	* net/loveruby/cflat/compiler/Label.java: new constructor
+	  init(String).
+
+	* net/loveruby/cflat/parser/Parser.jj: introduce Declarations.
+
+	* net/loveruby/cflat/ast/AST.java: ditto.
+
+	* net/loveruby/cflat/ast/Declarations.java: new file.
+
+	* net/loveruby/cflat/ast/DefinitionVisitor.java: new file.
+
+	* net/loveruby/cflat/ast/Definition.java: new method
+	  #accept(DefinitionVisitor).
+
+	* net/loveruby/cflat/ast/Entity.java: new method
+	  #defineIn(ToplevelScope).
+
+	* net/loveruby/cflat/ast/TypeDefinition.java: new method
+	  #defineIn(TypeTable).
+
+	* net/loveruby/cflat/ast/Variable.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: ditto.
+
+	* net/loveruby/cflat/ast/StructNode.java: ditto.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/TypedefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: ditto.
+
+	* net/loveruby/cflat/type/TypeTable.java: ditto.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: should hold
+	  VariableNode instead of simple Node.
+
+Mon Jun 18 04:53:01 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/CodeGenerator.java: new file.
+
+	* net/loveruby/cflat/compiler/Assembler.java: new file.
+
+	* net/loveruby/cflat/compiler/AsmEntity.java: new file.
+
+	* net/loveruby/cflat/compiler/Register.java: new file.
+
+	* net/loveruby/cflat/compiler/Address.java: new file.
+
+	* net/loveruby/cflat/compiler/ImmediateAddress.java: new file.
+
+	* net/loveruby/cflat/compiler/SimpleAddress.java: new file.
+
+	* net/loveruby/cflat/compiler/CompositeAddress.java: new file.
+
+	* net/loveruby/cflat/compiler/LabelPool.java: new file.
+
+	* net/loveruby/cflat/compiler/Label.java: new file.
+
+Tue Jun  5 07:02:20 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: do not resolve AST on
+	  parse error.
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: should
+	  resolve type definitions of AST, not type table.
+
+	* net/loveruby/cflat/parser/Parser.jj: ignore empty statement.
+
+	* net/loveruby/cflat/ast/AST.java: forgot initialize.
+
+	* net/loveruby/cflat/ast/Definition.java: #isTypedef ->
+	  #isUserType.
+
+	* net/loveruby/cflat/ast/TypedefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/TypeDefinition.java: #typeRef is
+	  required.
+
+	* net/loveruby/cflat/ast/StructNode.java: call method of super
+	  class.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/VariableNode.java: VariableNode may have
+	  all entity (Variable or Function).
+
+Tue Jun  5 06:11:17 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: types
+	  resolved.
+
+	* net/loveruby/cflat/type/ComplexType.java: new common superclass
+	  of StructType, UnionType.
+
+	* net/loveruby/cflat/type/StructType.java: ditto.
+
+	* net/loveruby/cflat/type/UnionType.java: ditto.
+
+	* net/loveruby/cflat/type/UserTypeRef.java: new method #name.
+
+	* net/loveruby/cflat/type/UserType.java: holds TypeNode instead of
+	  Type.
+
+	* net/loveruby/cflat/type/Type.java: new method #isUserType.
+
+	* net/loveruby/cflat/type/TypeTable.java: new method #types.
+
+	* net/loveruby/cflat/ast/StructNode.java: typeRef returns specific
+	  subtype instead of generic type (TypeRef).
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/ComplexTypeDefinition.java: #members
+	  should return List to create type.
+
+	* net/loveruby/cflat/ast/TypedefNode.java: new method #typeRef.
+
+	* net/loveruby/cflat/ast/Slot.java: new method #typeNode.
+
+Tue May 29 01:40:50 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/LocalReferenceResolver.java: follow
+	  parser structure change.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: simplify visitor
+	  interface.
+
+	* net/loveruby/cflat/ast/AST.java: #visit is abstract.
+
+	* net/loveruby/cflat/ast/ComplexTypeDefinition.java: introduce new
+	  common super class of struct/union.
+
+	* net/loveruby/cflat/ast/Definition.java: ditto.
+
+	* net/loveruby/cflat/ast/StructNode.java: ditto.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/TypeDefinition.java: fix typo.
+
+	* net/loveruby/cflat/parser/Parser.jj: ComplexType requires
+	  TypeRef.
+
+	* net/loveruby/cflat/ast/TypeNode.java: is now mutable.
+
+	* net/loveruby/cflat/ast/TypedefNode.java: provide #typeNode.
+
+	* net/loveruby/cflat/ast/CastNode.java: ditto.
+
+	* net/loveruby/cflat/ast/Entity.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: remove useless method.
+
+Mon May 21 04:29:26 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/LocalReferenceResolver.java ->
+	  .../compiler/LocalReferenceResolver.java.
+
+Mon May 21 04:10:00 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jj: fix compile errors.
+
+	* net/loveruby/cflat/parser/LocalReferenceResolver.java: ditto.
+
+	* net/loveruby/cflat/ast/*.java: ditto.
+
+	* build.xml: remove jjtree related tasks.
+
+Mon May 21 03:40:23 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/*.java: follow parser change (does not
+	  depend on jjtree).
+
+Mon May 14 03:06:36 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jjt -> Parser.jjt
+
+Mon Apr  2 04:42:41 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/StructNode.java: forgot import.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+Mon Apr  2 04:40:47 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jjt: introduce NameNode.
+
+	* net/loveruby/cflat/parser/Parser.jjt: TypeRef is not a Node.
+
+	* net/loveruby/cflat/parser/LocalReferenceResolver.java
+
+	* net/loveruby/cflat/ast/AST.java: create ToplevelScope,
+	  TypeTable, ConstantTable here.
+
+	* net/loveruby/cflat/ast/Definition.java: new common superclass of
+	  all definitions (type and entity).
+
+	* net/loveruby/cflat/ast/TypeDefinition.java: new class.
+
+	* net/loveruby/cflat/ast/TypeRef.java -> .../TypeNode.java.
+
+	* net/loveruby/cflat/ast/NameNode.java: new class.
+
+	* net/loveruby/cflat/ast/CastNode.java: use NameNode.
+
+	* net/loveruby/cflat/ast/Entity.java: ditto.
+
+	* net/loveruby/cflat/ast/Variable.java: ditto.
+
+	* net/loveruby/cflat/ast/StructNode.java: ditto.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/TypedefNode.java: ditto.
+
+	* net/loveruby/cflat/ast/Slot.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: ditto.
+
+	* net/loveruby/cflat/type/*Ref.java: new classes.
+
+	* net/loveruby/cflat/type/TypeTable.java: new class.
+
+	* net/loveruby/cflat/type/SignedLongLongType.java: new class.
+
+	* net/loveruby/cflat/type/UnsignedLongLongType.java: new class.
+
+	* net/loveruby/cflat/type/UserType.java: new class.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: new method
+	  #defineType.
+
+Sun Mar 25 23:54:25 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/ListNode.java (items): utilize
+	  SimpleNode#iterator.
+
+	* net/loveruby/cflat/ast/AST.java (entites): entities are
+	  child(1).
+
+	* net/loveruby/cflat/ast/Scope.java (<init>): initialize children.
+
+Sun Mar 25 23:40:08 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/type/Type.java: new file.
+
+	* net/loveruby/cflat/type/VoidType.java: new file.
+
+	* net/loveruby/cflat/type/IntegerType.java: new file.
+
+	* net/loveruby/cflat/type/SignedCharType.java: new file.
+
+	* net/loveruby/cflat/type/SignedShortType.java: new file.
+
+	* net/loveruby/cflat/type/SignedIntType.java: new file.
+
+	* net/loveruby/cflat/type/SignedLongType.java: new file.
+
+	* net/loveruby/cflat/type/UnsignedCharType.java: new file.
+
+	* net/loveruby/cflat/type/UnsignedShortType.java: new file.
+
+	* net/loveruby/cflat/type/UnsignedIntType.java: new file.
+
+	* net/loveruby/cflat/type/UnsignedLongType.java: new file.
+
+	* net/loveruby/cflat/type/ArrayType.java: new file.
+
+	* net/loveruby/cflat/type/PointerType.java: new file.
+
+	* net/loveruby/cflat/type/StructType.java: new file.
+
+	* net/loveruby/cflat/type/UnionType.java: new file.
+
+	* net/loveruby/cflat/type/FunctionType.java: new file.
+
+	* net/loveruby/cflat/ast/CastNode.java (typeRef): should return
+	  TypeRef.
+
+	* net/loveruby/cflat/ast/Params.java: new method isVararg().
+
+	* net/loveruby/cflat/ast/VoidParams.java: ditto.
+
+	* net/loveruby/cflat/ast/FixedParams.java: ditto.
+
+	* net/loveruby/cflat/ast/VarParams.java: ditto.
+
+	* net/loveruby/cflat/ast/Entity.java: new method isType().
+
+	* net/loveruby/cflat/ast/Variable.java: ditto.
+
+	* net/loveruby/cflat/ast/Function.java: ditto.
+
+	* net/loveruby/cflat/ast/StructNode.java: is now subclass of
+	  Entity.
+
+	* net/loveruby/cflat/ast/UnionNode.java: ditto.
+
+	* net/loveruby/cflat/ast/SlotNode.java -> .../Slot.java
+
+	* net/loveruby/cflat/parser/Parser.jjt: ditto.
+
+	* net/loveruby/cflat/ast/Scope.java (numAllEntities): initialize
+	  lvar.
+
+	* net/loveruby/cflat/ast/SimpleNode.java: fix syntax error.
+
+	* net/loveruby/cflat/ast/SimpleNode.java: use deeper indent for
+	  dump.
+
+	* net/loveruby/cflat/ast/VariableNode.java: setVariable() ->
+	  setEntity().
+
+	* net/loveruby/cflat/ast/VariableNode.java: new method type().
+
+	* net/loveruby/cflat/ast/MemberRef.java: disable accept().
+
+	* net/loveruby/cflat/parser/LocalReferenceResolver.java: fix
+	  compile error.
+
+Sun Mar 25 21:40:13 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/Toplevel.java -> .../AST.java
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: new file.
+
+	* net/loveruby/cflat/ast/ToplevelScope.java: is not a SimpleNode.
+
+	* net/loveruby/cflat/ast/Frame.java: ditto.
+
+	* net/loveruby/cflat/ast/Scope.java: ditto.
+
+	* net/loveruby/cflat/ast/BlockNode.java: forked from Scope.java.
+
+	* net/loveruby/cflat/ast/VariableNode.java: new method #name,
+	  #setName.
+
+	* net/loveruby/cflat/ast/FuncallNode.java: export VariableNode.
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: follow AST structure
+	  change.
+
+	* net/loveruby/cflat/compiler/Compiler.java: ditto.
+
+	* net/loveruby/cflat/parser/Parser.jjt: ditto.
+
+	* net/loveruby/cflat/parser/LocalReferenceResolver.java: ditto.
+
+Sun Mar 25 20:55:41 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/BinaryOpNode.java: new common superclass.
+
+	* net/loveruby/cflat/ast/UnaryOpNode.java: new common superclass.
+
+	* net/loveruby/cflat/ast/*Node.java: restruct class tree.
+
+	* net/loveruby/cflat/ast/*Node.java: add accessor methods.
+
+	* net/loveruby/cflat/ast/ScopeNode.java -> .../Scope.java
+
+	* net/loveruby/cflat/ast/ToplevelNode.java -> .../Toplevel.java
+
+Thu Mar 22 19:30:57 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: resolve local
+	  references.
+
+	* net/loveruby/cflat/parser/LocalReferenceResolver.java: add all
+	  visitor methods.
+
+	* net/loveruby/cflat/ast/VarParamsNode.java -> .../VarParams.java
+
+	* net/loveruby/cflat/ast/FixedParamsNode.java ->
+	  .../FixedParams.java
+
+	* net/loveruby/cflat/ast/VoidParamNode.java -> .../VoidParams.java
+
+	* net/loveruby/cflat/ast/Params.java: common superclass of
+	  VarParams, FixedParams, VoidParams.
+
+	* net/loveruby/cflat/ast/DefvarNode.java -> .../Variable.java
+
+	* net/loveruby/cflat/ast/DefunNode.java -> .../Function.java
+
+	* net/loveruby/cflat/ast/Parameter.java: new class.
+
+	* net/loveruby/cflat/ast/Entity.java: common superclass of
+	  Variable, Parameter, Function.
+
+	* net/loveruby/cflat/ast/ListNode.java: new method #items.
+
+	* net/loveruby/cflat/ast/OrNode.java -> .../LogicalOrNode.java
+
+	* net/loveruby/cflat/ast/MemberRefNode.java -> .../MemberRef.java
+
+	* net/loveruby/cflat/ast/TypeNode.java -> .../TypeRef.java
+
+	* net/loveruby/cflat/ast/BlockNode.java: removed (use ListNode).
+
+	* net/loveruby/cflat/ast/ASTVisitor.java: adjust class names.
+
+	* net/loveruby/cflat/parser/Parser.jjt: ditto.
+
+Thu Mar 22 16:48:27 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Binder.java ->
+	  net/loveruby/cflat/parser/LocalReferenceResolver.java.
+
+	* net/loveruby/cflat/ast/ParserVisitor.java ->
+	  .../ASTVisitor.java.
+
+	* net/loveruby/cflat/ast/*Node.java: ditto.
+
+	* net/loveruby/cflat/parser/Node.java: ditto.
+
+Thu Mar 22 16:14:00 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jjt (translateEscapeChar):
+	  throws exception on illegal escape sequence.
+
+Thu Mar 22 16:00:24 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jjt (parse): translate
+	  TokenMgrError into ParseException.
+
+	* net/loveruby/cflat/compiler/Compiler.java: use brief output.
+
+Thu Mar 22 15:42:47 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/compiler/Compiler.java: new file.
+
+	* net/loveruby/cflat/compiler/Compiler.java: merge DumpAST and
+	  TestParser.
+
+	* TestParser.java: removed.
+
+	* DumpAST.java: removed.
+
+	* build.xml: does not build them.
+
+Thu Mar 22 03:30:16 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/AbstractAssignNode.java: new file.
+
+	* net/loveruby/cflat/ast/*AssignNode.java: introduce common
+	  superclass, AbstractAssignNode.
+
+Thu Mar 22 03:13:15 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Node.java: new file.
+
+Thu Mar 22 03:08:37 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/ast/*Node.java: SimpleNode is in package ast.
+
+	* build.xml: do not remove node files.
+
+Thu Mar 22 03:03:45 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* net/loveruby/cflat/parser/Parser.jjt: set node values via
+	  acccess methods.
+
+	* net/loveruby/cflat/parser/Parser.jjt: stop building node files
+	  and visitors.
+
+	* net/loveruby/cflat/ast/*Node.java: new file.
+
+	* net/loveruby/cflat/parser/NodeBase.java: removed.
+
+Thu Mar 22 01:11:23 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* build.xml: default task is "compile".
+
+	* build.xml: new task "clean".
+
+	* build.properties: add ${build.dir}.
+
+Thu Mar 22 00:24:17 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* move Parser.jjt and NodeBase.java to the package directory.
+
+	* build.xml: new file.
+
+	* build.properties: new file.
+
+	* Makefile: removed.
+
+	* TestParser.java: import package.
+
+	* DumpAST.java: ditto.
+
+Wed Mar 21 23:38:03 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jjt: parse typedef correctly.
+
+	* Binder.java: new file.
+
+	* test2.cb: test typedef.
+
+Wed Mar 21 21:58:56 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jjt: add non-node data to AST.
+
+	* NodeBase.java: new file.
+
+Wed Mar 21 18:16:16 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jjt: fork TestParser.java and DumpAST.java.
+
+	* TestParser.java: new file.
+
+	* DumpAST.java: new file.
+
+	* Makefile: build them.
+
+Wed Mar 21 18:01:08 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* jjtree again.
+
+	* Parser.jj -> Parser.jjt
+
+	* Makefile: build parser from jjt.
+
+Wed Mar 21 17:59:30 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jj: use list.
+
+Wed Mar 21 01:26:45 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* revert to revision 22 (cancel .jj -> .jjt change).
+
+Wed Mar 21 01:13:49 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jj -> Parser.jjt
+
+	* TestParser.java: new file.
+
+Wed Mar 21 00:20:23 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jj: helper methods should be private.
+
+	* Parser.jj: support typedef'ed type.
+
+	* Parser.jj: stmts rule is useless.
+
+Tue Mar 20 23:47:12 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jj: define parser methods as instance methods.
+
+	* Parser.jj: add embedded action.
+
+	* Parser.jj (CHARACTER): missing "'".
+
+	* Parser.jj (STRING): missing '"'.
+
+Tue Mar 20 22:38:25 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jj: support 5U style integer literal.
+
+	* Parser.jj: unsigned long long requires 3 lookahead.
+
+	* Parser.jj: support ptr->memb.
+
+	* test2.cb: test decls.
+
+	* test3.cb: add comment.
+
+	* test4.cb: test exprs.
+
+Tue Mar 20 22:10:26 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* Parser.jj (params): simplify rule.
+
+	* Makefile (test): run all tests.
+
+	* test1.cb: new test.
+
+	* test2.cb: new test.
+
+	* test3.cb: new test.
+
+	* test4.cb: new test.
+
+Tue Mar 20 22:09:22 2007  Minero Aoki  <aamine@loveruby.net>
+
+	* start project.
+
+

@@ -1,0 +1,271 @@
+= ToDo
+
+== Current
+
+- generate IR
+- simplify IR node name: IntValue -> Int, StringValue -> Str.
+- make operators signed, instead of having signed value types.
+- refactoring: rename class: Assmebler -> AssermblyFile
+- refactoring: remove CodeGenerator.stackGrowsLower
+- refactoring: remove AssemblyFile stack.
+- refactoring: remove CodeGenerator#compileLHS (resolve in IR generation)
+- refactoring: CodeGeneratorOptions should not provide PeepholeOptimizer
+- refactoring: classify Assembler
+- refactoring: classify Linker
+* use enum for register names
+
+== Done
+
+- generate resolved AST
+        - constant table
+        - types
+        - scope, frame
+- integer literal
+	- 1, 2, 3, ...
+	- octal (010)
+	- hex (0x1f)
+	- 1U, 1L, 1UL
+- character literal
+	- 'c'
+	- standard escape sequence ('\n', ...)
+	- octal escape sequence ('\077')
+- string literal
+	- "string"
+	- standard escape sequence ('\n', ...)
+	- octal escape sequence ("\077")
+- import
+        - single import
+        - recursive import
+        - import function
+        - import type
+- build x86 test environment
+- compile "Hello, World"
+- write unit tests
+- funcall
+        - 0 arg
+        - 1 arg
+        - 2 args
+        - 3
+        - 4 - 10 args
+- variables
+        - param
+                - reference
+                - assign
+        - lvar
+                - assign
+                - reference
+                - initializer
+        - common symbol
+                - assign
+                - reference
+        - global variable
+                - define
+                - reference
+                - assign
+        - private common symbol
+                - assign
+                - reference
+        - private global variable
+                - define
+                - assign
+                - reference
+        - function-static variable
+                - assign
+                - reference
+                - initializer
+- op
+        - +
+        - -
+        - *
+        - /
+        - %
+- bitwise op
+        - ~
+        - &
+        - |
+        - ^
+        - >>
+        - <<
+- unary op
+        - +@
+        - -@
+        - !
+- comparison op
+        - ==
+        - !=
+        - >
+        - >=
+        - <
+        - <=
+- self assignment
+        - +=, -=, *=, ...
+        - ++
+        - --
+- control structure
+        - if
+        - while
+                - flow
+                - break
+                - continue
+        - for
+                - flow
+                - break
+                - continue
+        - do...while
+                - flow
+                - break
+                - continue
+        - switch
+        - goto
+- valued control structure
+        - &&
+        - ||
+        - a ? b : c
+- array
+        - as LHS
+        - as RHS
+        - reject negative length array definition
+- struct
+        - as LHS
+        - as RHS
+        - recursive definition with pointer
+- union
+        - as LHS
+        - as RHS
+        - recursive definition with pointer
+- pointer
+        - *ptr
+        - *ptr = val
+        - ptr->memb
+        - ptr->memb = val
+        - &expr
+- function pointer
+        - refer
+        - call ptr(arg)
+- complex LHS
+        - local variable
+        - parameter
+        - global variables / common symbols
+        - static variables
+        - *arr[0] = ...
+        - *st.memb = ...
+        - *ptr++ = ...
+        - *(ptr + N) = ...
+        - their combination
+- bare block ({...})
+- cast
+- semantic check (control)
+        - reject break from out of loop/switch
+        - reject continue from out of loop
+- semantic check (reference)
+        - check all symbols are resolved
+        - check duplicated parameters
+        - check if the calling function exists
+        - warn unused static variables
+        - warn unused local variables
+        - warn unused static functions
+        - check if aref base expr is indexable (a must be indeable where a[0])
+        - check if funcall base expr is callable (a must be callable where a())
+- semantic check (type)
+        - simple type check (binary ops, unary ops)
+        - a[0]
+        - *ptr
+        - ct.memb
+        - ptr->memb
+        - funcall args
+        - prohibit circular struct/union definition
+        - implicit cast
+        - validate struct/union member (ct.memb)
+        - validate struct/union member (ct->memb)
+        - check duplicated struct/union members
+        - ptr + int; ptr - int
+        - check return type
+        - check if &expr is assignable
+        - use user type instead of struct/union
+        - do not use #equals for type check
+        - check if void is not used with array, struct, union.
+- op for various types
+        - signed char
+        - signed short
+        - signed int
+        - signed long
+        - unsigned char
+        - unsigned short
+        - unsigned int
+        - unsigned long
+- Multibyte input
+- parse command line option
+- --dump-tokens
+- --dump-ast
+- print node location in error message
+- parse command line option more precisely
+- --dump-reference
+- --dump-semantic
+- add standard load path (use -I option)
+- call GNU as and GNU ld instead of gcc.
+- rename asm methods
+- lvar overlapped allocation
+- pointer comparison
+        - ptr==ptr should work
+        - ptr&&ptr should work
+        - cond?ptr:ptr should work
+        - !ptr should work
+- implement NULL as reserved word
+- duplicated import did not propagate symbols
+- test if static function is really static
+- test switch stmt
+- remove FIXME from Entity.java
+- implement cast
+- dump UTF-8 string byte by byte.
+- sizeof
+- calculate address on AX register.
+- prohibit multi-dimension array without size
+- extern gvar access
+- implement source repository
+- handle multiple arguments (source files, assembly files, object files)
+- -l
+- -L
+- -Wl, -Xlinker
+- -Wa, -Xassembler
+- write install.sh
+- va_list
+- objectify instruction
+- fix &puts
+- AsmEntity -> AsmOperand
+- Symbol -> LabelRef
+- Literal should not inherit AsmEntity
+- toString -> toSource
+- reject struct/union/array on stmt context
+- ComplexType -> CompositeType
+- impelement -O options
+- -O (peephole optimization)
+        - movl $0, %eax => xorl %eax, %eax
+        - addl $1, %eax  => incl %eax
+        - addl $-1, %eax => decl %eax
+        - subl $1, %eax  => decl %eax
+        - subl $-1, %eax => incl %eax
+        - addl $0, %eax => NONE
+        - subl $0, %eax => NONE
+        - imull $0, %eax => xorl %eax, %eax
+        - imull $1, %eax => NONE
+- generate prologue/epilogue after function body.
+- -O (fast immediate load)
+- check "puts = str"
+- -O (jump elimination)
+- useless label elimination
+- -fPIC (PIC generation)
+- -shared
+- Java 5
+- label refactoring
+        - Label -> Symbol
+        - all Symbols should be got from objects
+        - implement unnamed (code) Label
+- bin/cbc: resolve symbolic link
+- --readonly-plt
+- -fPIE, -pie
+        - implement difference against PIC
+- check opassign semantic as operator
+- use enum for compiler mode.
+- type handling
+        - "extern char*[] sys_errlist" is array, not pointer
+        - &puts should be typed as int(*)(char*)*, not int(*)(char*)**

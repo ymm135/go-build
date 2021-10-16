@@ -1,0 +1,22 @@
+import stdio;
+
+int global_int = 1;
+char *global_string = "OK";
+
+int
+main(int argc, char **argv)
+{
+    printf("%d", global_int);
+    global_int = 2;
+    printf(";%d", global_int);
+
+    printf(";%s", global_string);
+    global_string = "NEW";
+    printf(";%s", global_string);
+
+    puts("");
+
+    stdin = NULL;
+
+    return 0;
+}

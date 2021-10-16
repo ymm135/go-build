@@ -1,0 +1,24 @@
+import stdio;
+
+int
+main(int argc, char **argv)
+{
+    short n = 5000;
+    char a = 1;
+    char b = -1;
+    short c = 1;
+    short d = -1;
+
+    printf("%ld", ((long)n * (long)n));
+    printf(";%d", (int)a);
+    printf(";%ld", (long)a);
+    printf(";%d", (int)b);
+    printf(";%ld", (long)b);
+    printf(";%d", (int)c);
+    printf(";%ld", (long)c);
+    printf(";%d", (int)d);
+    printf(";%ld", (long)d);
+
+    puts("");
+    return 0;
+}
