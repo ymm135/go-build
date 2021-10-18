@@ -1,6 +1,8 @@
 # go编译器和链接器
 主要通过分析编译过程,学习go语法分析,中间代码与汇编的转换,最终破除Go的语法糖,从编译器与汇编角度真正理解Go语言.  
 
+[Go编译器官方说明](https://github.com/golang/go/tree/master/src/cmd/compile)  
+[Go编译器官方文档机翻](./go-compiler.md)
 [编译器知识:《自制编译器》](develop-compiler.md)
 
 # helloword编译过程分析  
@@ -18,8 +20,6 @@ func main() {
 ```
 
 ## go 编译指令简介  
-[Go编译器官方说明](https://github.com/golang/go/tree/master/src/cmd/compile)  
-[Go编译器官方文档机翻](./go-compiler.md)
 
 go build 指令常用参数
 ```
