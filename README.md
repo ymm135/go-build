@@ -19,6 +19,7 @@ func main() {
 
 ## go 编译指令简介  
 [Go编译器官方说明](https://github.com/golang/go/tree/master/src/cmd/compile)  
+[Go编译器官方文档机翻](./go-compiler.md)
 
 go build 指令常用参数
 ```
