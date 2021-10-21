@@ -119,6 +119,12 @@ usage: go tool buildid [-w] file
 [Go程序编译成目标机器码](https://segmentfault.com/a/1190000016523685)  
 
 ### 语法分析  
+为了运行Go的程序，首先要对代码进行解析(parse)，也成为语法分析(syntax analyzing)。解析代码的程序模块成为解析器(parser)
+或语法分析器(syntax analyzer)。  
+  
+那么“易于计算机理解的形式”究竟是怎样的形式呢？那就是称为语法树(syntax tree)的
+形式。顾名思义，**语法树是树状的构造**。  
+
 
 ```
 package main
@@ -156,7 +162,7 @@ func main() {
 }
 ```
 
-打印输出  
+语法树结果输出:   
 ```
 1:1   package "package"
 1:9   IDENT   "main"
@@ -222,7 +228,15 @@ func main() {
 ```
 
 ### 语义分析 
+通过解析代码获得语法树后，接着就要解析语法树，除去多余的内容，添加必要的信息。 
+生成抽象语法树（Abstract Syntax Tree，AST）这样一种数据结构。上述处理就是语义分析semantic analysis）
 
+可以使用 [GoAST Viewer](https://yuroyoro.github.io/goast-viewer/) 进行在线生成树结构   
+<br> 
+![go ast](./res/image/go-ast.png)  
+<br>
+
+也可以使用Go代码生成AST:  
 ```
 package main
 
@@ -254,7 +268,7 @@ func main() {
 }
 ```
 
-打印输出  
+结果输出:    
 ```
      0  *ast.File {
      1  .  Package: 1:1
@@ -542,11 +556,13 @@ GOSSAFUNC=main GOOS=linux GOARCH=amd64 go build -gcflags -S demo.go
 这里使用在线工具生成  
 ![ssa在线](./res/image/ssa-demo.png)  
 
+
 ssa中操作符的定义在 [genericOps.go](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/gen/genericOps.go) 
 其中`gen/*`包下还有各种平台实现,比如AMD64平台:  
 - AMD64Ops.go => AMD64平台的操作指令 
 - AMD64.rules => 通过规则文件进行简单优化  
 - AMD64splitload.rules  
+  
   
 这里列举这个操作的解析:  
 ```
@@ -674,7 +690,7 @@ name y[int]: v54
 name ~R0[int]: v57
 ```
 
-> [ssa在线生成](https://golang.design/gossa?id=aa75c401-323e-11ec-b7a0-0242c0a8d002)  
+> [ssa在线生成工具](https://golang.design/gossa?id=aa75c401-323e-11ec-b7a0-0242c0a8d002)  
 > ![ssa在线](./res/image/ssa-play.png)  
 
 
