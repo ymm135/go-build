@@ -56,7 +56,146 @@ cmd/compile包含构成Go编译器的主要包。编译器在逻辑上可以分�
   
 
 ## 进一步阅读  
-要深入了解 SSA 包的工作原理，包括其传递和规则，请前往[cmd/compile/internal/ssa/README.md](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/README.md)  
+要深入了解 SSA 包的工作原理，包括其传递和规则，请前往[cmd/compile/internal/ssa/README.md](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/README.md) 
+
+# Go 编译器的SSA后端介绍  
+
+这个包包含编译器的静态单赋值表单组件。如果您不熟悉SSA，其 [Wikipedia文章](https://zh.wikipedia.org/wiki/%E9%9D%99%E6%80%81%E5%8D%95%E8%B5%8B%E5%80%BC%E5%BD%A2%E5%BC%8F) 是一个很好的起点。  
+如果您还不熟悉 Go 编译器，建议您先阅读 [cmd/compile/README.md](https://github.com/golang/go/blob/master/src/cmd/compile/README.md) 。该文档概述了编译器，并解释了SSA在其中的作用和目的。  
+
+## Key concepts  
+下面描述的名称可能与 Go 对应的名称松散相关，但请注意，它们并不等效。例如，Go 块语句有一个变量作用域，而 SSA 没有变量和变量作用域的概念。
+  
+值和块以其唯一的顺序ID命名也可能令人惊讶。它们很少对应原始代码中的命名实体，例如变量或函数参数。顺序 ID 还允许编译器避免映射，并且始终可以使用调试和位置信息将值追溯到 Go 代码。  
+
+## Values  
+值是SSA的基本组成部分。根据SSA的定义，一个值只定义一次，但可以使用任意次。值主要由唯一标识符、运算符、类型和一些参数组成。  
+
+运算符或Op描述计算值的操作。每个运算符的语义可以在 中找到`gen/*Ops.go`。例如，OpAdd8 采用两个包含 8 位整数的值参数并将其结果相加。这是两个uint8值相加的可能 SSA 表示：  
+
+```
+// var c uint8 = a + b
+v4 = Add8 <uint8> v2 v3
+```  
+
+值的类型通常是Go类型。例如，上面例子中的值有一个uint8类型，一个常量布尔值将有一个bool类型。然而，某些类型不是来自Go并且是特殊的；下面我们将介绍memory其中最常见的。    
+有关更多信息，请参阅 [value.go](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/value.go)   
+
+## 内存类型(Memory types)
+`memory`表示全局内存状态。`Op`需要一个存储器参数取决于存储器状态，和一个Op具有存储型影响存储器的状态。这确保内存操作保持正确的顺序。例如：  
+
+```
+// *a = 3
+// *b = *a
+v10 = Store <mem> {int} v6 v8 v1
+v14 = Store <mem> {int} v7 v8 v10
+```
+
+在这里，Store将它的第二个参数（类型int）存储到第一个参数（类型*int）中。最后一个参数是内存状态；由于第二个存储取决于第一个存储定义的内存值，因此两个存储不能重新排序。  
+
+有关更多信息，请参阅 [cmd/compile/internal/types/type.go](https://github.com/golang/go/blob/master/src/cmd/compile/internal/types/type.go) 。  
+
+  
+## 块(Blocks)  
+块代表函数控制流图中的基本块。它本质上是一个值列表，用于定义此块的操作。除了值列表之外，块主要由唯一标识符、种类和后继块列表组成。  
+
+最简单的一种是`plain`块；它只是将控制流交给另一个块，因此它的后继列表包含一个块。  
+
+另一种常见的块类型是`exit`块。它们有一个最终值，称为控制值，它必须返回一个内存状态。这对于函数返回一些值是必要的，例如 - 调用者需要一些内存状态来依赖，以确保它正确接收这些返回值。  
+
+我们将提到的最后一个重要的块类型是`if`块。它有一个必须是布尔值的单个控制值，并且它正好有两个后继块。如果 `bool` 为真，则将控制流交给第一个后继，否则交给第二个。  
+
+下面是一个用基本块表示的 if-else 控制流示例：  
+
+```
+// func(b bool) int {
+// 	if b {
+// 		return 2
+// 	}
+// 	return 3
+// }
+b1:
+  v1 = InitMem <mem>
+  v2 = SP <uintptr>
+  v5 = Addr <*int> {~r1} v2
+  v6 = Arg <bool> {b}
+  v8 = Const64 <int> [2]
+  v12 = Const64 <int> [3]
+  If v6 -> b2 b3
+b2: <- b1
+  v10 = VarDef <mem> {~r1} v1
+  v11 = Store <mem> {int} v5 v8 v10
+  Ret v11
+b3: <- b1
+  v14 = VarDef <mem> {~r1} v1
+  v15 = Store <mem> {int} v5 v12 v14
+  Ret v15
+```
+
+有关更多信息，请参阅 [block.go](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/block.go) 。  
+
+## 函数(Functions)  
+函数表示函数声明及其主体。它主要由名称、类型（其签名）、构成其主体的块列表以及所述列表中的入口块组成。  
+
+当一个函数被调用时，控制流被交给它的入口块。如果函数终止，控制流最终将到达退出块，从而结束函数调用。  
+
+请注意，一个函数可能有零个或多个退出块，就像 Go 函数可以有任意数量的返回点一样，但它必须只有一个入口点块。  
+
+另请注意，某些 SSA 函数是自动生成的，例如用作映射键的每种类型的哈希函数。  
+
+例如，这是一个空函数在 SSA 中的样子，只有一个退出块，返回一个无趣的内存状态： 
+```
+foo func()
+  b1:
+    v1 = InitMem <mem>
+    Ret v1
+``` 
+
+有关更多信息，请参阅[func.go]()。  
+
+## 编译通过(Compiler passes)  
+拥有 SSA 形式的程序本身并不是很有用。它的优势在于编写优化程序来修改程序以使其更好是多么容易。Go 编译器完成此操作的方式是通过传递列表。  
+
+每次通过都以某种方式转换 SSA 函数。例如，死代码消除过程将删除它可以证明永远不会执行的块和值，而 `nil` 检查消除过程将删除它可以证明是多余的 `nil` 检查。  
+
+编译器一次传递一个函数的工作，默认情况下按顺序运行一次。    
+
+该`lower`通行证是特殊的; 它将 SSA 表示从机器无关转换为机器相关。也就是说，一些抽象运算符被替换为它们的非通用对应物，可能会减少或增加最终值的数量。  
+
+有关更多信息，请参阅 [compile.gopasses](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/compile.go) 中定义的列表。  
+
+## 玩转SSA(Playing with SSA)  
+查看并习惯编译器的 SSA 运行的一个好方法是通过 GOSSAFUNC. 例如，要查看 funcFoo的初始 SSA 形式和最终生成的程序集，可以运行：  
+```
+GOSSAFUNC=Foo go build
+```  
+
+生成的ssa.html文件还将包含每个编译阶段的 SSA 函数，以便于查看每个阶段对特定程序的作用。您还可以单击值和块以突出显示它们，以帮助遵循控制流和值。  
+
+GOSSAFUNC 中指定的值也可以是包限定的函数名，例如  
+```
+GOSSAFUNC=blah.Foo go build
+```
+
+这将匹配最终后缀为“blah”的包中任何名为“Foo”的函数（例如，something/blah.Foo、anotherthing/extra/blah.Foo）。  
+
+如果需要非 HTML 转储，请在 GOSSAFUNC 值后附加一个“+”，转储将写入标准输出：  
+
+```
+GOSSAFUNC=Bar+ go build
+```
+
+## Hacking on SSA
+虽然大多数编译器通过直接在 Go 代码中实现，但其他一些是代码生成的。这是目前通过重写规则完成的，这些规则有自己的语法并在`gen/*.rules`. 可以通过这种方式轻松快速地编写更简单的优化，但重写规则不适用于更复杂的优化。  
+
+要阅读有关重写规则的更多信息，请查看 [gen/generic.rules](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/gen/generic.rules) 和 [gen/rulegen.go](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/gen/rulegen.go) 中的顶级评论 。  
+
+同样，管理运算符的代码也是从 生成的代码 `gen/*Ops.go`，因为维护几个表比维护大量代码更容易。更改规则或运算符后，请参阅 [gen/README](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/gen/README) 以获取有关如何再次生成 Go 代码的说明。    
+
+
+
+
+
 
   
 
