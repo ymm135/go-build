@@ -4,19 +4,18 @@ import (
 	"fmt"
 	"go/scanner"
 	"go/token"
+	"io/ioutil"
 )
 
 func main() {
-	src := []byte(`
-package main
 
-import "fmt"
+	// 读取demo.go 文件内容
+	filepath := "/Users/zero/work/go/workspace/go-build/demo.go"
+	src, err := ioutil.ReadFile(filepath)
 
-func main() {
-	var s = "HelloWorld!"
-	fmt.Println(s)
-}
-`)
+	if err != nil {
+		panic(err)
+	}
 
 	var s scanner.Scanner
 	fset := token.NewFileSet()

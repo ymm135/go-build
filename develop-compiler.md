@@ -24,7 +24,7 @@
 - [第22章-扩展阅读](#第22章-扩展阅读)
 
 # 自制编译器
-[源码及pdf书籍](res)  
+[源码及pdf书籍](docs)  
 
 cbc的的安装建议使用docker方式安装，安装指令为`docker pull leungwensen/cbc-ubuntu-64bit`, 运行`docker run -tid -v code:/root/code leungwensen/cbc-ubuntu-64bit`.可以在vscode中远程连接镜像.     
 > 镜像里的cbc命令为cbc -Wa,--32 -Wl,-melf_i386的别名，可以直接执行。  
