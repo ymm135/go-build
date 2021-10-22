@@ -5,6 +5,8 @@
 [Go编译器官方文档机翻](./go-compiler.md)  
 [编译器知识:《自制编译器》](develop-compiler.md)  
 
+:point_right: :point_right: [如果只关心ssa及中间代码,点击此处可直接跳转](#中间代码及生成)  
+
 # demo编译过程分析  
 
 代码在根目录: demo.go  
