@@ -557,7 +557,7 @@ GOSSAFUNC=main GOOS=linux GOARCH=amd64 go build -gcflags -S demo.go
 ![ssa在线](./res/image/ssa-demo.png)  
 
 
-ssa中操作符的定义在 [genericOps.go](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/gen/genericOps.go) 
+ssa中操作码(opcodes)的定义在 [genericOps.go](https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/gen/genericOps.go) 
 其中`gen/*`包下还有各种平台实现,比如AMD64平台:  
 - AMD64Ops.go => AMD64平台的操作指令 
 - AMD64.rules => 通过规则文件进行简单优化  
@@ -566,6 +566,13 @@ ssa中操作符的定义在 [genericOps.go](https://github.com/golang/go/blob/ma
   
 这里列举这个操作的解析:  
 ```
+// Note: ConstX are sign-extended even when the type of the value is unsigned.
+// For instance, uint8(0xaa) is stored as auxint=0xffffffffffffffaa.
+{name: "Const64", aux: "Int64"}, // value is auxint
+
+//接收的参数只有一个(argLength), 定义变量并初始化: v4 (8) = VarDef <mem> {.autotmp_4} v1    
+{name: "VarDef", argLength: 1, aux: "Sym", typ: "Mem", symEffect: "None", zeroWidth: true}, // aux is a *gc.Node of a variable that is about to be initialized.  arg0=mem, returns mem
+
 // Constant-like things
 {name: "InitMem", zeroWidth: true},                               // memory input to the function.
 {name: "Arg", aux: "SymOff", symEffect: "Read", zeroWidth: true}, // argument to the function.  aux=GCNode of arg, off = offset in that arg.// The address of a variable.  arg0 is the base pointer.
@@ -589,31 +596,62 @@ ssa中操作符的定义在 [genericOps.go](https://github.com/golang/go/blob/ma
 ```
 
 - **ssa-start**代码注解  
+sum函数的操作码:  
 ```
-b1:                                                    //创建block b1
+**start**
+
+源码: 
+ 
+/app/public/buildbox/9a502046-32e8-11ec-b7a0-0242c0a8d002/main.go
+3 func sum(x int, y int) int {
+4 	return x + y
+5 }
+
+b1:                                            //创建b1 block, 初始化方法栈
+  v1 (?) = InitMem <mem>                       // 
+  v2 (?) = SP <uintptr>                        //栈顶
+  v3 (?) = SB <uintptr>                        //栈低
+  v4 (?) = LocalAddr <*int> {x} v2 v1          //创建变量{x}并返回地址 ptr  
+  v5 (?) = LocalAddr <*int> {y} v2 v1          // {y}
+  v6 (?) = LocalAddr <*int> {~r2} v2 v1        // {~r2}
+  v7 (3) = Arg <int> {x} (x[int])              // 获取参数x
+  v8 (3) = Arg <int> {y} (y[int])              // 获取参数y
+  v9 (?) = Const64 <int> [0]                   //常量0
+  v10 (4) = Add64 <int> v7 v8                  // x + y
+  v11 (4) = VarDef <mem> {~r2} v1              //
+  v12 (4) = Store <mem> {int} v6 v10 v11       //Store arg1 to arg0.  arg2=memory, aux=type.  Returns memory. 把v10的值存储到v6指向的地址中, 并返回v6内存中的值  
+Ret v12 (+4)
+
+name x[int]: v7
+name y[int]: v8
+```
+
+main函数的操作码:  
+```
+b1:                                                    //创建block b1, 相当于分配一段栈空间
   v1 (?) = InitMem <mem>                               //程序堆栈
   v2 (?) = SP <uintptr>                                //栈顶
   v3 (?) = SB <uintptr>                                //栈低
-  v4 (8) = VarDef <mem> {.autotmp_4} v1                //
-  v5 (8) = LocalAddr <*[5]int> {.autotmp_4} v2 v4
-  v6 (8) = Zero <mem> {[5]int} [40] v5 v4
-  v7 (8) = LocalAddr <*[5]int> {.autotmp_4} v2 v6
-  v8 (?) = Const64 <int> [5]
-  v9 (8) = NilCheck <void> v7 v6
-  v10 (8) = Copy <*int> v7
-  v11 (?) = Const64 <int> [0]
-  v12 (8) = IsSliceInBounds <bool> v11 v8
+  v4 (8) = VarDef <mem> {.autotmp_4} v1                //arg0=mem, returns mem, 创建一个临时变量{.autotmp_4}
+  v5 (8) = LocalAddr <*[5]int> {.autotmp_4} v2 v4      //Address of a variable. Arg0=SP. Arg1=mem. 获取{.autotmp_4}变量的地址
+  v6 (8) = Zero <mem> {[5]int} [40] v5 v4              //arg0=destptr, arg1=mem, auxint=size, aux=type. Returns memory. 申请的是5x8=40个字节空间，初始化为0
+  v7 (8) = LocalAddr <*[5]int> {.autotmp_4} v2 v6      // 
+  v8 (?) = Const64 <int> [5]                           // 5常量, 切片大小   
+  v9 (8) = NilCheck <void> v7 v6                       // arg0=ptr, arg1=mem. Panics if arg0 is nil. Returns void.
+  v10 (8) = Copy <*int> v7                             // output = arg0, 返回v7的地址  
+  v11 (?) = Const64 <int> [0]                          
+  v12 (8) = IsSliceInBounds <bool> v11 v8              
   v18 (?) = Const64 <int> [1]
   v27 (?) = Const64 <int> [9]
-If v12 → b2 b3 (likely) (8)   
+If v12 → b2 b3 (likely) (8)                            // 如果v12(切片边界检查ok), 就调到b2 block
 
 b2: ← b1
-  v15 (8) = Sub64 <int> v8 v11
-  v16 (8) = SliceMake <[]int> v10 v15 v15
-  v17 (8) = Copy <[]int> v16 (s[[]int])
-  v19 (9) = SliceLen <int> v17
-  v20 (9) = IsInBounds <bool> v11 v19
-  If v20 → b4 b5 (likely) (9)  
+  v15 (8) = Sub64 <int> v8 v11                        // arg0 - arg1, 也就是5-0=5, 切片的大小
+  v16 (8) = SliceMake <[]int> v10 v15 v15             // arg0=ptr, arg1=len, arg2=cap, 由此可以确认v10就是数组内存的首地址
+  v17 (8) = Copy <[]int> v16 (s[[]int])               // 切片地址
+  v19 (9) = SliceLen <int> v17                        // len(arg0)
+  v20 (9) = IsInBounds <bool> v11 v19                 
+  If v20 → b4 b5 (likely) (9)                        
 
 b3: ← b1
   v13 (8) = Copy <mem> v6
@@ -621,25 +659,25 @@ b3: ← b1
 Exit v14 (8)    
 
 b4: ← b2  
-  v23 (9) = SlicePtr <*int> v17
-  v24 (9) = PtrIndex <*int> v23 v11
-  v25 (9) = Copy <mem> v6
-  v26 (9) = Store <mem> {int} v24 v18 v25
-  v28 (10) = Copy <[]int> v17 (s[[]int])
+  v23 (9) = SlicePtr <*int> v17                      // ptr(arg0), 获取切片中数组地址
+  v24 (9) = PtrIndex <*int> v23 v11                  // 获取s[0]的地址,  arg0=ptr, arg1=index. Computes ptr+sizeof(*v.type)*index, where index is extended to ptrwidth type
+  v25 (9) = Copy <mem> v6                            // 获取数组首地址
+  v26 (9) = Store <mem> {int} v24 v18 v25            // s[0] = 1
+  v28 (10) = Copy <[]int> v17 (s[[]int])             
   v29 (10) = SliceLen <int> v28
   v30 (10) = IsInBounds <bool> v18 v29
-  If v30 → b6 b7 (likely) (10)
+  If v30 → b6 b7 (likely) (10)                      // 每执行一步时都会做数组检查,如果出错就会跳转到panic
 
 b5: ← b2
   v21 (9) = Copy <mem> v6
   v22 (9) = PanicBounds <mem> [0] v11 v19 v21
 Exit v22 (9)             
 
-b6: ← b4
-  v33 (10) = SlicePtr <*int> v28
+b6: ← b4                                           // b6 block执行的语句是 s[1] = 9, 和b4 一样
+  v33 (10) = SlicePtr <*int> v28                   
   v34 (10) = PtrIndex <*int> v33 v18
-  v35 (10) = Copy <mem> v26
-  v36 (10) = Store <mem> {int} v34 v27 v35
+  v35 (10) = Copy <mem> v26                        
+  v36 (10) = Store <mem> {int} v34 v27 v35         //把9存入的v36
   v37 (12) = Copy <[]int> v28 (s[[]int])
   v38 (12) = SliceLen <int> v37
   v39 (12) = IsInBounds <bool> v11 v38
@@ -651,14 +689,14 @@ b7: ← b4
   Exit v32 (10) 
 
 b8: ← b6
-  v42 (12) = SlicePtr <*int> v37
-  v43 (12) = PtrIndex <*int> v42 v11
-  v44 (12) = Copy <mem> v36
-  v45 (12) = Load <int> v43 v44 (x[int])
-  v46 (12) = Copy <[]int> v37 (s[[]int])
-  v47 (12) = SliceLen <int> v46
-  v48 (12) = IsInBounds <bool> v18 v47
-  If v48 → b10 b11 (likely) (12) 
+  v42 (12) = SlicePtr <*int> v37                  //获取切片的地址
+  v43 (12) = PtrIndex <*int> v42 v11              //索引0
+  v44 (12) = Copy <mem> v36                       //v36 = 9
+  v45 (12) = Load <int> v43 v44 (x[int])          //Load from arg0.  arg1=memory, 把9赋给函数参数x
+  v46 (12) = Copy <[]int> v37 (s[[]int])          //获取切片的地址
+  v47 (12) = SliceLen <int> v46                   //获取切片的len
+  v48 (12) = IsInBounds <bool> v18 v47            //v18=1, 0 <= arg0 < arg1, 1 是小于 5的
+  If v48 → b10 b11 (likely) (12)                  //如果没有越界, 那就跳转到block10
 
 b9: ← b6
   v40 (12) = Copy <mem> v36
@@ -666,13 +704,13 @@ b9: ← b6
   Exit v41 (12)    
 
 b10: ← b8
-  v51 (12) = SlicePtr <*int> v46
-  v52 (12) = PtrIndex <*int> v51 v18
-  v53 (12) = Copy <mem> v44
-  v54 (12) = Load <int> v52 v53 (y[int])
-  v55 (+12) = InlMark <void> [0] v53
-  v56 (4) = Copy <int> v45 (x[int])
-  v57 (4) = Add64 <int> v56 v54 (~R0[int])
+  v51 (12) = SlicePtr <*int> v46                  //获取切片数组的地址  
+  v52 (12) = PtrIndex <*int> v51 v18              //索引1, 相当于s[1]
+  v53 (12) = Copy <mem> v44                       
+  v54 (12) = Load <int> v52 v53 (y[int])          //把9赋给函数参数y
+  v55 (+12) = InlMark <void> [0] v53              // InlMark marks the start of an inlined function body. Its AuxInt field, 检查函数是否越界
+  v56 (4) = Copy <int> v45 (x[int])               // 获取x参数的值
+  v57 (4) = Add64 <int> v56 v54 (~R0[int])        //把x与y相加, 并且赋给~R0变量,并返回
   Plain → b12 (+12)  
 
 b11: ← b8
@@ -680,7 +718,8 @@ b11: ← b8
   v50 (12) = PanicBounds <mem> [0] v18 v47 v49
   Exit v50 (12)
 
-b12: ← b10
+b12: ← b10                                        //sum函数执行后跳转到这里,如果有变量接收sum的返回值: 
+                                                  // v58 (14) = Copy <int> v57 (~R0[int]) 
   v58 (13) = Copy <mem> v53
   Ret v58 
 
@@ -690,6 +729,63 @@ name y[int]: v54
 name ~R0[int]: v57
 ```
 
+使用dlv查看demo.go的反汇编,如果ssa的指令有不清楚的，可以对照汇编指令  
+```
+(dlv) disass
+TEXT main.main(SB) /Users/zero/work/go/workspace/go-build/demo.go
+	demo.go:7	0x1058e00	493b6610		cmp rsp, qword ptr [r14+0x10]
+	demo.go:7	0x1058e04	0f86bd000000		jbe 0x1058ec7
+=>	demo.go:7	0x1058e0a*	4883ec68		sub rsp, 0x68
+	demo.go:7	0x1058e0e	48896c2460		mov qword ptr [rsp+0x60], rbp
+	demo.go:7	0x1058e13	488d6c2460		lea rbp, ptr [rsp+0x60]
+	demo.go:8	0x1058e18	48c744242000000000	mov qword ptr [rsp+0x20], 0x0
+	demo.go:8	0x1058e21	488d542428		lea rdx, ptr [rsp+0x28]
+	demo.go:8	0x1058e26	440f113a		movups xmmword ptr [rdx], xmm15
+	demo.go:8	0x1058e2a	488d542438		lea rdx, ptr [rsp+0x38]
+	demo.go:8	0x1058e2f	440f113a		movups xmmword ptr [rdx], xmm15
+	demo.go:8	0x1058e33	488d542420		lea rdx, ptr [rsp+0x20]
+	demo.go:8	0x1058e38	8402			test byte ptr [rdx], al
+	demo.go:8	0x1058e3a	eb00			jmp 0x1058e3c
+	demo.go:8	0x1058e3c	4889542448		mov qword ptr [rsp+0x48], rdx
+	demo.go:8	0x1058e41	48c744245005000000	mov qword ptr [rsp+0x50], 0x5
+	demo.go:8	0x1058e4a	48c744245805000000	mov qword ptr [rsp+0x58], 0x5
+	demo.go:9	0x1058e53	eb00			jmp 0x1058e55
+	demo.go:9	0x1058e55	48c744242001000000	mov qword ptr [rsp+0x20], 0x1
+	demo.go:10	0x1058e5e	488b542448		mov rdx, qword ptr [rsp+0x48]
+	demo.go:10	0x1058e63	eb00			jmp 0x1058e65
+	demo.go:10	0x1058e65	48c7420809000000	mov qword ptr [rdx+0x8], 0x9
+	demo.go:12	0x1058e6d	488b4c2450		mov rcx, qword ptr [rsp+0x50]
+	demo.go:12	0x1058e72	488b542448		mov rdx, qword ptr [rsp+0x48]
+	demo.go:12	0x1058e77	4885c9			test rcx, rcx
+	demo.go:12	0x1058e7a	7702			jnbe 0x1058e7e
+	demo.go:12	0x1058e7c	eb41			jmp 0x1058ebf
+	demo.go:12	0x1058e7e	488b12			mov rdx, qword ptr [rdx]
+	demo.go:12	0x1058e81	4889542418		mov qword ptr [rsp+0x18], rdx
+	demo.go:12	0x1058e86	488b4c2450		mov rcx, qword ptr [rsp+0x50]
+	demo.go:12	0x1058e8b	488b542448		mov rdx, qword ptr [rsp+0x48]
+	demo.go:12	0x1058e90	4883f901		cmp rcx, 0x1
+	demo.go:12	0x1058e94	7702			jnbe 0x1058e98
+	demo.go:12	0x1058e96	eb1d			jmp 0x1058eb5
+	demo.go:12	0x1058e98	488b5a08		mov rbx, qword ptr [rdx+0x8]
+	demo.go:12	0x1058e9c	48895c2410		mov qword ptr [rsp+0x10], rbx
+	demo.go:12	0x1058ea1	488b442418		mov rax, qword ptr [rsp+0x18]
+	demo.go:12	0x1058ea6	e815ffffff		call $main.sum
+	demo.go:13	0x1058eab	488b6c2460		mov rbp, qword ptr [rsp+0x60]
+	demo.go:13	0x1058eb0	4883c468		add rsp, 0x68
+	demo.go:13	0x1058eb4	c3			ret
+	demo.go:12	0x1058eb5	b801000000		mov eax, 0x1
+	demo.go:12	0x1058eba	e861d7ffff		call $runtime.panicIndex
+	demo.go:12	0x1058ebf	31c0			xor eax, eax
+	demo.go:12	0x1058ec1	e85ad7ffff		call $runtime.panicIndex
+	demo.go:12	0x1058ec6	90			nop
+	demo.go:7	0x1058ec7	e8d4cfffff		call $runtime.morestack_noctxt
+	.:0		0x1058ecc	e92fffffff		jmp $main.main
+```
+
+> 备注lea与mov的区别:  
+> lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址直接赋给目的操作数，例如：lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax，而不是把ebx+8处的内存地址里的数据赋给eax。  
+> 而mov指令则恰恰相反，例如：mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。  
+  
 > [ssa在线生成工具](https://golang.design/gossa?id=aa75c401-323e-11ec-b7a0-0242c0a8d002)  
 > ![ssa在线](./res/image/ssa-play.png)  
 
