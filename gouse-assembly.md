@@ -8,20 +8,20 @@
 
 通过`dlv`的`disass`查看对应的汇编指令:
 ```shell
-    var.go:6	0x10cbacf	488d05aaae0000			lea rax, ptr [rip+0xaeaa]         #lea 取地址，[rip+0xaeaa]对应的地址的值赋给rax([rip+0xaeaa]代表地址)
-	var.go:6	0x10cbad6	48890424			    mov qword ptr [rsp], rax          #把rax存储的值赋给[rsp]指向地址的值 *rsp = rax
-	var.go:6	0x10cbada	e88122f4ff			    call $runtime.newobject           #调用runtime.newobject函数，call <label>
-	var.go:6	0x10cbadf	488b442408			    mov rax, qword ptr [rsp+0x8]      # 调用newobject函数后的返回值存储在[rsp+0x8]，rax接收返回值(地址)
-	var.go:6	0x10cbae4	4889442478			    mov qword ptr [rsp+0x78], rax     # 使用局部变量[rsp+0x78]来接收newobject的返回值
+    	var.go:6	0x10cbacf	488d05aaae0000			lea rax, ptr [rip+0xaeaa]         #lea 取地址，[rip+0xaeaa]对应的地址的值赋给rax([rip+0xaeaa]代表地址)
+	var.go:6	0x10cbad6	48890424			mov qword ptr [rsp], rax          #把rax存储的值赋给[rsp]指向地址的值 *rsp = rax
+	var.go:6	0x10cbada	e88122f4ff			call $runtime.newobject           #调用runtime.newobject函数，call <label>
+	var.go:6	0x10cbadf	488b442408			mov rax, qword ptr [rsp+0x8]      # 调用newobject函数后的返回值存储在[rsp+0x8]，rax接收返回值(地址)
+	var.go:6	0x10cbae4	4889442478			mov qword ptr [rsp+0x78], rax     # 使用局部变量[rsp+0x78]来接收newobject的返回值
 	var.go:6	0x10cbae9	48c70000000000			mov qword ptr [rax], 0x0          # a = 0 ,[rax]代表的不是地址，而是rax指向地址的值
-	var.go:7	0x10cbaf0	488b442478			    mov rax, qword ptr [rsp+0x78]     # 把[rsp+0x78]存储的内容加载到rax
+	var.go:7	0x10cbaf0	488b442478			mov rax, qword ptr [rsp+0x78]     # 把[rsp+0x78]存储的内容加载到rax
 	var.go:7	0x10cbaf5	48c70002000000			mov qword ptr [rax], 0x2          # 把rax地址对应的值赋于2
 ```
 通过`dlv`的`si`进行汇编级调试,首先使用`regs`查看寄存器的状态
 
 ```
-var.go:6	0x10cbacf	488d05aaae0000			lea rax, ptr [rip+0xaeaa]
-var.go:6	0x10cbad6	48890424			    mov qword ptr [rsp], rax 
+var.go:6	0x10cbacf	488d05aaae0000		lea rax, ptr [rip+0xaeaa]
+var.go:6	0x10cbad6	48890424		mov qword ptr [rsp], rax 
 ```
 代码执行后的变化
 ```shell
@@ -103,7 +103,7 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 
 以下执行的代码解释
 ```shell
-	var.go:7	0x10cbaf0	488b442478			    mov rax, qword ptr [rsp+0x78]
+	var.go:7	0x10cbaf0	488b442478			mov rax, qword ptr [rsp+0x78]
 	var.go:7	0x10cbaf5	48c70002000000			mov qword ptr [rax], 0x2
 ```
 
@@ -118,13 +118,13 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 汇编指令:  
 ```shell
 =>	var.go:9	0x10cbafc	488d057dae0000		lea rax, ptr [rip+0xae7d]    
-	var.go:9	0x10cbb03	48890424			mov qword ptr [rsp], rax
-	var.go:9	0x10cbb07	e85422f4ff			call $runtime.newobject        #创建对象
-	var.go:9	0x10cbb0c	488b442408			mov rax, qword ptr [rsp+0x8]   #接收返回值[rsp+0x8]，放在rax中
-	var.go:9	0x10cbb11	4889442448			mov qword ptr [rsp+0x48], rax  #再把返回值放在本地变量[rsp+0x48]中
-	var.go:10	0x10cbb16	488b442478			mov rax, qword ptr [rsp+0x78]  #首先是取[rsp+0x78]地址的内容
-	var.go:10	0x10cbb1b	4889442448			mov qword ptr [rsp+0x48], rax  # b = &a
-	var.go:11	0x10cbb20	8400				test byte ptr [rax], al        # 
+	var.go:9	0x10cbb03	48890424		mov qword ptr [rsp], rax
+	var.go:9	0x10cbb07	e85422f4ff		call $runtime.newobject        #创建对象
+	var.go:9	0x10cbb0c	488b442408		mov rax, qword ptr [rsp+0x8]   #接收返回值[rsp+0x8]，放在rax中
+	var.go:9	0x10cbb11	4889442448		mov qword ptr [rsp+0x48], rax  #再把返回值放在本地变量[rsp+0x48]中
+	var.go:10	0x10cbb16	488b442478		mov rax, qword ptr [rsp+0x78]  #首先是取[rsp+0x78]地址的内容
+	var.go:10	0x10cbb1b	4889442448		mov qword ptr [rsp+0x48], rax  # b = &a
+	var.go:11	0x10cbb20	8400			test byte ptr [rax], al        # 
 	var.go:11	0x10cbb22	48c70005000000		mov qword ptr [rax], 0x5       # *b = 5
 ```
 
@@ -138,15 +138,15 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 创建数组调用`func makeslice(et *_type, len, cap int) unsafe.Pointer`，需要传入参数`len`和`cap`,返回一个地址指针`int`
 ```
 =>	var.go:13	0x10cbb29	488d0550ae0000		        lea rax, ptr [rip+0xae50]
-	var.go:13	0x10cbb30	48890424			        mov qword ptr [rsp], rax
+	var.go:13	0x10cbb30	48890424			mov qword ptr [rsp], rax
 	var.go:13	0x10cbb34	48c744240806000000	        mov qword ptr [rsp+0x8], 0x6    # len长度参数
 	var.go:13	0x10cbb3d	48c744241006000000	        mov qword ptr [rsp+0x10], 0x6   # cap容量参数
-	var.go:13	0x10cbb46	e85550f8ff			        call $runtime.makeslice
-	var.go:13	0x10cbb4b	488b442418			        mov rax, qword ptr [rsp+0x18]   # 返回值unsafe.Pointer
+	var.go:13	0x10cbb46	e85550f8ff			call $runtime.makeslice
+	var.go:13	0x10cbb4b	488b442418			mov rax, qword ptr [rsp+0x18]   # 返回值unsafe.Pointer
 	var.go:13	0x10cbb50	4889842480000000	        mov qword ptr [rsp+0x80], rax   #使用[rsp+0x80]接收返回值
 	var.go:13	0x10cbb58	48c784248800000006000000	mov qword ptr [rsp+0x88], 0x6   #使用[rsp+0x88]存储len
 	var.go:13	0x10cbb64	48c784249000000006000000	mov qword ptr [rsp+0x90], 0x6   #使用[rsp+0x90]存储cap
-	var.go:14	0x10cbb70	eb00				        jmp 0x10cbb72
+	var.go:14	0x10cbb70	eb00				jmp 0x10cbb72
 	var.go:14	0x10cbb72	48c70002000000		        mov qword ptr [rax], 0x2        # s[0] = 2
 ```
 
@@ -173,15 +173,15 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 调用的函数`func makechan(t *chantype, size int) *hchan`
 ```
 =>	var.go:16	0x10cbb79	488d0500a80000		lea rax, ptr [rip+0xa800]
-	var.go:16	0x10cbb80	48890424			mov qword ptr [rsp], rax
+	var.go:16	0x10cbb80	48890424		mov qword ptr [rsp], rax
 	var.go:16	0x10cbb84	48c744240805000000	mov qword ptr [rsp+0x8], 0x5    # size 5
-	var.go:16	0x10cbb8d	e80e90f3ff			call $runtime.makechan          
-	var.go:16	0x10cbb92	488b442410			mov rax, qword ptr [rsp+0x10]   # 返回值*hchan
-	var.go:16	0x10cbb97	4889442440			mov qword ptr [rsp+0x40], rax   # 使用[rsp+0x40]保存makechan函数返回值
-	var.go:17	0x10cbb9c	48890424			mov qword ptr [rsp], rax        # func chansend1(c *hchan, elem unsafe.Pointer) 第一个参数*hchan
+	var.go:16	0x10cbb8d	e80e90f3ff		call $runtime.makechan          
+	var.go:16	0x10cbb92	488b442410		mov rax, qword ptr [rsp+0x10]   # 返回值*hchan
+	var.go:16	0x10cbb97	4889442440		mov qword ptr [rsp+0x40], rax   # 使用[rsp+0x40]保存makechan函数返回值
+	var.go:17	0x10cbb9c	48890424		mov qword ptr [rsp], rax        # func chansend1(c *hchan, elem unsafe.Pointer) 第一个参数*hchan
 	var.go:17	0x10cbba0	488d05011b0300		lea rax, ptr [rip+0x31b01]      # 0x00000000010fd6a8 代表的是3
-	var.go:17	0x10cbba7	4889442408			mov qword ptr [rsp+0x8], rax 
-	var.go:17	0x10cbbac	e82f93f3ff			call $runtime.chansend1         # 开始发送数据
+	var.go:17	0x10cbba7	4889442408		mov qword ptr [rsp+0x8], rax 
+	var.go:17	0x10cbbac	e82f93f3ff		call $runtime.chansend1         # 开始发送数据
 ```
 
 `[rip+0x31b01]`代表常量`3`
@@ -201,21 +201,21 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 
 ```
 =>	var.go:31	0x10cbc45*	488d05f4160100		ea rax, ptr [rip+0x116f4]                   #指向*_type参数
-	var.go:31	0x10cbc4c	48890424			mov qword ptr [rsp], rax                    #
-	var.go:31	0x10cbc50	e80b21f4ff			call $runtime.newobject
-	var.go:31	0x10cbc55	488b7c2408			mov rdi, qword ptr [rsp+0x8]                #newobject返回值
+	var.go:31	0x10cbc4c	48890424		mov qword ptr [rsp], rax                    #
+	var.go:31	0x10cbc50	e80b21f4ff		call $runtime.newobject
+	var.go:31	0x10cbc55	488b7c2408		mov rdi, qword ptr [rsp+0x8]                #newobject返回值
 	var.go:31	0x10cbc5a	4889bc2488000000	mov qword ptr [rsp+0x88], rdi               #使用[rsp+0x88]接收返回值
 	var.go:31	0x10cbc62	48c7470800000000	mov qword ptr [rdi+0x8], 0x0                #置零
 	var.go:31	0x10cbc6a	833d7f670d0000		cmp dword ptr [runtime.writeBarrier], 0x0   
-	var.go:31	0x10cbc71	7405				jz 0x10cbc78
-	var.go:31	0x10cbc73	e9bc020000			jmp 0x10cbf34
+	var.go:31	0x10cbc71	7405			jz 0x10cbc78
+	var.go:31	0x10cbc73	e9bc020000		jmp 0x10cbf34
 	var.go:31	0x10cbc78	48c70700000000		mov qword ptr [rdi], 0x0
-	var.go:31	0x10cbc7f	90				nop
-	var.go:31	0x10cbc80	eb00				jmp 0x10cbc82
-	var.go:32	0x10cbc82	0f57c0				xorps xmm0, xmm0
+	var.go:31	0x10cbc7f	90			nop
+	var.go:31	0x10cbc80	eb00			jmp 0x10cbc82
+	var.go:32	0x10cbc82	0f57c0			xorps xmm0, xmm0
 	var.go:32	0x10cbc85	0f11842498000000	movups xmmword ptr [rsp+0x98], xmm0         #本地变量[rsp+0x98]
 	var.go:33	0x10cbc8d	488b842488000000	mov rax, qword ptr [rsp+0x88]               #man的地址赋给rax
-	var.go:33	0x10cbc95	4889442458			mov qword ptr [rsp+0x58], rax               #
+	var.go:33	0x10cbc95	4889442458		mov qword ptr [rsp+0x58], rax               #
 	var.go:33	0x10cbc9a	488d0d17370300		lea rcx, ptr [rip+0x33717]
 	var.go:33	0x10cbca1	48898c2498000000	mov qword ptr [rsp+0x98], rcx
 	var.go:33	0x10cbca9	48898424a0000000	mov qword ptr [rsp+0xa0], rax               #接口指针.data = &man
@@ -242,26 +242,20 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 
 =>	func.go:6	0x10cbac1	48c744243808000000	mov qword ptr [rsp+0x38], 0x8
 	func.go:7	0x10cbaca	48c7042408000000	mov qword ptr [rsp], 0x8       #rsp作为第一个参数8
-	func.go:7	0x10cbad2	e8c9000000		    call $main.callMe              
-	func.go:7	0x10cbad7	488b442408		    mov rax, qword ptr [rsp+0x8]   #rax接收返回值
-	func.go:7	0x10cbadc	4889442430		    mov qword ptr [rsp+0x30], rax  #本地变量c就是[rsp+0x30]接收返回值  
+	func.go:7	0x10cbad2	e8c9000000		call $main.callMe              
+	func.go:7	0x10cbad7	488b442408		mov rax, qword ptr [rsp+0x8]   #rax接收返回值
+	func.go:7	0x10cbadc	4889442430		mov qword ptr [rsp+0x30], rax  #本地变量c就是[rsp+0x30]接收返回值  
 	
 (dlv) disass -a 0x10cbba0 0x10cbbc0
 TEXT main.callMe(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/func/func.go
 	func.go:11	0x10cbba0	48c744241000000000	mov qword ptr [rsp+0x10], 0x0   # 返回值
-	func.go:12	0x10cbba9	488b442408		    mov rax, qword ptr [rsp+0x8]    # 第一个参数
-	func.go:12	0x10cbbae	4883c005		    add rax, 0x5
-	.:0		0x10cbbb2	4889442410		        mov qword ptr [rsp+0x10], rax   # 把结果放到返回值中
-	.:0		0x10cbbb7	c3			            ret                             # 返回
-	.:0		0x10cbbb8	0000			        add byte ptr [rax], al
-	.:0		0x10cbbba	0000			        add byte ptr [rax], al
-	.:0		0x10cbbbc	0000			        add byte ptr [rax], al
-	.:0		0x10cbbbe	0000			        add byte ptr [rax], al
+	func.go:12	0x10cbba9	488b442408		mov rax, qword ptr [rsp+0x8]    # 第一个参数
+	func.go:12	0x10cbbae	4883c005		add rax, 0x5
+	.:0		0x10cbbb2	4889442410		mov qword ptr [rsp+0x10], rax   # 把结果放到返回值中
+	.:0		0x10cbbb7	c3			ret                             # 返回
+	.:0		0x10cbbb8	0000			add byte ptr [rax], al
+	.:0		0x10cbbba	0000			add byte ptr [rax], al
+	.:0		0x10cbbbc	0000			add byte ptr [rax], al
+	.:0		0x10cbbbe	0000			add byte ptr [rax], al
 ```
-
-
-
-
-
-
 
