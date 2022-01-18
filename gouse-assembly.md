@@ -455,6 +455,109 @@ Dump of assembler code for function Man::walk():
 
 可以看出`golang`与`c++`调用方法的汇编实现是一致的，首先把对象作为参数传入方法，然后再去使用对象。  
 
+## goroutine的汇编实现  
+```go
+package main
 
+import "time"
+
+func main() {
+	a := 5
+	go func() {
+		a = 6
+	}()
+	
+	time.Sleep(time.Second)
+}
+```
+
+查看汇编实现
+```go
+     5:	func main() {
+     6:		a := 5
+     7:		go func() {
+     8:			a = 6
+=>   9:		}()
+    10:	
+    11:		time.Sleep(time.Second)
+    12:	}
+```
+
+```
+(dlv) disass -a 0x106ea00 0x106ea8c
+TEXT main.main(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/goroutine/goroutine.go
+	goroutine.go:6	0x106ea00	5c			pop rsp                       
+	goroutine.go:6	0x106ea01	7600			jbe 0x106ea03
+	goroutine.go:6	0x106ea03	004889			add byte ptr [rax-0x77], cl
+	goroutine.go:6	0x106ea06	0424			add al, 0x24
+	goroutine.go:6	0x106ea08	e893e0f9ff		call $runtime.newobject
+	goroutine.go:6	0x106ea0d	488b442408		mov rax, qword ptr [rsp+0x8]
+	goroutine.go:6	0x106ea12	4889442420		mov qword ptr [rsp+0x20], rax
+	goroutine.go:6	0x106ea17	48c70005000000		mov qword ptr [rax], 0x5         # a := 5
+	goroutine.go:7	0x106ea1e	488b442420		mov rax, qword ptr [rsp+0x20]    # 把a变量地址加载到rax
+	goroutine.go:9	0x106ea23	4889442418		mov qword ptr [rsp+0x18], rax    # 把a变量地址加载到[rsp+0x18]
+	goroutine.go:7	0x106ea28	c7042408000000		mov dword ptr [rsp], 0x8         # 把8加载到rsp，作为第一个参数
+	goroutine.go:7	0x106ea2f	488d0ddac80100		lea rcx, ptr [rip+0x1c8da]       # [rip+0x1c8da]对应匿名函数地址
+	goroutine.go:7	0x106ea36	48894c2408		mov qword ptr [rsp+0x8], rcx     # 第二个参数为匿名函数地址 [rsp+0x8] = [rip+0x1c8da]
+	goroutine.go:7	0x106ea3b	4889442410		mov qword ptr [rsp+0x10], rax    # 第三个值为a变量的地址 
+	goroutine.go:7	0x106ea40	e85b01fdff		call $runtime.newproc            # 调用newproc函数，参数为[rsp]和[rsp+0x8]
+	goroutine.go:11	0x106ea45	48c7042400ca9a3b	mov qword ptr [rsp], 0x3b9aca00  
+	goroutine.go:11	0x106ea4d	e8ce49ffff		call $time.Sleep
+	goroutine.go:12	0x106ea52	488b6c2428		mov rbp, qword ptr [rsp+0x28]
+	goroutine.go:12	0x106ea57	4883c430		add rsp, 0x30
+	goroutine.go:12	0x106ea5b	c3			ret
+	goroutine.go:5	0x106ea5c	0f1f4000		nop dword ptr [rax], eax
+	goroutine.go:5	0x106ea60	e8bb5cffff		call $runtime.morestack_noctxt
+	.:0		0x106ea65	e976ffffff		jmp $main.main
+	.:0		0x106ea6a	cc			int3
+```
+
+`go func`调用的是匿名函数
+```
+// lea rcx, ptr [rip+0x1c8da] 执行后的结果 
+Rcx = 0x000000000108b310
+
+// 查看rcx对应的内存值
+(dlv) x -fmt hex -count 32 -size 1 0x000000000108b310
+0x108b310:   0x80   0xea   0x06   0x01   0x00   0x00   0x00   0x00   
+0x108b318:   0xe0   0xf7   0x05   0x01   0x00   0x00   0x00   0x00   
+0x108b320:   0x00   0x0c   0x06   0x01   0x00   0x00   0x00   0x00   
+0x108b328:   0x20   0xfa   0x03   0x01   0x00   0x00   0x00   0x00 
+
+// 匿名函数地址为`0x106ea80`,查看函数实现， 对应goroutine.go:8也就是 a = 6 
+(dlv) disass -a 0x106ea80 0x106ea88
+TEXT main.main.func1(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/goroutine/goroutine.go
+	goroutine.go:8	0x106ea80	488b442408	mov rax, qword ptr [rsp+0x8]
+	goroutine.go:8	0x106ea85	48		rex.w
+	goroutine.go:8	0x106ea86	c7		prefix(0xc7)
+	goroutine.go:8	0x106ea87	00		<no instruction>
+
+```
+
+`call $runtime.newproc`函数实现如下，最终还是由协程调用匿名函数`fn *funcval`  
+```go
+// siz 参数个数， fn是协程调用的函数  
+func newproc(siz int32, fn *funcval) {
+	argp := add(unsafe.Pointer(&fn), sys.PtrSize)
+	gp := getg()
+	pc := getcallerpc()
+	systemstack(func() {
+		newg := newproc1(fn, argp, siz, gp, pc)
+
+		_p_ := getg().m.p.ptr()
+		runqput(_p_, newg, true)
+
+		if mainStarted {
+			wakep()
+		}
+	})
+}
+
+//对应的函数
+type funcval struct {
+    fn uintptr
+    // variable-size, fn-specific data here
+}
+```
 
 
