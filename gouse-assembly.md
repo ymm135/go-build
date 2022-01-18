@@ -48,6 +48,7 @@ var.go:6	0x10cbad6	48890424		mov qword ptr [rsp], rax
 	.:0	0x10d6986	0000	add byte ptr [rax], al
 ```
 
+执行语句:  
 ```
 	var.go:6	0x10cbad6	48890424			    mov qword ptr [rsp], rax
 ```
@@ -81,6 +82,7 @@ TEXT runtime.newobject(SB) /usr/local/go/src/runtime/malloc.go
 1178:   }
 ```
 
+执行语句:  
 ```
 	var.go:6	0x10cbadf	488b442408			    mov rax, qword ptr [rsp+0x8]
 ```
@@ -129,7 +131,7 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 ```
 
 
-
+执行语句:  
 ```
 =>  13:		s := make([]int, 6)
     14:		s[0] = 2
@@ -166,6 +168,7 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 0xc000126040:   0x00   0x00   0x00   0x00   0x00   0x00   0x00   0x00
 ```
 
+执行语句:  
 ```
 =>  16:		c := make(chan int, 5)
     17:		c <- 3
@@ -192,13 +195,13 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 0x10fd6b8:   0x15   0x00   0x00   0x00   0x00   0x00   0x00   0x00
 ```
 
-
+执行语句:  
 ```
 =>  31:		man := Man{}
     32:		var manImpl IMan
     33:		manImpl = &man
 ```
-
+代码对应的汇编语句:  
 ```
 =>	var.go:31	0x10cbc45*	488d05f4160100		ea rax, ptr [rip+0x116f4]                   #指向*_type参数
 	var.go:31	0x10cbc4c	48890424		mov qword ptr [rsp], rax                    #
@@ -237,15 +240,18 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 ```
 
 ```
+// 打印函数地址
 (dlv) print &main.callMe
 (*)(0x10cbba0)
 
+// 调用函数对应的汇编指令:
 =>	func.go:6	0x10cbac1	48c744243808000000	mov qword ptr [rsp+0x38], 0x8
 	func.go:7	0x10cbaca	48c7042408000000	mov qword ptr [rsp], 0x8       #rsp作为第一个参数8
 	func.go:7	0x10cbad2	e8c9000000		call $main.callMe              
 	func.go:7	0x10cbad7	488b442408		mov rax, qword ptr [rsp+0x8]   #rax接收返回值
 	func.go:7	0x10cbadc	4889442430		mov qword ptr [rsp+0x30], rax  #本地变量c就是[rsp+0x30]接收返回值  
-	
+
+// 查看main.callMe的函数对应的汇编指令:  
 (dlv) disass -a 0x10cbba0 0x10cbbc0
 TEXT main.callMe(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/func/func.go
 	func.go:11	0x10cbba0	48c744241000000000	mov qword ptr [rsp+0x10], 0x0   # 返回值
@@ -258,4 +264,197 @@ TEXT main.callMe(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/func/fun
 	.:0		0x10cbbbc	0000			add byte ptr [rax], al
 	.:0		0x10cbbbe	0000			add byte ptr [rax], al
 ```
+
+## [c/c++常用语句对应的汇编指令](c-cpp-assembly.md)  
+
+## 对象调用方法的实现  
+### go对象调用方法实现  
+```
+package main
+
+import "fmt"
+
+type Man struct {
+	Name string
+	Age  int
+}
+
+func (man *Man) walk() string {
+	return man.Name
+}
+
+func main() {
+	man := Man{Name: "xiaoming", Age: 18}
+	man.walk()
+}
+```
+
+> go语言中`string`的数据结构为`StringHeader`,包含数据部分和len两部分。  
+```go
+type StringHeader struct {
+	Data uintptr
+	Len  int
+}
+```
+
+使用`dlv`调试`ls`查看代码
+```
+    15:	func main() {
+    16:		man := Man{Name: "xiaoming", Age: 18}
+=>  17:		man.walk()
+    18:	}
+```
+对应的汇编代码
+```
+(dlv) disass
+TEXT main.main(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/object/object.go
+	object.go:15	0x10cbc80	65488b0c2530000000	mov rcx, qword ptr gs:[0x30]
+	object.go:15	0x10cbc89	483b6110		cmp rsp, qword ptr [rcx+0x10]
+	object.go:15	0x10cbc8d	7655			jbe 0x10cbce4
+	object.go:15	0x10cbc8f	4883ec38		sub rsp, 0x38
+	object.go:15	0x10cbc93	48896c2430		mov qword ptr [rsp+0x30], rbp
+	object.go:15	0x10cbc98	488d6c2430		lea rbp, ptr [rsp+0x30]
+	object.go:16	0x10cbc9d	48c744241800000000	mov qword ptr [rsp+0x18], 0x0     #把[rsp+0x18]内容置零
+	object.go:16	0x10cbca6	0f57c0			xorps xmm0, xmm0                      
+	object.go:16	0x10cbca9	0f11442420		movups xmmword ptr [rsp+0x20], xmm0    
+	object.go:16	0x10cbcae	488d0517560200		lea rax, ptr [rip+0x25617]        #加载字符串的地址
+	object.go:16	0x10cbcb5	4889442418		mov qword ptr [rsp+0x18], rax         #把字符串的地址赋给Name string部分
+	object.go:16	0x10cbcba	48c744242008000000	mov qword ptr [rsp+0x20], 0x8     #把字符串的长度赋给string len部分
+	object.go:16	0x10cbcc3	48c744242812000000	mov qword ptr [rsp+0x28], 0x12    #把age赋给结构体man.age福分
+=>	object.go:17	0x10cbccc*	488d442418		lea rax, ptr [rsp+0x18]               #把man变量地址加载到rax
+	object.go:17	0x10cbcd1	48890424		mov qword ptr [rsp], rax              #把man变量地址加载到rsp，作为第一个参数
+	object.go:17	0x10cbcd5	e8c6fdffff		call $main.(*Man).walk                #调用方法walk
+	object.go:18	0x10cbcda	488b6c2430		mov rbp, qword ptr [rsp+0x30]
+	object.go:18	0x10cbcdf	4883c438		add rsp, 0x38
+	object.go:18	0x10cbce3	c3			ret
+	object.go:15	0x10cbce4	e83712faff		call $runtime.morestack_noctxt
+	.:0		0x10cbce9	eb95			jmp $main.main
+```
+
+查看字符串的内存
+```
+// xiaoming 78 69 61 6f 6d 69 6e 67
+(dlv) x -fmt hex -count 32 -size 1 0x10f12cc
+0x10f12cc:   0x78   0x69   0x61   0x6f   0x6d   0x69   0x6e   0x67   
+0x10f12d4:   0x20   0x28   0x66   0x6f   0x72   0x63   0x65   0x64   
+0x10f12dc:   0x29   0x20   0x2d   0x3e   0x20   0x6e   0x6f   0x64   
+0x10f12e4:   0x65   0x3d   0x20   0x62   0x6c   0x6f   0x63   0x6b
+```
+
+查看`walk`方法
+```
+=>   8:	func (man *Man) walk() string {
+     9:		return man.Name
+    10:	}
+```
+对应的汇编指令
+```
+(dlv) disass
+TEXT main.(*Man).walk(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/object/object.go
+=>	object.go:8	0x1067bc0	0f57c0		xorps xmm0, xmm0
+	object.go:8	0x1067bc3	0f11442410	movups xmmword ptr [rsp+0x10], xmm0  # 初始化返回值
+	object.go:9	0x1067bc8	488b442408	mov rax, qword ptr [rsp+0x8]         #[rsp+0x8]就是传进来的man变量地址
+	object.go:9	0x1067bcd	8400		test byte ptr [rax], al              #
+	.:0		0x1067bcf	488b08		mov rcx, qword ptr [rax]                 #获取man结构体中的string数据
+	.:0		0x1067bd2	488b4008	mov rax, qword ptr [rax+0x8]             #获取man结构体中的string长度
+	.:0		0x1067bd6	48894c2410	mov qword ptr [rsp+0x10], rcx            #返回值string的数据部分
+	.:0		0x1067bdb	4889442418	mov qword ptr [rsp+0x18], rax            #返回值string的len部分
+	.:0		0x1067be0	c3		ret
+```
+
+从汇编语言可以看出`man.walk()`是把`man`变量作为方法`walk`参数使用，这样就可以使用结构体`man`的成员变量。相当于`c++`中的`this`  
+
+### c++对象调用方法实现
+
+```
+#include <iostream>
+
+class Man
+{
+public:
+    char *name;
+    int age;
+
+public:
+    char *walk();
+};
+
+char *Man::walk()
+{
+    return this->name;
+}
+
+int main()
+{
+    Man man;
+    man.name = "xiaoming";
+    man.age = 19;
+    char *name = man.walk();
+
+    std::cout << "Hello World " << name << std::endl;
+}
+```
+编译参数为`g++ -g -o test test.cpp`,使用gdb对test文件进行调试
+```
+-exec disass /m
+Dump of assembler code for function main():
+19	{
+   0x00000000004007ef <+0>:	push   rbp
+   0x00000000004007f0 <+1>:	mov    rbp,rsp
+   0x00000000004007f3 <+4>:	sub    rsp,0x20
+
+20	    Man man;
+21	    man.name = "xiaoming";
+   0x00000000004007f7 <+8>:	mov    QWORD PTR [rbp-0x20],0x400930     #man变量地址为[rbp-0x20], 也是name的地址 8个字节
+
+22	    man.age = 19;
+   0x00000000004007ff <+16>:	mov    DWORD PTR [rbp-0x18],0x13    #[rbp-0x18]为man.age成员变量的地址
+
+23	    char *name = man.walk(); 
+=> 0x0000000000400806 <+23>:	lea    rax,[rbp-0x20]               #[rbp-0x20]为变量man的地址，加载到rax寄存器
+   0x000000000040080a <+27>:	mov    rdi,rax                      #把man对象的地址加载到rdi
+   0x000000000040080d <+30>:	call   0x4007de <Man::walk()>       #调用方法0x4007de，也就是 <Man::walk()>
+   0x0000000000400812 <+35>:	mov    QWORD PTR [rbp-0x8],rax      #walk函数的返回值放到rax中，存储到本地变量[rbp-0x8]中
+
+24	
+25	    std::cout << "Hello World " << name << std::endl;
+   0x0000000000400816 <+39>:	mov    esi,0x400939
+   0x000000000040081b <+44>:	mov    edi,0x601060
+   0x0000000000400820 <+49>:	call   0x4006c0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+   0x0000000000400825 <+54>:	mov    rdx,QWORD PTR [rbp-0x8]
+   0x0000000000400829 <+58>:	mov    rsi,rdx
+   0x000000000040082c <+61>:	mov    rdi,rax
+   0x000000000040082f <+64>:	call   0x4006c0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+   0x0000000000400834 <+69>:	mov    esi,0x4006e0
+   0x0000000000400839 <+74>:	mov    rdi,rax
+   0x000000000040083c <+77>:	call   0x4006d0 <_ZNSolsEPFRSoS_E@plt>
+
+26	}   0x0000000000400841 <+82>:	mov    eax,0x0
+   0x0000000000400846 <+87>:	leave  
+   0x0000000000400847 <+88>:	ret    
+
+End of assembler dump.
+```
+
+`man.walk()`方法的汇编实现
+```
+Dump of assembler code for function Man::walk():
+14	{
+   0x00000000004007de <+0>:	push   rbp
+   0x00000000004007df <+1>:	mov    rbp,rsp
+   0x00000000004007e2 <+4>:	mov    QWORD PTR [rbp-0x8],rdi   #跳转到walk方法是,rdi为对象man的内存地址
+
+15	    return this->name;
+=> 0x00000000004007e6 <+8>:	mov    rax,QWORD PTR [rbp-0x8]   #[rbp-0x8]的地址页尾man.name的地址 
+   0x00000000004007ea <+12>:	mov    rax,QWORD PTR [rax]   #rax为返回值
+
+16	}
+   0x00000000004007ed <+15>:	pop    rbp
+   0x00000000004007ee <+16>:	ret 
+```  
+
+可以看出`golang`与`c++`调用方法的汇编实现是一致的，首先把对象作为参数传入方法，然后再去使用对象。  
+
+
+
 
