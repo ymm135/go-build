@@ -318,12 +318,12 @@ TEXT main.main(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/object/obj
 	object.go:16	0x10cbca6	0f57c0			xorps xmm0, xmm0                      
 	object.go:16	0x10cbca9	0f11442420		movups xmmword ptr [rsp+0x20], xmm0    
 	object.go:16	0x10cbcae	488d0517560200		lea rax, ptr [rip+0x25617]        #加载字符串的地址
-	object.go:16	0x10cbcb5	4889442418		mov qword ptr [rsp+0x18], rax         #把字符串的地址赋给Name string部分
+	object.go:16	0x10cbcb5	4889442418		mov qword ptr [rsp+0x18], rax     #把字符串的地址赋给Name string部分
 	object.go:16	0x10cbcba	48c744242008000000	mov qword ptr [rsp+0x20], 0x8     #把字符串的长度赋给string len部分
 	object.go:16	0x10cbcc3	48c744242812000000	mov qword ptr [rsp+0x28], 0x12    #把age赋给结构体man.age福分
-=>	object.go:17	0x10cbccc*	488d442418		lea rax, ptr [rsp+0x18]               #把man变量地址加载到rax
-	object.go:17	0x10cbcd1	48890424		mov qword ptr [rsp], rax              #把man变量地址加载到rsp，作为第一个参数
-	object.go:17	0x10cbcd5	e8c6fdffff		call $main.(*Man).walk                #调用方法walk
+=>	object.go:17	0x10cbccc*	488d442418		lea rax, ptr [rsp+0x18]           #把man变量地址加载到rax
+	object.go:17	0x10cbcd1	48890424		mov qword ptr [rsp], rax          #把man变量地址加载到rsp，作为第一个参数
+	object.go:17	0x10cbcd5	e8c6fdffff		call $main.(*Man).walk            #调用方法walk
 	object.go:18	0x10cbcda	488b6c2430		mov rbp, qword ptr [rsp+0x30]
 	object.go:18	0x10cbcdf	4883c438		add rsp, 0x38
 	object.go:18	0x10cbce3	c3			ret
@@ -355,10 +355,10 @@ TEXT main.(*Man).walk(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/obj
 	object.go:8	0x1067bc3	0f11442410	movups xmmword ptr [rsp+0x10], xmm0  # 初始化返回值
 	object.go:9	0x1067bc8	488b442408	mov rax, qword ptr [rsp+0x8]         #[rsp+0x8]就是传进来的man变量地址
 	object.go:9	0x1067bcd	8400		test byte ptr [rax], al              #
-	.:0		0x1067bcf	488b08		mov rcx, qword ptr [rax]                 #获取man结构体中的string数据
-	.:0		0x1067bd2	488b4008	mov rax, qword ptr [rax+0x8]             #获取man结构体中的string长度
-	.:0		0x1067bd6	48894c2410	mov qword ptr [rsp+0x10], rcx            #返回值string的数据部分
-	.:0		0x1067bdb	4889442418	mov qword ptr [rsp+0x18], rax            #返回值string的len部分
+	.:0		0x1067bcf	488b08		mov rcx, qword ptr [rax]             #获取man结构体中的string数据
+	.:0		0x1067bd2	488b4008	mov rax, qword ptr [rax+0x8]         #获取man结构体中的string长度
+	.:0		0x1067bd6	48894c2410	mov qword ptr [rsp+0x10], rcx        #返回值string的数据部分
+	.:0		0x1067bdb	4889442418	mov qword ptr [rsp+0x18], rax        #返回值string的len部分
 	.:0		0x1067be0	c3		ret
 ```
 
@@ -405,16 +405,16 @@ Dump of assembler code for function main():
 
 20	    Man man;
 21	    man.name = "xiaoming";
-   0x00000000004007f7 <+8>:	mov    QWORD PTR [rbp-0x20],0x400930     #man变量地址为[rbp-0x20], 也是name的地址 8个字节
+   0x00000000004007f7 <+8>:	mov    QWORD PTR [rbp-0x20],0x400930 #man变量地址为[rbp-0x20], 也是name的地址 8个字节
 
 22	    man.age = 19;
-   0x00000000004007ff <+16>:	mov    DWORD PTR [rbp-0x18],0x13    #[rbp-0x18]为man.age成员变量的地址
+   0x00000000004007ff <+16>:	mov    DWORD PTR [rbp-0x18],0x13     #[rbp-0x18]为man.age成员变量的地址
 
 23	    char *name = man.walk(); 
-=> 0x0000000000400806 <+23>:	lea    rax,[rbp-0x20]               #[rbp-0x20]为变量man的地址，加载到rax寄存器
-   0x000000000040080a <+27>:	mov    rdi,rax                      #把man对象的地址加载到rdi
-   0x000000000040080d <+30>:	call   0x4007de <Man::walk()>       #调用方法0x4007de，也就是 <Man::walk()>
-   0x0000000000400812 <+35>:	mov    QWORD PTR [rbp-0x8],rax      #walk函数的返回值放到rax中，存储到本地变量[rbp-0x8]中
+=> 0x0000000000400806 <+23>:	lea    rax,[rbp-0x20]                #[rbp-0x20]为变量man的地址，加载到rax寄存器
+   0x000000000040080a <+27>:	mov    rdi,rax                       #把man对象的地址加载到rdi
+   0x000000000040080d <+30>:	call   0x4007de <Man::walk()>        #调用方法0x4007de，也就是 <Man::walk()>
+   0x0000000000400812 <+35>:	mov    QWORD PTR [rbp-0x8],rax       #walk函数的返回值放到rax中，存储到本地变量[rbp-0x8]中
 
 24	
 25	    std::cout << "Hello World " << name << std::endl;
@@ -446,7 +446,7 @@ Dump of assembler code for function Man::walk():
 
 15	    return this->name;
 => 0x00000000004007e6 <+8>:	mov    rax,QWORD PTR [rbp-0x8]   #[rbp-0x8]的地址页尾man.name的地址 
-   0x00000000004007ea <+12>:	mov    rax,QWORD PTR [rax]   #rax为返回值
+   0x00000000004007ea <+12>:	mov    rax,QWORD PTR [rax]       #rax为返回值
 
 16	}
    0x00000000004007ed <+15>:	pop    rbp
