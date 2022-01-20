@@ -3,13 +3,13 @@
 `help all`查看所有帮助，`help disassemble`查看汇编指令的详情  
 
 `set disassembly-flavor intel` 将汇编指令格式 设置为intel格式，默认是att
-```
+```shell
 (gdb) show disassembly-flavor
 The disassembly flavor is “att”.
 ```
 
 `disassemble`指令查看intel汇编样式
-```
+```shell
 -exec disassemble
 
 Dump of assembler code for function main:
@@ -28,7 +28,7 @@ End of assembler dump.
 ```
 
 可以使用`/m`或者`/r`与源码一起显示或者16进制
-```
+```shell
 -exec help disass 
 Disassemble a specified section of memory.
 Default is the function surrounding the pc of the selected frame.
@@ -40,7 +40,7 @@ Two arguments (separated by a comma) are taken as a range of memory to dump,
 ```
 
 `x`查看内存,`32c`显示32位字符，`32x`显示32位16进制
-```
+```shell
 -exec x/32c 0x4005f0
 0x4005f0:	72 'H'	101 'e'	108 'l'	108 'l'	111 'o'	32 ' '	87 'W'	111 'o'
 0x4005f8:	114 'r'	108 'l'	100 'd'	0 '\000'	1 '\001'	27 '\033'	3 '\003'	59 ';'
@@ -56,7 +56,7 @@ Two arguments (separated by a comma) are taken as a range of memory to dump,
 ```
 
 ## 变量及结构体使用
-```
+```c
 #include <stdio.h>
 
 typedef struct Man

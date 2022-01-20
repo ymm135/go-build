@@ -227,7 +227,7 @@ Rbp = 0x000000c000065f78  =>      Rbp = 0x000000c000065f78
 
 ## 函数调用
 
-```
+```go
      5:	func main() {
 =>   6:		b := 8
      7:		c := callMe(b)
@@ -269,7 +269,7 @@ TEXT main.callMe(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/func/fun
 
 ## 对象调用方法的实现  
 ### go对象调用方法实现  
-```
+```go
 package main
 
 import "fmt"
@@ -298,7 +298,7 @@ type StringHeader struct {
 ```
 
 使用`dlv`调试`ls`查看代码
-```
+```go
     15:	func main() {
     16:		man := Man{Name: "xiaoming", Age: 18}
 =>  17:		man.walk()
@@ -342,7 +342,7 @@ TEXT main.main(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/object/obj
 ```
 
 查看`walk`方法
-```
+```go
 =>   8:	func (man *Man) walk() string {
      9:		return man.Name
     10:	}
@@ -366,7 +366,7 @@ TEXT main.(*Man).walk(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/obj
 
 ### c++对象调用方法实现
 
-```
+```c++
 #include <iostream>
 
 class Man
