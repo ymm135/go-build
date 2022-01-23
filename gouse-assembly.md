@@ -265,7 +265,7 @@ TEXT main.callMe(SB) /Users/ymm/work/mygithub/go-build/code/go/assembly/func/fun
 	.:0		0x10cbbbe	0000			add byte ptr [rax], al
 ```
 
-## [c/c++常用语句对应的汇编指令](c-cpp-assembly.md)  
+## :point_right: [c/c++常用语句对应的汇编指令](c-cpp-assembly.md)  
 
 ## 对象调用方法的实现  
 ### go对象调用方法实现  

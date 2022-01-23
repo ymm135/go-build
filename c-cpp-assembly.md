@@ -183,3 +183,5 @@ Dump of assembler code from 0x400588 to 0x4005a0:
 End of assembler dump.
 ```
 
+## [c++ 常用指令及汇编解析(正在更新)](https://github.com/ymm135/golang-cookbook/blob/master/md/c-cpp-golang/base-c++.md)   
+
