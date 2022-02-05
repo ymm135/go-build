@@ -55,6 +55,46 @@ Two arguments (separated by a comma) are taken as a range of memory to dump,
 0x400608:	0x04	0xfe	0xff	0xff	0x7c	0x00	0x00	0x00
 ```
 
+`info`查看寄存器信息:  
+```shell
+-exec info all-registers   # 所有寄存器信息
+rax            0x7fffffffdcf0      140737488346352
+rbx            0x0                 0
+rcx            0x60                96
+rdx            0x7fffffffddf8      140737488346616
+rsi            0x4                 4
+rdi            0x7fffffffdcf0      140737488346352
+rbp            0x7fffffffdce0      0x7fffffffdce0
+rsp            0x7fffffffdce0      0x7fffffffdce0
+...
+
+-exec info registers   # 常用寄存器信息  
+rax            0x7fffffffdcf0      140737488346352
+rbx            0x0                 0
+rcx            0x60                96
+rdx            0x7fffffffddf8      140737488346616
+rsi            0x4                 4
+rdi            0x7fffffffdcf0      140737488346352
+rbp            0x7fffffffdce0      0x7fffffffdce0
+rsp            0x7fffffffdce0      0x7fffffffdce0
+r8             0x7ffff75b5e80      140737343348352
+r9             0x0                 0
+r10            0x7fffffffd720      140737488344864
+r11            0x7ffff7226f30      140737339617072
+r12            0x400560            4195680
+r13            0x7fffffffdde0      140737488346592
+r14            0x0                 0
+r15            0x0                 0
+rip            0x4006cb            0x4006cb <CMan::CMan(int)+11>
+eflags         0x206               [ PF IF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+```
+
 ## 变量及结构体使用
 ```c
 #include <stdio.h>
